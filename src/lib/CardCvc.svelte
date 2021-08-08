@@ -1,39 +1,39 @@
 <script>
-  import { onMount, getContext, createEventDispatcher } from 'svelte';
-  import { mount } from './util';
+  import { onMount, getContext, createEventDispatcher } from 'svelte'
+  import { mount } from './util'
 
-  export let classes = {};
-  export let style = {};
-  export let placeholder = 'CVC';
-  export let disabled = false;
+  export let classes = {}
+  export let style = {}
+  export let placeholder = 'CVC'
+  export let disabled = false
 
-  let wrapper;
-  let element;
-  const dispatch = createEventDispatcher();
-  const { elements } = getContext('stripe');
+  let wrapper
+  let element
+  const dispatch = createEventDispatcher()
+  const { elements } = getContext('stripe')
 
   onMount(() => {
-    const options = { classes, style, placeholder, disabled };
+    const options = { classes, style, placeholder, disabled }
 
-    element = mount(wrapper, 'cardCvc', elements, dispatch, options);
+    element = mount(wrapper, 'cardCvc', elements, dispatch, options)
 
-    return () => element.unmount();
-  });
+    return () => element.unmount()
+  })
 
   export function blur() {
-    element.blur();
+    element.blur()
   }
 
   export function clear() {
-    element.clear();
+    element.clear()
   }
 
   export function destroy() {
-    element.destroy();
+    element.destroy()
   }
 
   export function focus() {
-    element.focus();
+    element.focus()
   }
 </script>
 
