@@ -6,11 +6,19 @@ Everything you need to add Stripe to your Svelte project
 
 This package provides components:
 
-- `Container`
-- `Card`
-- `CardNumber`
-- `CardExpiry`
-- `CardCvc`
+- `Container`: A wrapper components that sets context.
+- `CardNumber`: Input for the card's number.
+- `CardExpiry`: Input for the card's expiration date.
+- `CardCvc`: Input for Card Verification Value.
+- `Card`: All-in-one component that has inputs for card number, expiry, cvc, and zip code.
+
+## TODO
+
+- [ ] Apple Pay
+- [ ] Google Pay
+- [ ] PaymentRequest
+- [ ] SEPA
+- [ ] iDEAL
 
 ## Usage
 
