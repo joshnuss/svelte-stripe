@@ -12,7 +12,13 @@ This package provides components:
 - `CardExpiry`
 - `CardCvc`
 
-## Example
+## Usage
+
+Install the package:
+
+```bash
+pnpm add -D svelte-stripe-js
+```
 
 In your main template, add include `stripe.js` from the CDN:
 
