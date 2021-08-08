@@ -1,38 +1,54 @@
-# create-svelte
+# svelte-stripe-js
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+Everything you need to add Stripe to your Svelte project
 
-## Creating a project
+## Creating a payment form
 
-If you're seeing this, you've probably already done this step. Congrats!
+This package provides components:
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+- `Container`
+- `Card`
+- `CardNumber`
+- `CardExpiry`
+- `CardCvc`
 
-# create a new project in my-app
-npm init svelte@next my-app
+## Example
+
+In your main template, add include `stripe.js` from the CDN:
+
+```html
+<script src="https://js.stripe.com/v3/"></script>
 ```
 
-> Note: the `@next` is temporary
+Then in your payment form:
 
-## Developing
+```html
+<script>
+  import { Container, CardNumber, CardExpiry, CardCvc } from 'svelte-stripe-js'
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+  const stripe = Stripe('pk_test_xyz')
 
-```bash
-npm run dev
+  let container
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+  async function submit() {
+    const card = container.getElement()
+    const result = await stripe.createToken(card)
+
+    // create payment intent
+  }
+</script>
+
+<Container {stripe} bind:this={container}>
+  <form on:submit|preventDefault={submit}>
+    <CardNumber/>
+    <CardExpiry/>
+    <CardCvc/>
+
+    <button>Pay</button>
+  </form>
+</Container>
 ```
 
-## Building
+## License
 
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+MIT
