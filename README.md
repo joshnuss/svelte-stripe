@@ -52,8 +52,8 @@ Then in your payment form:
   }
 </script>
 
-<Container {stripe} bind:this="{container}">
-  <form on:submit|preventDefault="{submit}">
+<Container {stripe} bind:this={container}>
+  <form on:submit|preventDefault={submit}>
     <CardNumber />
     <CardExpiry />
     <CardCvc />
