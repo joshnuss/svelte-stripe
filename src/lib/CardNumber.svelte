@@ -40,4 +40,3 @@
 </script>
 
 <div bind:this={wrapper}/>
-
