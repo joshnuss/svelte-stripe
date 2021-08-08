@@ -28,7 +28,7 @@ Install the package:
 pnpm add -D svelte-stripe-js
 ```
 
-In your main template, add include `stripe.js` from the CDN:
+In your main template, include `stripe.js` from the CDN:
 
 ```html
 <script src="https://js.stripe.com/v3/"></script>
