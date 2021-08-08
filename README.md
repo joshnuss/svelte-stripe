@@ -38,25 +38,25 @@ Then in your payment form:
 
 ```html
 <script>
-  import { Container, CardNumber, CardExpiry, CardCvc } from 'svelte-stripe-js'
+  import { Container, CardNumber, CardExpiry, CardCvc } from 'svelte-stripe-js';
 
-  const stripe = Stripe('pk_test_xyz')
+  const stripe = Stripe('pk_test_xyz');
 
-  let container
+  let container;
 
   async function submit() {
-    const card = container.getElement()
-    const result = await stripe.createToken(card)
+    const card = container.getElement();
+    const result = await stripe.createToken(card);
 
     // create payment intent
   }
 </script>
 
-<Container {stripe} bind:this={container}>
-  <form on:submit|preventDefault={submit}>
-    <CardNumber/>
-    <CardExpiry/>
-    <CardCvc/>
+<Container {stripe} bind:this="{container}">
+  <form on:submit|preventDefault="{submit}">
+    <CardNumber />
+    <CardExpiry />
+    <CardCvc />
 
     <button>Pay</button>
   </form>
