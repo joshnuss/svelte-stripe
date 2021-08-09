@@ -18,7 +18,7 @@ This package provides the following components:
 - [x] Apple Pay
 - [x] Google Pay
 - [x] PaymentRequest
-- [ ] SEPA
+- [x] SEPA
 - [ ] iDEAL
 
 ## Usage
@@ -108,6 +108,46 @@ Then in your payment form:
 </Container>
 ```
 
+### SEPA
+
+```html
+<script>
+  import { Container, Iban } from 'svelte-stripe-js'
+  const stripe = Stripe('pk_test_xyz')
+
+  let name, email
+
+  let clientSecret = '...' // the payment intent's clientSecret, should come from server
+
+  async function submit() {
+    const iban = container.getElement('iban')
+    const result = await stripe.confirmSepaDebitPayment(
+      clientSecret,
+      {
+        payment_method: {
+          sepa_debit: iban,
+          billing_details: {
+            name,
+            email,
+          },
+        },
+      }
+    )
+
+    // use result.paymentIntent
+  }
+</script>
+
+<Container {stripe}>
+  <form on:submit|preventDefault={submit}>
+    <input bind:value={name} placeholder="Name"/>
+    <input bind:value={email} placeholder="E-mail" type='email'/>
+    <Iban supportedCountries={['SEPA']}/>
+
+    <button>Pay</button>
+  </form>
+</Container>
+```
 ## License
 
 MIT

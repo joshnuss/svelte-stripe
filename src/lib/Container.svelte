@@ -7,8 +7,8 @@
 
   setContext('stripe', { stripe, elements })
 
-  export function getElement() {
-    return elements.getElement('cardNumber')
+  export function getElement(name = 'cardNumber') {
+    return elements.getElement(name)
   }
 </script>
 
