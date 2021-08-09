@@ -15,9 +15,9 @@ This package provides components:
 
 ## TODO
 
-- [+] Apple Pay
-- [+] Google Pay
-- [+] PaymentRequest
+- [x] Apple Pay
+- [x] Google Pay
+- [x] PaymentRequest
 - [ ] SEPA
 - [ ] iDEAL
 
