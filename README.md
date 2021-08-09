@@ -12,6 +12,7 @@ This package provides the following components:
 - `<CardCvc/>`: Input field for Card Verification Value.
 - `<Card/>`: All-in-one component that has inputs for card number, expiry, cvc, and zip code.
 - `<PaymentRequestButton/>`: A GooglePay or ApplePay button, depending on browser.
+- `<Iban/>`: Input field for IBAN (International bank account number)
 
 ## Supported payment types
 
