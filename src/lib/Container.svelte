@@ -1,9 +1,10 @@
 <script>
   import { setContext } from 'svelte'
+  import { isServer } from './util'
 
   export let stripe
 
-  const elements = stripe.elements()
+  const elements = isServer ? null : stripe.elements()
 
   setContext('stripe', { stripe, elements })
 

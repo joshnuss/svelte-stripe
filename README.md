@@ -158,6 +158,18 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
 </Container>
 ```
 
+### Svelte-kit
+
+This is fully compatible with svelte-kit. Just be sure to not instantiate `Stripe()` on the server side:
+
+```html
+<script>
+  import { isServer } from 'svelte-stripe-js'
+
+  const stripe = isServer ? null : Stripe('pk_test_1234')
+</script>
+```
+
 ## TODO
 
 - [x] Credit cards

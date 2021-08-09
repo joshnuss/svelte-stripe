@@ -11,3 +11,5 @@ export function mount(node, type, elements, dispatch, options) {
 
   return element
 }
+
+export const isServer = typeof(window) === 'undefined'
