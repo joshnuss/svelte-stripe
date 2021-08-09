@@ -13,15 +13,6 @@ This package provides the following components:
 - `<Card/>`: All-in-one component that has inputs for card number, expiry, cvc, and zip code.
 - `<PaymentRequestButton/>`: A GooglePay or ApplePay button, depending on browser.
 
-## TODO
-
-- [x] Credit cards
-- [x] Apple Pay
-- [x] Google Pay
-- [x] PaymentRequest
-- [x] SEPA
-- [ ] iDEAL
-
 ## Usage
 
 Install the package:
@@ -36,9 +27,11 @@ In your main template, include `stripe.js` from the CDN:
 <script src="https://js.stripe.com/v3/"></script>
 ```
 
+Then setup your form, according to what types of payment you want to capture.
+
 ### Credit card form
 
-Then in your payment form:
+In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` components.
 
 ```html
 <script>
@@ -68,6 +61,8 @@ Then in your payment form:
 ```
 
 ### GooglePay/ApplePay button
+
+To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form:
 
 ```html
 <script>
@@ -111,6 +106,8 @@ Then in your payment form:
 
 ### SEPA
 
+To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
+
 ```html
 <script>
   import { Container, Iban } from 'svelte-stripe-js'
@@ -149,6 +146,16 @@ Then in your payment form:
   </form>
 </Container>
 ```
+
+## TODO
+
+- [x] Credit cards
+- [x] Apple Pay
+- [x] Google Pay
+- [x] PaymentRequest
+- [x] SEPA
+- [ ] iDEAL
+
 ## License
 
 MIT
