@@ -170,7 +170,7 @@ This is fully compatible with svelte-kit. Just be sure to not instantiate `Strip
 </script>
 ```
 
-Also, add `svelte-stripe-js` to `noExternals` in `vite.config.js`:
+Also, add `svelte-stripe-js` to `noExternals` in `svelte.config.js`:
 
 ```javascript
 /** @type {import('@sveltejs/kit').config} */
@@ -180,7 +180,7 @@ const config = {
 
     vite: {
       ssr: {
-        noexternal: ["svelte-stripe-js"],
+        noExternal: ["svelte-stripe-js"],
       }
     }
   },
