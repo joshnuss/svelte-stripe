@@ -4,12 +4,12 @@ Everything you need to add Stripe to your Svelte project
 
 ## Creating a payment form
 
-This package provides components:
+This package provides the following components:
 
-- `<Container/>`: A wrapper components that sets context.
-- `<CardNumber/>`: Input for the card's number.
-- `<CardExpiry/>`: Input for the card's expiration date.
-- `<CardCvc/>`: Input for Card Verification Value.
+- `<Container/>`: A wrapper component to set context.
+- `<CardNumber/>`: Input field for the card's number.
+- `<CardExpiry/>`: Input field for the card's expiration date.
+- `<CardCvc/>`: Input field for Card Verification Value.
 - `<Card/>`: All-in-one component that has inputs for card number, expiry, cvc, and zip code.
 - `<PaymentRequestButton/>`: A GooglePay or ApplePay button, depending on browser.
 
