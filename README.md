@@ -124,16 +124,16 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
   const stripe = Stripe('pk_test_xyz')
 
   let name, email
+  let ibanElement
 
   let clientSecret = '...' // the payment intent's clientSecret, should come from server
 
   async function submit() {
-    const iban = container.getElement('iban')
     const result = await stripe.confirmSepaDebitPayment(
       clientSecret,
       {
         payment_method: {
-          sepa_debit: iban,
+          sepa_debit: ibanElement,
           billing_details: {
             name,
             email,
@@ -150,7 +150,7 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
   <form on:submit|preventDefault={submit}>
     <input bind:value={name} placeholder="Name"/>
     <input bind:value={email} placeholder="E-mail" type='email'/>
-    <Iban supportedCountries={['SEPA']}/>
+    <Iban supportedCountries={['SEPA']} bind:element={ibanElement}/>
 
     <button>Pay</button>
   </form>
