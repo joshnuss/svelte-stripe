@@ -15,6 +15,7 @@ This package provides the following components:
 
 ## TODO
 
+- [x] Credit cards
 - [x] Apple Pay
 - [x] Google Pay
 - [x] PaymentRequest
