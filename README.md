@@ -2,7 +2,7 @@
 
 Everything you need to add Stripe to your Svelte project
 
-## Creating a payment form
+## Components
 
 This package provides the following components:
 
@@ -12,6 +12,16 @@ This package provides the following components:
 - `<CardCvc/>`: Input field for Card Verification Value.
 - `<Card/>`: All-in-one component that has inputs for card number, expiry, cvc, and zip code.
 - `<PaymentRequestButton/>`: A GooglePay or ApplePay button, depending on browser.
+
+## Supported payment types
+
+- Credit card
+- Google Pay
+- Apple Pay
+- SEPA direct deposit
+- iDEAL (comming soon)
+
+Please open a PR or issue, if you'd like to add more.
 
 ## Usage
 
@@ -29,7 +39,7 @@ In your main template, include `stripe.js` from the CDN:
 
 Then setup your form, according to what types of payment you want to capture.
 
-### Credit card form
+### Add a credit card form
 
 In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` components.
 
@@ -60,7 +70,7 @@ In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` com
 </Container>
 ```
 
-### GooglePay/ApplePay button
+### Add a GooglePay or ApplePay button
 
 To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form:
 
@@ -104,7 +114,7 @@ To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form
 </Container>
 ```
 
-### SEPA
+### Add SEPA
 
 To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
 
