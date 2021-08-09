@@ -8,9 +8,9 @@
   export let disabled = false
   export let showIcon = true
   export let iconStyle = 'default'
+  export let element = null
 
   let wrapper
-  let element
   const dispatch = createEventDispatcher()
   const { elements } = getContext('stripe')
 

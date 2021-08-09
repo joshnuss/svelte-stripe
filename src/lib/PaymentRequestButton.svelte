@@ -5,9 +5,9 @@
   export let classes = {}
   export let style = {}
   export let paymentRequest = {}
+  export let element = null
 
   let wrapper
-  let element
   let paymentRequestObject
   export let canMakePayment = null
 
