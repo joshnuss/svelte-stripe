@@ -50,19 +50,18 @@ In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` com
 
   const stripe = Stripe('pk_test_xyz')
 
-  let container
+  let cardElement
 
   async function submit() {
-    const card = container.getElement()
-    const result = await stripe.createToken(card)
+    const result = await stripe.createToken(cardElement)
 
     // create payment intent
   }
 </script>
 
-<Container {stripe} bind:this={container}>
+<Container {stripe}>
   <form on:submit|preventDefault={submit}>
-    <CardNumber />
+    <CardNumber bind:element={cardElement}/>
     <CardExpiry />
     <CardCvc />
 
