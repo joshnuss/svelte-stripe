@@ -170,6 +170,24 @@ This is fully compatible with svelte-kit. Just be sure to not instantiate `Strip
 </script>
 ```
 
+Also, add `svelte-stripe-js` to `noExternals` in `vite.config.js`:
+
+```javascript
+/** @type {import('@sveltejs/kit').config} */
+const config = {
+  kit: {
+    // ...
+
+    vite: {
+      ssr: {
+        noexternal: ["svelte-stripe-js"],
+      }
+    }
+  },
+};
+
+```
+
 ## TODO
 
 - [x] Credit cards
