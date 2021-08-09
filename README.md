@@ -184,8 +184,7 @@ const config = {
       }
     }
   },
-};
-
+}
 ```
 
 ## TODO
