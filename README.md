@@ -32,10 +32,13 @@ Install the package:
 pnpm add -D svelte-stripe-js
 ```
 
-In your main template, include `stripe.js` from the CDN:
+In your app's `index.html` (or `app.html` in svelte-kit), include `stripe.js` from the CDN in the `<head>` tag:
 
 ```html
-<script src="https://js.stripe.com/v3/"></script>
+<head>
+  <!-- place before your app's script -->
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
 ```
 
 Then setup your form, according to what types of payment you want to capture.
