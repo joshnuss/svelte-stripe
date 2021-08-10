@@ -41,6 +41,12 @@ In your app's `index.html` (or `app.html` in svelte-kit), include `stripe.js` fr
 </head>
 ```
 
+Add your public key to environment vars in your `.env`:
+
+```
+VITE_STRIPE_PUBLIC_KEY=pk_....
+```
+
 Then setup your form, according to what types of payment you want to capture.
 
 ### Add a credit card form
@@ -51,7 +57,7 @@ In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` com
 <script>
   import { Container, CardNumber, CardExpiry, CardCvc } from 'svelte-stripe-js'
 
-  const stripe = Stripe('pk_test_xyz')
+  const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
   let cardElement
 
@@ -80,7 +86,7 @@ To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form
 ```html
 <script>
   import { Container, PaymentRequestButton } from 'svelte-stripe-js'
-  const stripe = Stripe('pk_test_xyz')
+  const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
   let clientSecret = '...' // the payment intent's clientSecret, should come from server
 
@@ -124,7 +130,7 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
 ```html
 <script>
   import { Container, Iban } from 'svelte-stripe-js'
-  const stripe = Stripe('pk_test_xyz')
+  const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
   let name, email
   let ibanElement
@@ -168,7 +174,7 @@ This is fully compatible with svelte-kit. Just be sure to not instantiate `Strip
 <script>
   import { isServer } from 'svelte-stripe-js'
 
-  const stripe = isServer ? null : Stripe('pk_test_1234')
+  const stripe = isServer ? null : Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 </script>
 ```
 
