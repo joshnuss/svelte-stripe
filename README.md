@@ -41,7 +41,7 @@ In your app's `index.html` (or `app.html` in svelte-kit), include `stripe.js` fr
 </head>
 ```
 
-Add your public key to environment vars in your `.env`:
+Add your Stripe public key to the environment vars in your `.env`:
 
 ```
 VITE_STRIPE_PUBLIC_KEY=pk_....
