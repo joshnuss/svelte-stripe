@@ -100,7 +100,7 @@ To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form
     requestPayerEmail: true,
   }
 
-  async function paymentMethod(e) {
+  async function pay(e) {
     const paymentMethod = e.detail.paymentMethod
 
     let result = await stripe.confirmCardPayment(clientSecret, 
@@ -120,7 +120,7 @@ To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form
 </script>
 
 <Container {stripe}>
-  <PaymentRequestButton {paymentRequest} on:paymentmethod={paymentMethod}/>
+  <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
 </Container>
 ```
 
