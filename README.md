@@ -49,7 +49,7 @@ VITE_STRIPE_PUBLIC_KEY=pk_....
 
 Then setup your form, according to what types of payment you want to capture.
 
-### Add a credit card form
+### Credit cards
 
 In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` components.
 
@@ -79,7 +79,7 @@ In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` com
 </Container>
 ```
 
-### Add a GooglePay or ApplePay button
+### GooglePay or ApplePay
 
 To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form:
 
@@ -123,7 +123,7 @@ To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form
 </Container>
 ```
 
-### Add SEPA
+### SEPA
 
 To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
 
@@ -166,6 +166,47 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
 </Container>
 ```
 
+### iDEAL
+
+To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
+
+```html
+<script>
+  import { Container, Ideal } from 'svelte-stripe-js'
+  const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+
+  let name
+  let idealElement
+
+  let clientSecret = '...' // the payment intent's clientSecret, should come from server
+
+  async function submit() {
+    const result = await stripe.confirmIdealPayment(
+      clientSecret,
+      {
+        payment_method: {
+          ideal: ibanElement,
+          billing_details: {
+            name,
+          },
+        },
+      }
+    )
+
+    // use result.paymentIntent
+  }
+</script>
+
+<Container {stripe}>
+  <form on:submit|preventDefault={submit}>
+    <input bind:value={name} placeholder="Name"/>
+    <Ideal bind:element={idealElement}/>
+
+    <button>Pay</button>
+  </form>
+</Container>
+```
+
 ### Svelte-kit
 
 This is fully compatible with svelte-kit. Just be sure to not instantiate `Stripe()` on the server side:
@@ -202,7 +243,7 @@ const config = {
 - [x] Google Pay
 - [x] PaymentRequest
 - [x] SEPA
-- [ ] iDEAL
+- [x] iDEAL
 
 ## License
 
