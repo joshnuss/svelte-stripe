@@ -21,7 +21,7 @@ This package provides the following components:
 - Google Pay
 - Apple Pay
 - SEPA direct deposit
-- iDEAL (coming soon)
+- iDEAL
 
 Please open a PR or issue, if you'd like to add more.
 
