@@ -51,7 +51,6 @@ VITE_STRIPE_PUBLIC_KEY=pk_....
 For **svelte-kit**, add `svelte-stripe-js` to the `noExternal` list in `svelte.config.js`:
 
 ```javascript
-/** @type {import('@sveltejs/kit').config} */
 const config = {
   kit: {
     // ...
