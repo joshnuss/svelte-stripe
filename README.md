@@ -1,6 +1,6 @@
 # svelte-stripe-js
 
-Everything you need to add Stripe to your Svelte project
+Everything you need to add Stripe to your Svelte project. 100% [svelte-kit](https://kit.svelte.dev/) compatible.
 
 ## Components
 
@@ -48,9 +48,34 @@ Add your Stripe public key to the environment vars in your `.env`:
 VITE_STRIPE_PUBLIC_KEY=pk_....
 ```
 
-For **svelte-kit**, see [additional setup steps below](#svelte-kit)
+For **svelte-kit**, add `svelte-stripe-js` to the `noExternal` list in `svelte.config.js`:
 
-Then setup your form, according to what types of payment you want to capture.
+```javascript
+/** @type {import('@sveltejs/kit').config} */
+const config = {
+  kit: {
+    // ...
+
+    vite: {
+      ssr: {
+        noExternal: ["svelte-stripe-js"],
+      }
+    }
+  },
+}
+```
+
+And since svelte-kit can render on the server, don't instantiate `Stripe()` during SSR:
+
+```html
+<script>
+  import { isServer } from 'svelte-stripe-js'
+
+  const stripe = isServer ? null : Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+</script>
+```
+
+Now you set up a payment form, according to what types of payment you want to capture.
 
 ### Credit cards
 
@@ -208,35 +233,6 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
     <button>Pay</button>
   </form>
 </Container>
-```
-
-### Svelte-kit
-
-This is fully compatible with svelte-kit. Just be sure to not instantiate `Stripe()` on the server side:
-
-```html
-<script>
-  import { isServer } from 'svelte-stripe-js'
-
-  const stripe = isServer ? null : Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
-</script>
-```
-
-Also, add `svelte-stripe-js` to the `noExternal` list in `svelte.config.js`:
-
-```javascript
-/** @type {import('@sveltejs/kit').config} */
-const config = {
-  kit: {
-    // ...
-
-    vite: {
-      ssr: {
-        noExternal: ["svelte-stripe-js"],
-      }
-    }
-  },
-}
 ```
 
 ## TODO
