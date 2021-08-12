@@ -186,7 +186,7 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
       clientSecret,
       {
         payment_method: {
-          ideal: ibanElement,
+          ideal: idealElement,
           billing_details: {
             name,
           },
