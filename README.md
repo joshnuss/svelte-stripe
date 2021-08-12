@@ -48,6 +48,8 @@ Add your Stripe public key to the environment vars in your `.env`:
 VITE_STRIPE_PUBLIC_KEY=pk_....
 ```
 
+For **svelte-kit**, see [additional setup steps below](#svelte-kit)
+
 Then setup your form, according to what types of payment you want to capture.
 
 ### Credit cards
