@@ -33,7 +33,7 @@ Install the package:
 pnpm add -D svelte-stripe-js
 ```
 
-In your app's `index.html` (or `app.html` in svelte-kit), include `stripe.js` from the CDN, and place it inside the `<head>` tag:
+In your `app.html`, include `stripe.js` from the CDN, and place it inside the `<head>` tag:
 
 ```html
 <head>
