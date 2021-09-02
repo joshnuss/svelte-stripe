@@ -195,7 +195,7 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
 
 ### iDEAL
 
-To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
+To accept iDEAL, add an `<Ideal/>` component to your payment form:
 
 ```html
 <script>
