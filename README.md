@@ -55,13 +55,21 @@ const config = {
 }
 ```
 
-And since svelte-kit can render on the server, don't instantiate `Stripe()` during SSR:
+And since svelte-kit can render on the server, don't initialize stripe during SSR:
 
 ```html
 <script>
+  import { onMount } from 'svelte'
+  import { loadStripe } from '@stripe/stripe-js'
   import { isServer } from 'svelte-stripe-js'
 
-  const stripe = isServer ? null : Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  let stripe = null
+
+  onMount(async () => {
+    if (!isServer) {
+      stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+    }
+  })
 </script>
 ```
 
