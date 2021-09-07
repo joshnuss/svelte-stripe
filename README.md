@@ -27,19 +27,10 @@ Please open a PR or issue, if you'd like to add more.
 
 ## Usage
 
-Install the package:
+Install packages:
 
 ```bash
-pnpm add -D svelte-stripe-js
-```
-
-In your `app.html`, include `stripe.js` from the CDN, and place it inside the `<head>` tag:
-
-```html
-<head>
-  <!-- place before your app's script -->
-  <script src="https://js.stripe.com/v3/"></script>
-</head>
+pnpm add -D @stripe/stripe-js svelte-stripe-js
 ```
 
 Add your Stripe public key to the environment vars in your `.env`:
@@ -82,11 +73,16 @@ In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` com
 
 ```html
 <script>
+  import { onMount } from 'svelte'
+  import { loadStripe } from '@stripe/stripe-js'
   import { Container, CardNumber, CardExpiry, CardCvc } from 'svelte-stripe-js'
 
-  const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
-
+  let stripe = null
   let cardElement
+
+  onMount(async () => {
+    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  })
 
   async function submit() {
     const result = await stripe.createToken(cardElement)
@@ -95,15 +91,17 @@ In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` com
   }
 </script>
 
-<Container {stripe}>
-  <form on:submit|preventDefault={submit}>
-    <CardNumber bind:element={cardElement}/>
-    <CardExpiry />
-    <CardCvc />
+{#if stripe}
+  <Container {stripe}>
+    <form on:submit|preventDefault={submit}>
+      <CardNumber bind:element={cardElement}/>
+      <CardExpiry />
+      <CardCvc />
 
-    <button>Pay</button>
-  </form>
-</Container>
+      <button>Pay</button>
+    </form>
+  </Container>
+{/if}
 ```
 
 ### GooglePay or ApplePay
@@ -112,9 +110,11 @@ To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form
 
 ```html
 <script>
+  import { onMount } from 'svelte'
+  import { loadStripe } from '@stripe/stripe-js'
   import { Container, PaymentRequestButton } from 'svelte-stripe-js'
-  const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
+  let stripe = null
   let clientSecret = '...' // the payment intent's clientSecret, should come from server
 
   // define payment details
@@ -126,10 +126,14 @@ To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form
     requestPayerEmail: true,
   }
 
+  onMount(async () => {
+    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  })
+
   async function pay(e) {
     const paymentMethod = e.detail.paymentMethod
 
-    let result = await stripe.confirmCardPayment(clientSecret, 
+    let result = await stripe.confirmCardPayment(clientSecret,
       { payment_method: paymentMethod.id }
     )
 
@@ -145,9 +149,11 @@ To accept GPay or ApplePay, add a `<PaymentRequestButton/>` to your payment form
   }
 </script>
 
-<Container {stripe}>
-  <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
-</Container>
+{#if stripe}
+  <Container {stripe}>
+    <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
+  </Container>
+{/if}
 ```
 
 ### SEPA
@@ -156,13 +162,19 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
 
 ```html
 <script>
+  import { onMount } from 'svelte'
+  import { loadStripe } from '@stripe/stripe-js'
   import { Container, Iban } from 'svelte-stripe-js'
-  const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
+  let stripe = null
   let name, email
   let ibanElement
 
   let clientSecret = '...' // the payment intent's clientSecret, should come from server
+
+  onMount(async () => {
+    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  })
 
   async function submit() {
     const result = await stripe.confirmSepaDebitPayment(
@@ -182,15 +194,17 @@ To accept SEPA direct deposit, add an `<Iban/>` component to your payment form:
   }
 </script>
 
-<Container {stripe}>
-  <form on:submit|preventDefault={submit}>
-    <input bind:value={name} placeholder="Name"/>
-    <input bind:value={email} placeholder="E-mail" type='email'/>
-    <Iban supportedCountries={['SEPA']} bind:element={ibanElement}/>
+{#if stripe}
+  <Container {stripe}>
+    <form on:submit|preventDefault={submit}>
+      <input bind:value={name} placeholder="Name"/>
+      <input bind:value={email} placeholder="E-mail" type='email'/>
+      <Iban supportedCountries={['SEPA']} bind:element={ibanElement}/>
 
-    <button>Pay</button>
-  </form>
-</Container>
+      <button>Pay</button>
+    </form>
+  </Container>
+{/if}
 ```
 
 ### iDEAL
@@ -199,13 +213,18 @@ To accept iDEAL, add an `<Ideal/>` component to your payment form:
 
 ```html
 <script>
+  import { onMount } from 'svelte'
+  import { loadStripe } from '@stripe/stripe-js'
   import { Container, Ideal } from 'svelte-stripe-js'
-  const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
+  let stripe = null
   let name
   let idealElement
-
   let clientSecret = '...' // the payment intent's clientSecret, should come from server
+
+  onMount(async () => {
+    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  })
 
   async function submit() {
     const result = await stripe.confirmIdealPayment(
@@ -224,14 +243,16 @@ To accept iDEAL, add an `<Ideal/>` component to your payment form:
   }
 </script>
 
-<Container {stripe}>
-  <form on:submit|preventDefault={submit}>
-    <input bind:value={name} placeholder="Name"/>
-    <Ideal bind:element={idealElement}/>
+{#if stripe}
+  <Container {stripe}>
+    <form on:submit|preventDefault={submit}>
+      <input bind:value={name} placeholder="Name"/>
+      <Ideal bind:element={idealElement}/>
 
-    <button>Pay</button>
-  </form>
-</Container>
+      <button>Pay</button>
+    </form>
+  </Container>
+{/if}
 ```
 
 ## TODO
