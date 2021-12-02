@@ -1,0 +1,86 @@
+<script context="module">
+  export async function load({ fetch }) {
+    // create payment intent
+    const response = await fetch('/examples/credit-card/payment-intent', { method: 'POST' })
+    const { clientSecret } = await response.json()
+
+    // share payment intent's client secret
+    return {
+      props: {
+        paymentIntentClientSecret: clientSecret
+      }
+    }
+  }
+</script>
+
+<script>
+  import { goto } from '$app/navigation'
+  import { onMount } from 'svelte'
+  import { loadStripe } from '@stripe/stripe-js'
+  import { Container, CardNumber, CardExpiry, CardCvc } from '$lib'
+
+  export let paymentIntentClientSecret
+
+  let stripe = null
+  let error = null
+  let cardElement
+  let processing = false
+
+  onMount(async () => {
+    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  })
+
+  async function submit() {
+    // avoid processing duplicates
+    if (processing) return
+
+    processing = true
+
+    // confirm payment with stripe
+    const result = await stripe
+      .confirmCardPayment(paymentIntentClientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: 'Jenny Rosen',
+          },
+        },
+      })
+
+    // log results, for debugging
+    console.log({result})
+
+    // check if result is success
+    if (result.error) {
+      // it's an error, so let's display the error message
+      // and let the user retry
+      error = result.error
+      processing = false
+    } else {
+      // we're good, it's paid, so redirect to "thank you" page
+      goto('/examples/credit-card/thanks')
+    }
+  }
+</script>
+
+<h1>Credit Card</h1>
+
+{#if error}
+  <p class=error>{error.message} Please try again.</p>
+{/if}
+
+{#if stripe}
+  <Container {stripe}>
+    <form on:submit|preventDefault={submit}>
+      <CardNumber bind:element={cardElement}/>
+      <CardExpiry />
+      <CardCvc />
+
+      <button disabled={processing}>Pay</button>
+    </form>
+  </Container>
+{/if}
+
+<style>
+  .error { color: tomato }
+</style>
