@@ -4,7 +4,7 @@
 
   export let classes = {}
   export let style = {}
-  export let value = null
+  export let value = ''
   export let disabled = false
   export let hideIcon = true
   export let element = null
