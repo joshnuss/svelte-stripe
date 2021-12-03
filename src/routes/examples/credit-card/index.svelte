@@ -44,8 +44,8 @@
           card: cardElement,
           billing_details: {
             name
-          },
-        },
+          }
+        }
       })
 
     // log results, for debugging

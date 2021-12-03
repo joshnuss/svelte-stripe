@@ -52,8 +52,8 @@
           billing_details: {
             name,
             email
-          },
-        },
+          }
+        }
       })
 
     // log results, for debugging
