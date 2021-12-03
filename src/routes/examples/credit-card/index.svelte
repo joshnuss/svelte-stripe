@@ -50,20 +50,18 @@
     // log results, for debugging
     console.log({result})
 
-    // check if result is success
     if (result.error) {
-      // it's an error, so let's display the error message
-      // and let the user retry
+      // payment failed, notify user
       error = result.error
       processing = false
     } else {
-      // we're good, it's paid, so redirect to "thank you" page
+      // payment succeeded, redirect to "thank you" page
       goto('/examples/credit-card/thanks')
     }
   }
 </script>
 
-<h1>Credit Card</h1>
+<h1>Credit Card Example</h1>
 
 {#if error}
   <p class=error>{error.message} Please try again.</p>
