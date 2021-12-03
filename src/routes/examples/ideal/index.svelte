@@ -36,6 +36,10 @@
 
   onMount(async () => {
     stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+
+    // check if ?error=true query string is set
+    const searchParams = new URLSearchParams(window.location.search)
+    error = searchParams.get('error')
   })
 
   async function submit() {
@@ -74,7 +78,7 @@
 <h1>iDEAL Example</h1>
 
 {#if error}
-  <p class=error>{error.message} Please try again.</p>
+  <p class=error>Payment failed. Please try again.</p>
 {/if}
 
 {#if stripe}

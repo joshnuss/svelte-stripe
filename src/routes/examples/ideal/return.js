@@ -13,12 +13,16 @@ export async function get(req) {
   if (paymentIntent.status === 'succeeded') {
     return {
       status: 302,
-      redirect: '/examples/ideal/thanks'
+      headers: {
+        location: '/examples/ideal/thanks'
+      }
     }
   }
 
   return {
     status: 302,
-    redirect: '/examples/ideal'
+    headers: {
+      location: '/examples/ideal?error=true'
+    }
   }
 }
