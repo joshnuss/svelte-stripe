@@ -1,0 +1,95 @@
+<script context="module">
+  export async function load({ fetch }) {
+    // create payment intent
+    const response = await fetch('/examples/sepa/payment-intent', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({amount: 2000})
+    })
+    const { clientSecret } = await response.json()
+
+    // share payment intent's client secret
+    return {
+      props: {
+        paymentIntentClientSecret: clientSecret
+      }
+    }
+  }
+</script>
+
+<script>
+  import { goto } from '$app/navigation'
+  import { onMount } from 'svelte'
+  import { loadStripe } from '@stripe/stripe-js'
+  import { Container, Iban } from '$lib'
+
+  export let paymentIntentClientSecret
+
+  let stripe = null
+  let error = null
+  let ibanElement
+  let processing = false
+  let name
+  let email
+
+  onMount(async () => {
+    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  })
+
+  async function submit() {
+    // avoid processing duplicates
+    if (processing) return
+
+    processing = true
+
+    // confirm payment with stripe
+    const result = await stripe
+      .confirmSepaDebitPayment(paymentIntentClientSecret, {
+        payment_method: {
+          sepa_debit: ibanElement,
+          billing_details: {
+            name,
+            email
+          },
+        },
+      })
+
+    // log results, for debugging
+    console.log({result})
+
+    if (result.error) {
+      // payment failed, notify user
+      error = result.error
+      processing = false
+    } else {
+      // payment succeeded, redirect to "thank you" page
+      goto('/examples/sepa/thanks')
+    }
+  }
+</script>
+
+<h1>SEPA Example</h1>
+
+{#if error}
+  <p class=error>{error.message} Please try again.</p>
+{/if}
+
+{#if stripe}
+  <Container {stripe}>
+    <form on:submit|preventDefault={submit}>
+      <input name="name" bind:value={name} placeholder="Name" disabled={processing}/>
+      <input name="email" bind:value={email} placeholder="E-mail" type='email' disabled={processing}/>
+      <Iban supportedCountries={['SEPA']} bind:element={ibanElement}/>
+
+      <button disabled={processing}>Pay</button>
+    </form>
+  </Container>
+{:else}
+  Loading...
+{/if}
+
+<style>
+  .error { color: tomato }
+</style>
