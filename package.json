@@ -20,6 +20,7 @@
     "mdsvex": "^0.9.8",
     "prettier": "~2.2.1",
     "prettier-plugin-svelte": "^2.2.0",
+    "prismjs": "^1.25.0",
     "stripe": "^8.191.0",
     "svelte": "^3.44.2",
     "svelte2tsx": "^0.4.5",
