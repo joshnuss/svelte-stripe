@@ -13,7 +13,7 @@
     // share payment intent's client secret
     return {
       props: {
-        paymentIntentClientSecret: clientSecret
+        clientSecret
       }
     }
   }
@@ -25,7 +25,7 @@
   import { loadStripe } from '@stripe/stripe-js'
   import { Container, Iban } from '$lib'
 
-  export let paymentIntentClientSecret
+  export let clientSecret
 
   let stripe = null
   let error = null
@@ -46,7 +46,7 @@
 
     // confirm payment with stripe
     const result = await stripe
-      .confirmSepaDebitPayment(paymentIntentClientSecret, {
+      .confirmSepaDebitPayment(clientSecret, {
         payment_method: {
           sepa_debit: ibanElement,
           billing_details: {
