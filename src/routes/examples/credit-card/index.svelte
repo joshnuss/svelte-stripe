@@ -24,6 +24,7 @@
   let stripe = null
   let error = null
   let cardElement
+  let name
   let processing = false
 
   onMount(async () => {
@@ -42,7 +43,7 @@
         payment_method: {
           card: cardElement,
           billing_details: {
-            name: 'Jenny Rosen',
+            name
           },
         },
       })
@@ -70,6 +71,7 @@
 {#if stripe}
   <Container {stripe}>
     <form on:submit|preventDefault={submit}>
+      <input name="name" bind:value={name} placeholder="Your name" disabled={processing}/>
       <CardNumber bind:element={cardElement}/>
       <CardExpiry />
       <CardCvc />
@@ -77,6 +79,8 @@
       <button disabled={processing}>Pay</button>
     </form>
   </Container>
+{:else}
+  Loading...
 {/if}
 
 <style>
