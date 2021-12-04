@@ -72,9 +72,12 @@
   <Container {stripe}>
     <form on:submit|preventDefault={submit}>
       <input name="name" bind:value={name} placeholder="Your name" disabled={processing}/>
-      <CardNumber bind:element={cardElement}/>
-      <CardExpiry />
-      <CardCvc />
+      <CardNumber bind:element={cardElement} classes={{base: 'input'}}/>
+
+      <div class="row">
+        <CardExpiry classes={{base: 'input'}}/>
+        <CardCvc classes={{base: 'input'}}/>
+      </div>
 
       <button disabled={processing}>Pay</button>
     </form>
@@ -84,5 +87,46 @@
 {/if}
 
 <style>
-  .error { color: tomato }
+  h1 {
+    margin-bottom: 4rem;
+  }
+
+  .error {
+    color: tomato;
+    margin: 2rem 0 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 2rem 0;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  input, :global(.input) {
+    border: solid 1px var(--gray-color);
+    padding: 1rem;
+    border-radius: 5px;
+    background: white;
+  }
+
+  .row :global(.input) {
+    width: 20%;
+  }
+
+  button {
+    padding: 1rem;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    color: white;
+    background: var(--link-color);
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
 </style>

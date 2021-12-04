@@ -81,7 +81,7 @@
     <form on:submit|preventDefault={submit}>
       <input name="name" bind:value={name} placeholder="Name" disabled={processing}/>
       <input name="email" bind:value={email} placeholder="E-mail" type='email' disabled={processing}/>
-      <Iban supportedCountries={['SEPA']} bind:element={ibanElement}/>
+      <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{base: 'input'}}/>
 
       <button disabled={processing}>Pay</button>
     </form>
@@ -91,5 +91,36 @@
 {/if}
 
 <style>
-  .error { color: tomato }
+  h1 {
+    margin-bottom: 4rem;
+  }
+
+  .error {
+    color: tomato;
+    margin: 2rem 0 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 2rem 0;
+  }
+
+  input, :global(.input) {
+    border: solid 1px var(--gray-color);
+    padding: 1rem;
+    border-radius: 5px;
+    background: white;
+  }
+
+  button {
+    padding: 1rem;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    color: white;
+    background: var(--link-color);
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
 </style>
