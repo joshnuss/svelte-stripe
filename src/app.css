@@ -1,8 +1,10 @@
 :root {
-	--text-color: #333;
-	--darker-color: #111;
-	--sidebar-color: #e1e1e1;
+	--text-color: #555;
+	--darker-color: #222;
+	--sidebar-color: #9a75ff;
 	--link-color: #7c4dff;
+	--light-color: #fff;
+	--background-color: #f1f1f1;
 }
 
 * {
@@ -12,16 +14,19 @@
 body {
 	font-family: sans-serif;
 	color: var(--text-color);
+	background: var(--background-color);
 	margin: 0;
 }
 
 h1, h2, h3, h4 {
-	font-family: Inter;
+	font-family: 'Inter', sans-serif;
+	color: var(--darker-color);
 }
 
 h1 {
 	font-size: 3rem;
 	letter-spacing: -0.5px;
+	color: var(--link-color);
 }
 
 h2 {
@@ -54,9 +59,9 @@ code {
 .toc {
 	padding: 2rem;
 	background: var(--sidebar-color);
-	overflow-y: scroll;
+	overflow-y: auto;
 	min-width: 300px;
-	color: var(--text-color);
+	color: var(--light-color);
 }
 
 .toc ul {
@@ -78,17 +83,19 @@ code {
 .toc a {
 	display: block;
 	padding: 0.2rem;
-	color: var(--text-color);
+	color: var(--light-color);
 	text-decoration: none;
 }
 
 main {
 	padding: 4rem;
 	font-size: 1.2rem;
+	line-height: 1.8rem;
 	max-width: 80ch;
 }
 
 pre {
+	font-family: 'Roboto Mono', monospace;
 	border-radius: 5px;
 	overflow-x: scroll;
 }
