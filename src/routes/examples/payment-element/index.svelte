@@ -1,7 +1,7 @@
 <script context="module">
   export async function load({ fetch }) {
     // create payment intent
-    const response = await fetch('/examples/sepa/payment-intent', {
+    const response = await fetch('/examples/payment-element/payment-intent', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -23,16 +23,14 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
-  import { Container, Iban } from '$lib'
+  import { PaymentElement } from '$lib'
 
   export let clientSecret
 
   let stripe = null
   let error = null
-  let ibanElement
+  let elements
   let processing = false
-  let name
-  let email
 
   onMount(async () => {
     stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
@@ -46,14 +44,9 @@
 
     // confirm payment with stripe
     const result = await stripe
-      .confirmSepaDebitPayment(clientSecret, {
-        payment_method: {
-          sepa_debit: ibanElement,
-          billing_details: {
-            name,
-            email
-          }
-        }
+      .confirmPayment({
+        elements,
+        redirect: 'if_required'
       })
 
     // log results, for debugging
@@ -65,27 +58,22 @@
       processing = false
     } else {
       // payment succeeded, redirect to "thank you" page
-      goto('/examples/sepa/thanks')
+      goto('/examples/payment-element/thanks')
     }
   }
 </script>
 
-<h1>SEPA Example</h1>
+<h1>Payment Element Example</h1>
 
 {#if error}
   <p class=error>{error.message} Please try again.</p>
 {/if}
 
 {#if stripe}
-  <Container {stripe}>
-    <form on:submit|preventDefault={submit}>
-      <input name="name" bind:value={name} placeholder="Name" disabled={processing}/>
-      <input name="email" bind:value={email} placeholder="E-mail" type='email' disabled={processing}/>
-      <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{base: 'input'}}/>
-
-      <button disabled={processing}>Pay</button>
-    </form>
-  </Container>
+  <form on:submit|preventDefault={submit}>
+    <PaymentElement {stripe} {clientSecret} bind:elements/>
+    <button>Pay</button>
+  </form>
 {:else}
   Loading...
 {/if}
@@ -101,13 +89,6 @@
     flex-direction: column;
     gap: 10px;
     margin: 2rem 0;
-  }
-
-  input, :global(.input) {
-    border: solid 1px var(--gray-color);
-    padding: 1rem;
-    border-radius: 5px;
-    background: white;
   }
 
   button {

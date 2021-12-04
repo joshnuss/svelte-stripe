@@ -94,6 +94,45 @@ export async function post() {
 
 There are several types of payment you can accept:
 
+#### Payment Element
+
+The latest component from Stripe is an all-in-one form that supports credit cards, SEPA, GooglePay and ApplePay.
+
+To use it, use the `<PaymentElement>` component:
+
+```html
+<form on:submit|preventDefault={submit}>
+  <PaymentElement {stripe} {clientSecret} bind:elements/>
+  <button>Pay</button>
+</form>
+```
+
+When creating the payment intent, enable the `automatic_payment_methods:` option:
+
+```javascript
+const paymentIntent = await stripe.paymentIntents.create({
+  amount: 2000,
+  currency: 'eur',
+  automatic_payment_methods: {
+    enabled: true,
+  }
+})
+```
+
+Then when the form is submitted, call [`stripe.confirmPayment()`](https://stripe.com/docs/js/payment_intents/confirm_payment)
+
+```javascript
+const result = await stripe
+  .confirmPayment({
+    elements,
+    // specify redirect: 'if_required' or a `return_url`
+    redirect: 'if_required'
+  })
+```
+
+[code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/payment-element)
+[demo](/examples/payment-element)
+
 #### Credit Cards
 
 These use the `<CardNumber>`, `<CardExpiry>` and `<CardCvc>` components:
@@ -263,6 +302,7 @@ TODO
 
 All demos are running in test-mode, any of Stripe's [test card numbers](https://stripe.com/docs/testing#cards) will work.
 
+- [PaymentElement](/examples/payment-element)
 - [Credit Card](/examples/credit-card)
 - [Google Pay/Apple Pay](/examples/payment-request)
 - [SEPA](/examples/sepa)

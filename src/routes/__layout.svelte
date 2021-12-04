@@ -28,6 +28,9 @@
 
               <ul>
                 <li>
+                  <a href="/#payment-element">Payment Element</a>
+                </li>
+                <li>
                   <a href="/#credit-cards">Credit cards</a>
                 </li>
                 <li>

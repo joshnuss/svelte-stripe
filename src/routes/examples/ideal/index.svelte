@@ -96,10 +96,6 @@
 {/if}
 
 <style>
-  h1 {
-    margin-bottom: 4rem;
-  }
-
   .error {
     color: tomato;
     margin: 2rem 0 0;

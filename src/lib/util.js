@@ -1,4 +1,4 @@
-export function mount(node, type, elements, dispatch, options) {
+export function mount(node, type, elements, dispatch, options={}) {
   const element = elements.create(type, options)
 
   element.mount(node)
