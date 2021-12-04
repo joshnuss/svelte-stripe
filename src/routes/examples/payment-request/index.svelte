@@ -60,7 +60,8 @@
 
 <h1>Payment Request Example</h1>
 
-<p>This demo will only work if the TLD is <code>https://localhost</code> or if you're using production keys. The production domain must also be <a href="https://support.stripe.com/questions/enable-apple-pay-on-your-stripe-account">cleared with Apple</a> for ApplePay to work.</p>
+<p>If you see a blank screen, it's because this demo will only work if the TLD is <code>https://localhost</code> or if you're using production keys.</p>
+<p>For ApplePay, the production domain must be <a href="https://support.stripe.com/questions/enable-apple-pay-on-your-stripe-account">submitted to Apple</a>.</p>
 
 {#if error}
   <p class=error>{error.message} Please try again.</p>
@@ -68,7 +69,9 @@
 
 {#if stripe}
   <Container {stripe}>
-    <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
+    <div class="wrapper">
+      <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
+    </div>
   </Container>
 {:else}
   Loading...
@@ -76,4 +79,8 @@
 
 <style>
   .error { color: tomato }
+  .wrapper {
+    margin: 3rem 0;
+    width: 300px;
+  }
 </style>
