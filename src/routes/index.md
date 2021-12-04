@@ -1,5 +1,6 @@
 <svelte:head>
   <title>svelte-stripe-js</title>
+  <meta name="keywords" content="svelte,stripe,credit,debit,card,payment,applepay,googlepay,sepa,ideal">
   <meta name="description" content="Everything you need to access Stripe payments with Svelte">
 </svelte:head>
 
