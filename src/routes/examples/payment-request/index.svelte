@@ -60,6 +60,8 @@
 
 <h1>Payment Request Example</h1>
 
+<p>This demo will only work if the TLD is <code>https://localhost</code> or if you're using production keys. The production domain must also be <a href="https://support.stripe.com/questions/enable-apple-pay-on-your-stripe-account">cleared with Apple</a> for ApplePay to work.</p>
+
 {#if error}
   <p class=error>{error.message} Please try again.</p>
 {/if}
