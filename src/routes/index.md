@@ -16,8 +16,8 @@ pnpm install -D svelte-stripe-js @stripe/stripe-js stripe
 ```
 
 - [svelte-stripe-js](https://npmjs.org/package/svelte-stripe-js) is the Svelte wrapper.
-- [@stripe/stripe-js](https://npmjs.org/package/@stripe/stripe-js) is the client side/browser version of Stripe.
-- [stripe](https://npmjs.org/package/stripe) is the server-side/NODE version of Stripe.
+- [@stripe/stripe-js](https://npmjs.org/package/@stripe/stripe-js) is the official client-side/browser version of Stripe.
+- [stripe](https://npmjs.org/package/stripe) is the official server-side/NODE version of Stripe.
 
 ## Docs
 
