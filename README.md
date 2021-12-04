@@ -2,6 +2,8 @@
 
 Everything you need to add Stripe to your Svelte project. 100% [svelte-kit](https://kit.svelte.dev/) compatible.
 
+[Documentation](https://svelte-stripe-js.vercel.app)
+
 ## Components
 
 This package provides the following components:
