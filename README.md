@@ -16,12 +16,13 @@ This package provides the following components:
 - `<PaymentRequestButton/>`: A GooglePay or ApplePay button, depending on browser.
 - `<Iban/>`: Input field for IBAN (International bank account number).
 - `<Ideal/>`: Input field for iDEAL (payment system used in the Netherlands).
+- `<PaymentElement/>`: All-in-one component that allows the user to choose the type of payment.
 
 ## Supported payment types
 
 - Credit card
-- Google Pay
-- Apple Pay
+- GooglePay
+- ApplePay
 - SEPA direct deposit
 - iDEAL
 
