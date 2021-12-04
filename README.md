@@ -1,4 +1,4 @@
-# svelte-stripe-js
+# [svelte-stripe-js](https://svelte-stripe-js.vercel.app)
 
 Everything you need to add Stripe to your Svelte project. 100% [svelte-kit](https://kit.svelte.dev/) compatible.
 
