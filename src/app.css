@@ -99,3 +99,18 @@ pre {
 	border-radius: 5px;
 	overflow-x: scroll;
 }
+
+pre::-webkit-scrollbar {
+  height: 10px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: #0001;
+	padding: 1rem;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background-color: #0002;
+	border-radius: 1rem;
+	width: 5px;
+}
