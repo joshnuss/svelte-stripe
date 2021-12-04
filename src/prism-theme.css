@@ -44,7 +44,7 @@ pre[class*="language-"] ::selection {
 }
 
 pre[class*="language-"] {
-	overflow: auto;
+	overflow: scroll;
 	position: relative;
 	margin: 0.5em 0;
 	padding: 1.25em 1em;

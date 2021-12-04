@@ -1,6 +1,8 @@
 # svelte-stripe-js
 
-[npm](https://npmjs.org/svelte-stripe-js)
+Everything you need to accept Stripe payments with your Svelte projects. [SvelteKit](https://kit.svelte.dev) is fully supported.
+
+[npm](https://npmjs.org/package/svelte-stripe-js)
 [github](https://github.com/joshnuss/svelte-stripe-js)
 
 ## Installation
@@ -11,9 +13,9 @@ To configure your project add these 3 packages:
 pnpm install -D svelte-stripe-js @stripe/stripe-js stripe
 ```
 
-- [svelte-stripe-js](https://npmjs.org/svelte-stripe-js) is the Svelte wrapper.
-- [@stripe/stripe-js](https://npmjs.org/@stripe/stripe-js) is the client side/browser version of Stripe.
-- [stripe](https://npmjs.org/stripe) is the server-side/NODE version of Stripe.
+- [svelte-stripe-js](https://npmjs.org/package/svelte-stripe-js) is the Svelte wrapper.
+- [@stripe/stripe-js](https://npmjs.org/package/@stripe/stripe-js) is the client side/browser version of Stripe.
+- [stripe](https://npmjs.org/package/stripe) is the server-side/NODE version of Stripe.
 
 ## Docs
 
@@ -41,17 +43,17 @@ In your payment page, initialize Stripe and add a `<Container>` component:
 <script>
 
 {#if stripe}
-  <Container {stripe}/>
+  <Container {stripe}>
+    <!-- this is where your Stripe components go -->
+  </Container>
 {/if}
 ```
 
 ### Creating a payment intent
 
-Before you can make a charge, you notify Stripe by creating a [payment intent](https://stripe.com/docs/api/payment_intents). It's a way to tell Stripe what amount to capture and to attach any metadata, for example, the products they are buying. This must happen server-side because we don't want clients to tamper with the amount.
+Before making a charge, Stripe should be notified by creating a [payment intent](https://stripe.com/docs/api/payment_intents). It's a way to tell Stripe what amount to capture and to attach any relavent metadata, for example, the products they are buying. This must happen server-side to avoid anyone tampering with the amount.
 
-Stripe will send webhooks about completion, so we can provision the fulfillment.
-
-Create an endpoint `src/routes/create-payment-intent.js`:
+Let's add an endpoint `src/routes/create-payment-intent.js` to create the "payment intent":
 
 ```javascript
 import Stripe from 'stripe'
@@ -84,7 +86,7 @@ export async function post() {
 
 There are several types of payment you can accept:
 
-### Credit Card
+#### Credit Cards
 
 These use the `<CardNumber>`, `<CardExpiry>` and `<CardCvc>` components:
 
@@ -117,7 +119,7 @@ const result = await stripe
 [code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/credit-card)
 [demo](/examples/credit-card)
 
-### GooglePay & ApplePay
+#### GooglePay & ApplePay
 
 To display a GooglePay or ApplePay button, use the `<PaymentRequestButton/>`.
 
@@ -169,7 +171,7 @@ async function pay(e) {
 [code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/payment-request)
 [demo](/examples/payment-request)
 
-### SEPA
+#### SEPA
 
 To process SEPA debits, use the `<Iban>` component:
 
@@ -204,7 +206,7 @@ const result = await stripe
 [code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/sepa)
 [demo](/examples/sepa)
 
-### iDEAL
+#### iDEAL
 
 To accept iDEAL payments, use the `<Ideal>` component:
 
@@ -239,7 +241,19 @@ const result = await stripe
 [code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/ideal)
 [demo](/examples/ideal)
 
+### Receiving Webhooks
+
+After the payment succeeds or fails, Stripe will send a webhook, it can be used to provision the fulfillment.
+
+TODO
+
+## Styling
+
+TODO
+
 ## Examples
+
+All demos are running in test-mode, any of Stripe's [test card numbers](https://stripe.com/docs/testing#cards) will work.
 
 - [Credit Card](/examples/credit-card)
 - [Google Pay/Apple Pay](/examples/payment-request)

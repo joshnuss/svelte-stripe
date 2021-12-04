@@ -1,0 +1,94 @@
+:root {
+	--text-color: #333;
+	--darker-color: #111;
+	--sidebar-color: #e1e1e1;
+	--link-color: #7c4dff;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+	color: var(--text-color);
+	margin: 0;
+}
+
+h1, h2, h3, h4 {
+	font-family: Inter;
+}
+
+h1 {
+	font-size: 3rem;
+	letter-spacing: -0.5px;
+}
+
+h2 {
+	padding-top: 2rem;
+	font-size: 2rem;
+}
+
+h3 {
+	padding-top: 1.5rem;
+	font-size: 1.5rem;
+}
+
+a {
+	color: var(--link-color);
+}
+
+code {
+	display: inline-block;
+	padding: 3px;
+	border-radius: 3px;
+	background: #e1e1e1;
+}
+
+#container {
+	display: flex;
+	flex-direction: row;
+	max-width: 100vw;
+}
+
+.toc {
+	padding: 2rem;
+	background: var(--sidebar-color);
+	overflow-y: scroll;
+	min-width: 300px;
+	color: var(--text-color);
+}
+
+.toc ul {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	padding-left: 1rem;
+}
+
+.toc nav > ul > li > a {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.toc nav > ul > li {
+	margin-bottom: 1rem;
+}
+
+.toc a {
+	display: block;
+	padding: 0.2rem;
+	color: var(--text-color);
+	text-decoration: none;
+}
+
+main {
+	padding: 4rem;
+	font-size: 1.2rem;
+	max-width: 80ch;
+}
+
+pre {
+	border-radius: 5px;
+	overflow-x: scroll;
+}
