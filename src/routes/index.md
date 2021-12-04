@@ -1,3 +1,8 @@
+<svelte:head>
+  <title>svelte-stripe-js</title>
+  <meta name="description" content="Everything you need to access Stripe payments with Svelte">
+</svelte:head>
+
 # svelte-stripe-js
 
 Everything you need to accept Stripe payments with your Svelte projects. [SvelteKit](https://kit.svelte.dev) is fully supported.
