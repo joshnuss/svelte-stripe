@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@stripe/stripe-js": "^1.21.2",
+    "@sveltejs/adapter-vercel": "^1.0.0-next.31",
     "@sveltejs/kit": "next",
     "dotenv-cli": "^4.1.1",
     "eslint": "^7.22.0",

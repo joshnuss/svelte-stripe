@@ -1,3 +1,4 @@
+import vercel from '@sveltejs/adapter-vercel'
 import { mdsvex } from 'mdsvex'
 import mdsvexConfig from './mdsvex.config.js'
 import mkcert from 'vite-plugin-mkcert'
@@ -9,6 +10,7 @@ const config = {
   kit: {
     // hydrate the <div id="svelte"> element in src/app.html
     target: '#svelte',
+    adapter: vercel(),
 
     vite: {
       server: {

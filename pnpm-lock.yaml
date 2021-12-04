@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@stripe/stripe-js': ^1.21.2
+  '@sveltejs/adapter-vercel': ^1.0.0-next.31
   '@sveltejs/kit': next
   dotenv-cli: ^4.1.1
   eslint: ^7.22.0
@@ -21,6 +22,7 @@ specifiers:
 
 devDependencies:
   '@stripe/stripe-js': 1.21.2
+  '@sveltejs/adapter-vercel': 1.0.0-next.31
   '@sveltejs/kit': 1.0.0-next.201_svelte@3.44.2
   dotenv-cli: 4.1.1
   eslint: 7.32.0
@@ -201,6 +203,12 @@ packages:
 
   /@stripe/stripe-js/1.21.2:
     resolution: {integrity: sha512-iIXe+XF9XdyO4/1i+TPRdsjy4rFOkYLeCsmB/uuSrCVs+Y0nxCdaRK3oD6n7c7lEi1sxDbAQX615wlt9E4EqWQ==}
+    dev: true
+
+  /@sveltejs/adapter-vercel/1.0.0-next.31:
+    resolution: {integrity: sha512-W8p/U00B6ihVrDpwMkgEexfVUzaLmn4MRtXj//Gw4NDFfsrZR4P5wBidrOAIkCYBMvqCOHD+vbAvIiAMOaN23g==}
+    dependencies:
+      esbuild: 0.13.15
     dev: true
 
   /@sveltejs/kit/1.0.0-next.201_svelte@3.44.2:
