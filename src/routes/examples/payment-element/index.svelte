@@ -71,7 +71,15 @@
 
 {#if stripe}
   <form on:submit|preventDefault={submit}>
-    <PaymentElement {stripe} {clientSecret} bind:elements/>
+    <PaymentElement
+      {stripe}
+      {clientSecret}
+      bind:elements
+      theme="flat"
+      labels="floating"
+      variables={{colorPrimary: '#7c4dff'}}
+      rules={{'.Input': { border: 'solid 1px #0002' }}}
+    />
     <button>Pay</button>
   </form>
 {:else}

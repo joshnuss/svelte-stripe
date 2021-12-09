@@ -6,7 +6,9 @@
   export let clientSecret
   export let theme = 'stripe'
   export let variables = {}
-  export let elements = isServer ? null : stripe.elements({ appearance: { theme, variables }, clientSecret })
+  export let rules = {}
+  export let labels = 'above'
+  export let elements = isServer ? null : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret })
 
   let wrapper
   let element
