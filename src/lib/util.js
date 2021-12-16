@@ -13,3 +13,12 @@ export function mount(node, type, elements, dispatch, options={}) {
 }
 
 export const isServer = typeof(window) === 'undefined'
+
+export function register(stripe) {
+  if (!isServer) {
+    return stripe.registerAppInfo({
+      name: 'svelte-stripe-js',
+      url: 'https://svelte-stripe-js.vercel.app',
+    })
+  }
+}

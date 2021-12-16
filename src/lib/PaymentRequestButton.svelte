@@ -1,5 +1,4 @@
 <script>
-  import { mount } from './util'
   import { onMount, getContext, createEventDispatcher } from 'svelte'
 
   export let classes = {}
