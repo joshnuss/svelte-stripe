@@ -1,6 +1,6 @@
 <script>
   import { onMount, createEventDispatcher } from 'svelte'
-  import { mount, isServer } from './util'
+  import { mount, isServer, register } from './util'
 
   export let stripe
   export let clientSecret
@@ -15,6 +15,7 @@
   const dispatch = createEventDispatcher()
 
   onMount(() => {
+    register(stripe)
     element = mount(wrapper, 'payment', elements, dispatch)
 
     return () => element.unmount()
