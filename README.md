@@ -266,15 +266,6 @@ To accept iDEAL, add an `<Ideal/>` component to your payment form:
 {/if}
 ```
 
-## TODO
-
-- [x] Credit cards
-- [x] Apple Pay
-- [x] Google Pay
-- [x] PaymentRequest
-- [x] SEPA
-- [x] iDEAL
-
 ## License
 
 MIT
