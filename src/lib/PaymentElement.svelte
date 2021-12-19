@@ -8,6 +8,7 @@
   export let variables = {}
   export let rules = {}
   export let labels = 'above'
+  export let options = {}
   export let elements = isServer ? null : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret })
 
   let wrapper
@@ -16,7 +17,7 @@
 
   onMount(() => {
     register(stripe)
-    element = mount(wrapper, 'payment', elements, dispatch)
+    element = mount(wrapper, 'payment', elements, dispatch, options)
 
     return () => element.unmount()
   })
