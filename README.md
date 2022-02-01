@@ -76,11 +76,11 @@ And since svelte-kit can render on the server, don't initialize stripe during SS
 </script>
 ```
 
-Now you set up a payment form, according to what types of payment you want to capture.
+Then set up a payment form, according to what types of payment you want to capture.
 
 ### Credit cards
 
-In your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` components.
+To accept credit cards, in your payment form, add `<CardNumber/>`, `<CardExpiry/>`, and `<CardCvc/>` components.
 
 ```html
 <script>
