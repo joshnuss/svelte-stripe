@@ -36,7 +36,9 @@ See [documentation](https://svelte-stripe-js.vercel.app/) for setup instructions
 
 ## Sponsors
 
-[![Stripe](https://raw.githubusercontent.com/joshnuss/svelte-stripe-js/main/logos/stripe.svg | 150px)](https://stripe.com)
+<a href="https://stripe.com">
+  <img src="https://raw.githubusercontent.com/joshnuss/svelte-stripe-js/main/logos/stripe.svg" width="150px"/>
+</a>
 
 ## Code contributors
 
