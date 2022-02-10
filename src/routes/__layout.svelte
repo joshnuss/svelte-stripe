@@ -55,6 +55,9 @@
         <li>
           <a href="/#examples">Examples</a>
         </li>
+        <li>
+          <a href="/#sponsors">Sponsors</a>
+        </li>
       </ul>
     </nav>
   </aside>

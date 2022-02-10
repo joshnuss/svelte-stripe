@@ -307,3 +307,11 @@ All demos are running in test-mode, any of Stripe's [test card numbers](https://
 - [Google Pay/Apple Pay](/examples/payment-request)
 - [SEPA](/examples/sepa)
 - [iDEAL](/examples/ideal)
+
+## Sponsors
+
+This project is made possible by:
+
+<a href="https://stripe.com">
+  <img src="/logos/stripe.svg" width=250/>
+</a>
