@@ -34,13 +34,11 @@ Please open a PR or issue, if you'd like to add more.
 
 See [documentation](https://svelte-stripe-js.vercel.app/) for setup instructions and examples.
 
-## Contributors
-
 ## Code contributors
 
 ![GitHub Contributors Image](https://contrib.rocks/image?repo=joshnuss/svelte-stripe-js)
 
-## Financial backers
+## Sponsors
 
 [![Stripe](https://raw.githubusercontent.com/joshnuss/svelte-stripe-js/main/logos/stripe.svg)](https://stripe.com)
 
