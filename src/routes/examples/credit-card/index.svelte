@@ -1,25 +1,8 @@
-<script context="module">
-  export async function load({ fetch }) {
-    // create payment intent
-    const response = await fetch('/examples/credit-card/payment-intent', { method: 'POST' })
-    const { clientSecret } = await response.json()
-
-    // share payment intent's client secret
-    return {
-      props: {
-        clientSecret
-      }
-    }
-  }
-</script>
-
 <script>
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { Container, CardNumber, CardExpiry, CardCvc } from '$lib'
-
-  export let clientSecret
 
   let stripe = null
   let error = null
@@ -31,11 +14,21 @@
     stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
   })
 
+  async function createPaymentIntent() {
+    const response = await fetch('/examples/credit-card/payment-intent', { method: 'POST' })
+    const { clientSecret } = await response.json()
+
+    return clientSecret
+  }
+
   async function submit() {
     // avoid processing duplicates
     if (processing) return
 
     processing = true
+
+    // create the payment intent server-side
+    const clientSecret = await createPaymentIntent()
 
     // confirm payment with stripe
     const result = await stripe
@@ -79,7 +72,13 @@
         <CardCvc classes={{base: 'input'}}/>
       </div>
 
-      <button disabled={processing}>Pay</button>
+      <button disabled={processing}>
+        {#if processing}
+          Processing...
+        {:else}
+          Pay
+        {/if}
+      </button>
     </form>
   </Container>
 {:else}

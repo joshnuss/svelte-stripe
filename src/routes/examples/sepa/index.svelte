@@ -1,31 +1,8 @@
-<script context="module">
-  export async function load({ fetch }) {
-    // create payment intent
-    const response = await fetch('/examples/sepa/payment-intent', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({amount: 2000})
-    })
-    const { clientSecret } = await response.json()
-
-    // share payment intent's client secret
-    return {
-      props: {
-        clientSecret
-      }
-    }
-  }
-</script>
-
 <script>
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { Container, Iban } from '$lib'
-
-  export let clientSecret
 
   let stripe = null
   let error = null
@@ -38,11 +15,27 @@
     stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
   })
 
+  async function createPaymentIntent() {
+    const response = await fetch('/examples/sepa/payment-intent', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({amount: 2000})
+    })
+    const { clientSecret } = await response.json()
+
+    return clientSecret
+  }
+
   async function submit() {
     // avoid processing duplicates
     if (processing) return
 
     processing = true
+
+    // create payment intent server-side
+    const clientSecret = await createPaymentIntent()
 
     // confirm payment with stripe
     const result = await stripe
@@ -83,7 +76,13 @@
       <input name="email" bind:value={email} placeholder="E-mail" type='email' disabled={processing}/>
       <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{base: 'input'}}/>
 
-      <button disabled={processing}>Pay</button>
+      <button disabled={processing}>
+        {#if processing}
+          Processing...
+        {:else}
+          Pay
+        {/if}
+      </button>
     </form>
   </Container>
 {:else}

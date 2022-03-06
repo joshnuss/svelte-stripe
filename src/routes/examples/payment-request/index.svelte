@@ -1,25 +1,8 @@
-<script context="module">
-  export async function load({ fetch }) {
-    // create payment intent
-    const response = await fetch('/examples/payment-request/payment-intent', { method: 'POST' })
-    const { clientSecret } = await response.json()
-
-    // share payment intent's client secret
-    return {
-      props: {
-        clientSecret
-      }
-    }
-  }
-</script>
-
 <script>
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { Container, PaymentRequestButton } from '$lib'
-
-  export let clientSecret
 
   let stripe = null
   let error = null
@@ -37,8 +20,19 @@
     stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
   })
 
+  async function createPaymentIntent() {
+    // create payment intent
+    const response = await fetch('/examples/payment-request/payment-intent', { method: 'POST' })
+    const { clientSecret } = await response.json()
+
+    return clientSecret
+  }
+
   async function pay(e) {
     const paymentMethod = e.detail.paymentMethod
+
+    // create payment intent server side
+    const clientSecret = await createPaymentIntent()
 
     let result = await stripe.confirmCardPayment(clientSecret,
       { payment_method: paymentMethod.id }

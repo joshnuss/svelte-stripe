@@ -1,6 +1,23 @@
-<script context="module">
-  export async function load({ fetch }) {
-    // create payment intent
+<script>
+  import { goto } from '$app/navigation'
+  import { onMount } from 'svelte'
+  import { loadStripe } from '@stripe/stripe-js'
+  import { PaymentElement } from '$lib'
+
+  let stripe = null
+  let clientSecret = null
+  let error = null
+  let elements
+  let processing = false
+
+  onMount(async () => {
+    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+
+    // create payment intent server side
+    clientSecret = await createPaymentIntent()
+  })
+
+  async function createPaymentIntent() {
     const response = await fetch('/examples/payment-element/payment-intent', {
       method: 'POST',
       headers: {
@@ -10,31 +27,8 @@
     })
     const { clientSecret } = await response.json()
 
-    // share payment intent's client secret
-    return {
-      props: {
-        clientSecret
-      }
-    }
+    return clientSecret
   }
-</script>
-
-<script>
-  import { goto } from '$app/navigation'
-  import { onMount } from 'svelte'
-  import { loadStripe } from '@stripe/stripe-js'
-  import { PaymentElement } from '$lib'
-
-  export let clientSecret
-
-  let stripe = null
-  let error = null
-  let elements
-  let processing = false
-
-  onMount(async () => {
-    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
-  })
 
   async function submit() {
     // avoid processing duplicates
@@ -69,7 +63,7 @@
   <p class=error>{error.message} Please try again.</p>
 {/if}
 
-{#if stripe}
+{#if stripe && clientSecret}
   <form on:submit|preventDefault={submit}>
     <PaymentElement
       {stripe}
@@ -80,7 +74,14 @@
       variables={{colorPrimary: '#7c4dff'}}
       rules={{'.Input': { border: 'solid 1px #0002' }}}
     />
-    <button>Pay</button>
+
+    <button disabled={processing}>
+      {#if processing}
+        Processing...
+      {:else}
+        Pay
+      {/if}
+    </button>
   </form>
 {:else}
   Loading...
