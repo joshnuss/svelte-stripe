@@ -1,7 +1,7 @@
 {
-  "name": "svelte-stripe-js",
+  "name": "svelte-stripe",
   "version": "0.0.12",
-  "homepage": "https://svelte-stripe-js.vercel.app",
+  "homepage": "https://sveltestripe.com",
   "license": "MIT",
   "scripts": {
     "dev": "dotenv -- svelte-kit dev",

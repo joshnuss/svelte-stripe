@@ -1,27 +1,27 @@
 <svelte:head>
-  <title>svelte-stripe-js</title>
+  <title>svelte-stripe</title>
   <meta name="keywords" content="svelte,stripe,credit,debit,card,payment,applepay,googlepay,sepa,ideal">
   <meta name="description" content="Everything you need to access Stripe payments with Svelte">
 </svelte:head>
 
-# svelte-stripe-js
+# svelte-stripe
 
 Everything you need to accept Stripe payments with your Svelte projects. [SvelteKit](https://kit.svelte.dev) is fully supported.
 
 Links:
-[npm](https://npmjs.org/package/svelte-stripe-js)
-[github](https://github.com/joshnuss/svelte-stripe-js)
-[license](https://github.com/joshnuss/svelte-stripe-js/blob/main/LICENSE)
+[npm](https://npmjs.org/package/svelte-stripe)
+[github](https://github.com/joshnuss/svelte-stripe)
+[license](https://github.com/joshnuss/svelte-stripe/blob/main/LICENSE)
 
 ## Installation
 
 To configure your project add these 3 packages:
 
 ```bash
-pnpm install -D svelte-stripe-js @stripe/stripe-js stripe
+pnpm install -D svelte-stripe @stripe/stripe-js stripe
 ```
 
-- [svelte-stripe-js](https://npmjs.org/package/svelte-stripe-js) is the Svelte wrapper.
+- [svelte-stripe](https://npmjs.org/package/svelte-stripe) is the Svelte wrapper.
 - [@stripe/stripe-js](https://npmjs.org/package/@stripe/stripe-js) is the official client-side/browser version of Stripe.
 - [stripe](https://npmjs.org/package/stripe) is the official server-side/NODE version of Stripe.
 
@@ -41,7 +41,7 @@ In your payment page, initialize Stripe and add a `<Container>` component:
 ```html
 <script>
   import { loadStripe } from '@stripe/stripe-js'
-  import { Container } from  'svelte-stripe-js'
+  import { Container } from  'svelte-stripe'
 
   let stripe = null
 
@@ -130,7 +130,7 @@ const result = await stripe
   })
 ```
 
-[code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/payment-element)
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element)
 [demo](/examples/payment-element)
 
 #### Credit Cards
@@ -163,7 +163,7 @@ const result = await stripe
   })
 ```
 
-[code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/credit-card)
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/credit-card)
 [demo](/examples/credit-card)
 
 #### GooglePay & ApplePay
@@ -215,7 +215,7 @@ async function pay(e) {
 }
 ```
 
-[code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/payment-request)
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-request)
 [demo](/examples/payment-request)
 
 #### SEPA
@@ -250,7 +250,7 @@ const result = await stripe
   })
 ```
 
-[code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/sepa)
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/sepa)
 [demo](/examples/sepa)
 
 #### iDEAL
@@ -285,7 +285,7 @@ const result = await stripe
   })
 ```
 
-[code](https://github.com/joshnuss/svelte-stripe-js/tree/main/src/routes/examples/ideal)
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/ideal)
 [demo](/examples/ideal)
 
 ### Receiving Webhooks

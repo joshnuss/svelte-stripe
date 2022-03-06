@@ -1,4 +1,4 @@
-# [svelte-stripe-js](https://sveltestripe.com)
+# [svelte-stripe](https://sveltestripe.com)
 
 Everything you need to add Stripe to your Svelte project. 100% [svelte-kit](https://kit.svelte.dev/) compatible.
 
@@ -37,12 +37,12 @@ See [documentation](https://sveltestripe.com) for setup instructions and example
 ## Sponsors
 
 <a href="https://stripe.com">
-  <img src="https://raw.githubusercontent.com/joshnuss/svelte-stripe-js/main/static/logos/stripe.svg" width="150px"/>
+  <img src="https://raw.githubusercontent.com/joshnuss/svelte-stripe/main/static/logos/stripe.svg" width="150px"/>
 </a>
 
 ## Code contributors
 
-![GitHub Contributors Image](https://contrib.rocks/image?repo=joshnuss/svelte-stripe-js)
+![GitHub Contributors Image](https://contrib.rocks/image?repo=joshnuss/svelte-stripe)
 
 ## License
 
