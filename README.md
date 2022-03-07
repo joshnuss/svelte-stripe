@@ -37,7 +37,7 @@ See [documentation](https://sveltestripe.com) for setup instructions and example
 ## Sponsors
 
 <a href="https://stripe.com">
-  <img src="https://raw.githubusercontent.com/joshnuss/svelte-stripe/main/static/logos/stripe.svg" width="150px"/>
+  <img src="https://raw.githubusercontent.com/joshnuss/svelte-stripe/main/static/logos/stripe.svg" width="150px" alt="Stripe's logo"/>
 </a>
 
 ## Code contributors

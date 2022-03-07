@@ -313,5 +313,5 @@ All demos are running in test-mode, any of Stripe's [test card numbers](https://
 This project is made possible by:
 
 <a href="https://stripe.com">
-  <img src="/logos/stripe.svg" width=250/>
+  <img src="/logos/stripe.svg" width=250 alt="Stripe's logo"/>
 </a>
