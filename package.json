@@ -7,7 +7,7 @@
     "dev": "dotenv -- svelte-kit dev",
     "build": "dotenv svelte-kit build",
     "package": "svelte-kit package",
-    "publish": "npm run package && npm publish package/",
+    "publish": "npm run package && cd package && npm publish",
     "preview": "dotenv svelte-kit preview",
     "lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .prettierignore .",
     "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. ."
