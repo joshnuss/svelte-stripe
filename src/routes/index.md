@@ -302,9 +302,10 @@ import Stripe from 'stripe'
 const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
 
 // get webhook secret
-// you can find yours at https://dashboard.stripe.com/webhooks
+// find yours at https://dashboard.stripe.com/webhooks
 const endpointSecret = process.env['STRIPE_WEBHOOK_SECRET']
 
+// endpoint to handle incoming webhooks
 export async function post(request) {
   let rawBody = Buffer.from(request.rawBody)
   let event
@@ -323,7 +324,7 @@ export async function post(request) {
     return { status: 400 }
   }
 
-  // it's now verified, so process events
+  // signature has been verified, so we can process events
   // full list of events: https://stripe.com/docs/api/events/list
   if (event.type == 'charge.succeeded') {
     // get data object
