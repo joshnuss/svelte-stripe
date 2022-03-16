@@ -290,7 +290,9 @@ const result = await stripe
 
 ### Webhooks
 
-After the payment succeeds or fails, Stripe will send out a webhook, which can be used to provision or fulfill the purchase. The webhook contains a signature that should be verified to ensure the data originates from Stripe.
+After the payment succeeds or fails, Stripe will send out a webhook, which can be used to provision or fulfill the purchase.
+
+The webhook payload contains a signature that should be verified to ensure the data originated from Stripe.
 
 Here's an example of handling a `charge.succeeded` webhook with SvelteKit:
 
@@ -339,7 +341,7 @@ export async function post(request) {
 }
 ```
 
-In development mode, you can route webhook events to you dev machine using [Stripe's CLI](https://stripe.com/docs/stripe-cli).
+In development mode, webhooks can be routed to your dev machine using [Stripe's CLI](https://stripe.com/docs/stripe-cli). Example:
 
 ```bash
 stripe listen --forward-to localhost:3000/stripe/webhooks
