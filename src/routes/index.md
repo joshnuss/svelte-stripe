@@ -345,7 +345,7 @@ In development mode, you can route webhook events to you dev machine using [Stri
 stripe listen --forward-to localhost:3000/stripe/webhooks
 ```
 
-For more info on receiving webhooks, see [Stripe's Webhook Guide](https://stripe.com/docs/webhooks).
+For more information on webhooks, see [Stripe's Webhook Docs](https://stripe.com/docs/webhooks).
 
 ## Styling
 
