@@ -288,11 +288,63 @@ const result = await stripe
 [code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/ideal)
 [demo](/examples/ideal)
 
-### Receiving Webhooks
+### Webhooks
 
-After the payment succeeds or fails, Stripe will send a webhook, it can be used to provision the fulfillment.
+After the payment succeeds or fails, Stripe will send out a webhook, which can be used to provision or fulfill the purchase. The webhook contains a signature that you should verify to ensure the data originates from Stripe.
 
-TODO
+Here's an example of handling a `charge.succeeded` webhook with SvelteKit:
+
+```javascript
+// in src/routes/stripe/webhooks.js
+import Stripe from 'stripe'
+
+// init api client
+const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
+
+// get webhook secret
+// you can find yours at https://dashboard.stripe.com/webhooks
+const endpointSecret = process.env['STRIPE_WEBHOOK_SECRET']
+
+export async function post(request) {
+  let rawBody = Buffer.from(request.rawBody)
+  let event
+
+  // get the signature
+  const signature = request.headers['stripe-signature']
+
+  // verify it
+  try {
+    event = stripe.webhooks.constructEvent(rawBody, signature, endpointSecret)
+  } catch (err) {
+    // signature is invalid!
+    console.warn('⚠️  Webhook signature verification failed.', err.message)
+
+    // return, because it's a bad request
+    return { status: 400 }
+  }
+
+  // it's now verified, so process events
+  // full list of events: https://stripe.com/docs/api/events/list
+  if (event.type == 'charge.succeeded') {
+    // get data object
+    const charge = event.data.object
+
+    // TODO: fulfill the order here
+    console.log(`✅ Charge succeeded ${charge.id}`)
+  }
+
+  // return status 200
+  return {}
+}
+```
+
+In development mode, you can route webhook events to you dev machine using [Stripe's CLI](https://stripe.com/docs/stripe-cli).
+
+```bash
+stripe listen --forward-to localhost:3000/stripe/webhooks
+```
+
+For more info on receiving webhooks, see [Stripe's Webhook Guide](https://stripe.com/docs/webhooks).
 
 ## Styling
 

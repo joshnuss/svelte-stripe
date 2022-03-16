@@ -45,7 +45,7 @@
               </ul>
             </li>
             <li>
-              <a href="/#receiving-webhooks">Receiving Webhooks</a>
+              <a href="/#webhooks">Webhooks</a>
             </li>
           </ul>
         </li>
