@@ -11,6 +11,7 @@ Everything you need to accept Stripe payments with your Svelte projects. [Svelte
 Links:
 [npm](https://npmjs.org/package/svelte-stripe)
 [github](https://github.com/joshnuss/svelte-stripe)
+[changelog](https://github.com/joshnuss/svelte-stripe/blob/main/CHANGELOG.md)
 [license](https://github.com/joshnuss/svelte-stripe/blob/main/LICENSE)
 
 ## Installation
