@@ -96,9 +96,9 @@ There are several types of payment you can accept:
 
 #### Payment Element
 
-The latest component from Stripe is an all-in-one form that supports credit cards, SEPA, GooglePay and ApplePay.
+An all-in-one component that supports credit cards, SEPA, GooglePay and ApplePay.
 
-To use it, use the `<PaymentElement>` component:
+To use it, drop a `<PaymentElement>` component in your form:
 
 ```html
 <form on:submit|preventDefault={submit}>
@@ -107,7 +107,7 @@ To use it, use the `<PaymentElement>` component:
 </form>
 ```
 
-When creating the payment intent, enable the `automatic_payment_methods:` option:
+Then when creating the payment intent, enable the `automatic_payment_methods:` option:
 
 ```javascript
 const paymentIntent = await stripe.paymentIntents.create({
@@ -119,7 +119,7 @@ const paymentIntent = await stripe.paymentIntents.create({
 })
 ```
 
-Then when the form is submitted, call [`stripe.confirmPayment()`](https://stripe.com/docs/js/payment_intents/confirm_payment)
+Once the form is submitted, call [`stripe.confirmPayment()`](https://stripe.com/docs/js/payment_intents/confirm_payment)
 
 ```javascript
 const result = await stripe
@@ -309,11 +309,14 @@ const endpointSecret = process.env['STRIPE_WEBHOOK_SECRET']
 
 // endpoint to handle incoming webhooks
 export async function post(request) {
-  let rawBody = Buffer.from(request.rawBody)
-  let event
+  // convert raw body to buffer
+  const rawBody = Buffer.from(request.rawBody)
 
   // get the signature from the header
   const signature = request.headers['stripe-signature']
+
+  // var to hold event data
+  let event
 
   // verify it
   try {
@@ -340,6 +343,8 @@ export async function post(request) {
   return {}
 }
 ```
+
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/credit-card/webhooks.js)
 
 In development mode, webhooks can be routed to your dev machine using [Stripe's CLI](https://stripe.com/docs/stripe-cli). Example:
 
