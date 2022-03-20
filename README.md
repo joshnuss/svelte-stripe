@@ -1,10 +1,10 @@
-# [svelte-stripe](https://svelte-stripe.com)
+# [svelte-stripe](https://sveltestripe.com)
 
 Everything you need to add Stripe to your Svelte project. 100% [svelte-kit](https://kit.svelte.dev/) compatible.
 
 > Stripe is now [sponsoring this project](#sponsors)
 
-[Documentation](https://svelte-stripe.com)
+[Documentation](https://sveltestripe.com)
 
 ## Components
 
@@ -32,7 +32,7 @@ Please open a PR or issue, if you'd like to add more.
 
 ## Usage
 
-See [documentation](https://svelte-stripe.com) for setup instructions and examples.
+See [documentation](https://sveltestripe.com) for setup instructions and examples.
 
 ## Sponsors
 
