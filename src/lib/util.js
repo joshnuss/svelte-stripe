@@ -1,3 +1,12 @@
+/**
+ * @param {HTMLElement} node
+ * @param {import('@stripe/stripe-js').StripeElementType} type
+ * @param {import('@stripe/stripe-js').StripeElements} elements
+ * @param {<EventKey extends string>(type: EventKey, detail?: any) => void} dispatch
+ * @param {import('@stripe/stripe-js').StripeElementsOptions} options
+ *
+ * @returns {import('@stripe/stripe-js').StripeElementBase}
+ */
 export function mount(node, type, elements, dispatch, options={}) {
   const element = elements.create(type, options)
 
@@ -14,6 +23,10 @@ export function mount(node, type, elements, dispatch, options={}) {
 
 export const isServer = typeof(window) === 'undefined'
 
+/**
+ * @param {import('@stripe/stripe-js').Stripe} stripe
+ * @returns {void}
+ */
 export function register(stripe) {
   if (!isServer) {
     return stripe.registerAppInfo({
