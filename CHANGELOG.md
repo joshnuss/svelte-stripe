@@ -1,7 +1,8 @@
 # Changelog
 
-## 0.0.14
+## 0.0.17
 
+- Added jsdoc support
 - Bump to SvelteKit next.299
 - Added examples and docs for receiving webhooks
 

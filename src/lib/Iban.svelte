@@ -2,17 +2,36 @@
   import { onMount, getContext, createEventDispatcher } from 'svelte'
   import { mount } from './util'
 
+  /** @type {import('@stripe/stripe-js').StripeElementClasses} */
   export let classes = {}
+
+  /** @type {import('@stripe/stripe-js').StripeElementStyle} */
   export let style = {}
+
+  /** @type {string[]?} */
   export let supportedCountries = []
+
+  /** @type {string} */
   export let placeholderCountry = ""
+
+  /** @type {boolean?} */
   export let hideIcon = false
+
+  /** @type {'default' | 'solid'} */
   export let iconStyle = 'default'
+
+  /** @type {boolean?} */
   export let disabled = false
+
+  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
   export let element = null
 
+  /** @type {HTMLElement?} */
   let wrapper
+
   const dispatch = createEventDispatcher()
+
+  /** @type {import("./types").ElementsContext} */
   const { elements } = getContext('stripe')
 
   onMount(() => {
