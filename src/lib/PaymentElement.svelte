@@ -22,7 +22,12 @@
   /** @type {Appearance["labels"]} */
   export let labels = 'above'
 
-  export let elements = isServer ? null : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret })
+  /** @typedef { import('@stripe/stripe-js').StripeElementsOptions } StripeElementsOptions */
+
+  /** @type {StripeElementsOptions["loader"]} */
+  export let loader = 'auto'
+
+  export let elements = isServer ? null : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret, loader })
 
   /** @type {import('@stripe/stripe-js').StripeElementBase} */
   let element
