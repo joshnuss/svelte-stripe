@@ -31,6 +31,7 @@ There is example code for:
 - [SEPA direct deposit](src/routes/examples/sepa)
 - [iDEAL](src/routes/examples/ideal)
 - [Alipay](src/routes/examples/alipay)
+- [WeChat Pay](src/routes/examples/wechat-pay)
 
 Please open a PR or issue, if you'd like to add more.
 
