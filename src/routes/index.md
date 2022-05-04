@@ -368,6 +368,7 @@ All demos are running in test-mode, any of Stripe's [test card numbers](https://
 - [Google Pay/Apple Pay](/examples/payment-request)
 - [SEPA](/examples/sepa)
 - [iDEAL](/examples/ideal)
+- [Alipay](/examples/alipay)
 
 ## Sponsors
 
