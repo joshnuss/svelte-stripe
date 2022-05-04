@@ -57,6 +57,10 @@
 
 <h1>Credit Card Example</h1>
 
+<nav>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/credit-card">View code</a>
+</nav>
+
 {#if error}
   <p class=error>{error.message} Please try again.</p>
 {/if}

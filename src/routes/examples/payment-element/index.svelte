@@ -59,6 +59,10 @@
 
 <h1>Payment Element Example</h1>
 
+<nav>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element">View code</a>
+</nav>
+
 {#if error}
   <p class=error>{error.message} Please try again.</p>
 {/if}
