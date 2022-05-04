@@ -8,7 +8,7 @@ Everything you need to add Stripe to your Svelte project. 100% [svelte-kit](http
 
 ## Components
 
-This package provides the following components:
+The following components are provided:
 
 - `<Container/>`: A wrapper component to set context.
 - `<CardNumber/>`: Input field for the card's number.
@@ -20,13 +20,17 @@ This package provides the following components:
 - `<Ideal/>`: Input field for iDEAL (payment system used in the Netherlands).
 - `<PaymentElement/>`: All-in-one component that allows the user to choose the type of payment.
 
-## Supported payment types
+## Examples
 
-- Credit card
-- GooglePay
-- ApplePay
-- SEPA direct deposit
-- iDEAL
+There is example code for:
+
+- [Payment Element](/tree/main/src/routes/examples/payment-element)
+- [Credit card](/tree/main/src/routes/examples/credit-card)
+- [GooglePay](/tree/main/src/routes/examples/payment-request)
+- [ApplePay](/tree/main/src/routes/examples/payment-request)
+- [SEPA direct deposit](/tree/main/src/routes/examples/sepa)
+- [iDEAL](/tree/main/src/routes/examples/ideal)
+- [Alipay](/tree/main/src/routes/examples/alipay)
 
 Please open a PR or issue, if you'd like to add more.
 
