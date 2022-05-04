@@ -24,13 +24,13 @@ The following components are provided:
 
 There is example code for:
 
-- [Payment Element](/tree/main/src/routes/examples/payment-element)
-- [Credit card](/tree/main/src/routes/examples/credit-card)
-- [GooglePay](/tree/main/src/routes/examples/payment-request)
-- [ApplePay](/tree/main/src/routes/examples/payment-request)
-- [SEPA direct deposit](/tree/main/src/routes/examples/sepa)
-- [iDEAL](/tree/main/src/routes/examples/ideal)
-- [Alipay](/tree/main/src/routes/examples/alipay)
+- [Payment Element](src/routes/examples/payment-element)
+- [Credit card](src/routes/examples/credit-card)
+- [GooglePay](src/routes/examples/payment-request)
+- [ApplePay](src/routes/examples/payment-request)
+- [SEPA direct deposit](src/routes/examples/sepa)
+- [iDEAL](src/routes/examples/ideal)
+- [Alipay](src/routes/examples/alipay)
 
 Please open a PR or issue, if you'd like to add more.
 
