@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.18
+
+- Added example for Konbini
+- Added example for WeChat Pay
+- Added example for Alipay
+
 ## 0.0.17
 
 - Added jsdoc support
