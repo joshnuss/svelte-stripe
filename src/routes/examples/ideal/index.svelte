@@ -71,6 +71,10 @@
 
 <h1>iDEAL Example</h1>
 
+<nav>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/ideal">View code</a>
+</nav>
+
 {#if error}
   <p class=error>Payment failed. Please try again.</p>
 {/if}

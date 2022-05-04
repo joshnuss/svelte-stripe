@@ -57,6 +57,10 @@
 <p>If you see a blank screen, it's because this demo will only work if the TLD is <code>https://localhost</code> or if you're using production keys.</p>
 <p>For ApplePay, the production domain must be <a href="https://support.stripe.com/questions/enable-apple-pay-on-your-stripe-account">submitted to Apple</a>.</p>
 
+<nav>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-request">View code</a>
+</nav>
+
 {#if error}
   <p class=error>{error.message} Please try again.</p>
 {/if}
