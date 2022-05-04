@@ -50,6 +50,14 @@ See [documentation](https://sveltestripe.com) for setup instructions and example
 
 ![GitHub Contributors Image](https://contrib.rocks/image?repo=joshnuss/svelte-stripe)
 
+## Development mode
+
+Run `pnpm dev` with environment loaded, and visit `https://localhost:3000`:
+
+```bash
+npx dotenv -c development pnpm dev
+```
+
 ## License
 
 MIT
