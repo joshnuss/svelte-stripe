@@ -370,6 +370,7 @@ All demos are running in test-mode, any of Stripe's [test card numbers](https://
 - [iDEAL](/examples/ideal)
 - [Alipay](/examples/alipay)
 - [WeChat Pay](/examples/wechat-pay)
+- [Konbini](/examples/konbini)
 
 ## Sponsors
 
