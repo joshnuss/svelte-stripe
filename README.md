@@ -36,6 +36,7 @@ There is example code for:
 - [Konbini](src/routes/examples/konbini)
 - [Klarna](src/routes/examples/klarna)
 - [Sofort](src/routes/examples/sofort)
+- [Afterpay/Clearpay](src/routes/examples/afterpay-clearpay)
 
 Please open a PR or issue, if you'd like to add more.
 
