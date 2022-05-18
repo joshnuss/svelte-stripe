@@ -371,6 +371,7 @@ All demos are running in test-mode, any of Stripe's [test card numbers](https://
 - [Alipay](/examples/alipay)
 - [WeChat Pay](/examples/wechat-pay)
 - [Konbini](/examples/konbini)
+- [Klarna](/examples/klarna)
 
 ## Sponsors
 

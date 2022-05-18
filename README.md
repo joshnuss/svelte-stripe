@@ -33,6 +33,7 @@ There is example code for:
 - [Alipay](src/routes/examples/alipay)
 - [WeChat Pay](src/routes/examples/wechat-pay)
 - [Konbini](src/routes/examples/konbini)
+- [Klarna](src/routes/examples/klarna)
 
 Please open a PR or issue, if you'd like to add more.
 
