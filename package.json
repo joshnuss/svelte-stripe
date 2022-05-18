@@ -4,11 +4,11 @@
   "homepage": "https://sveltestripe.com",
   "license": "MIT",
   "scripts": {
-    "dev": "dotenv -- svelte-kit dev",
-    "build": "dotenv svelte-kit build",
+    "dev": "dotenv -c development -- svelte-kit dev",
+    "build": "dotenv -c development svelte-kit build",
     "package": "svelte-kit package",
     "publish": "npm run package && cd package && npm publish",
-    "preview": "dotenv svelte-kit preview",
+    "preview": "dotenv -c development svelte-kit preview",
     "prepare": "svelte-kit sync",
     "lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .prettierignore .",
     "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. ."

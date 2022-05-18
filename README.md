@@ -34,6 +34,7 @@ There is example code for:
 - [WeChat Pay](src/routes/examples/wechat-pay)
 - [Konbini](src/routes/examples/konbini)
 - [Klarna](src/routes/examples/klarna)
+- [Sofort](src/routes/examples/sofort)
 
 Please open a PR or issue, if you'd like to add more.
 
