@@ -28,6 +28,7 @@ There is example code for:
 - [Credit card](src/routes/examples/credit-card)
 - [GooglePay](src/routes/examples/payment-request)
 - [ApplePay](src/routes/examples/payment-request)
+- [MicrosoftPay](src/routes/examples/payment-request)
 - [SEPA direct deposit](src/routes/examples/sepa)
 - [iDEAL](src/routes/examples/ideal)
 - [Alipay](src/routes/examples/alipay)
