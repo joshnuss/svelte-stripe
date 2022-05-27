@@ -40,16 +40,17 @@ STRIPE_SECRET_KEY=sk_test_...
 In your payment page, initialize Stripe and add a `<Container>` component:
 
 ```html
-<script>
+<script lang="ts">
   import { loadStripe } from '@stripe/stripe-js'
   import { Container } from  'svelte-stripe'
+  import { onMount } from 'svelte';
 
   let stripe = null
 
   onMount(async () => {
     stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
   })
-<script>
+</script>
 
 {#if stripe}
   <Container {stripe}>
