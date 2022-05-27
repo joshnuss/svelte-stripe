@@ -40,7 +40,7 @@ STRIPE_SECRET_KEY=sk_test_...
 In your payment page, initialize Stripe and add a `<Container>` component:
 
 ```html
-<script lang="ts">
+<script>
   import { loadStripe } from '@stripe/stripe-js'
   import { Container } from  'svelte-stripe'
   import { onMount } from 'svelte';
