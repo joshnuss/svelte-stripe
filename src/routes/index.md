@@ -311,8 +311,8 @@ const endpointSecret = process.env['STRIPE_WEBHOOK_SECRET']
 
 // endpoint to handle incoming webhooks
 export async function post({ request }) {
-  // convert raw body to buffer
-  const rawBody = await request.text()
+  // extract body
+  const body = await request.text()
 
   // get the signature from the header
   const signature = request.headers.get('stripe-signature')
@@ -322,7 +322,7 @@ export async function post({ request }) {
 
   // verify it
   try {
-    event = stripe.webhooks.constructEvent(rawBody, signature, endpointSecret)
+    event = stripe.webhooks.constructEvent(body, signature, endpointSecret)
   } catch (err) {
     // signature is invalid!
     console.warn('⚠️  Webhook signature verification failed.', err.message)
