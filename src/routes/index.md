@@ -310,12 +310,12 @@ const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
 const endpointSecret = process.env['STRIPE_WEBHOOK_SECRET']
 
 // endpoint to handle incoming webhooks
-export async function post(request) {
+export async function post({ request }) {
   // convert raw body to buffer
-  const rawBody = Buffer.from(request.rawBody)
+  const rawBody = await request.text()
 
   // get the signature from the header
-  const signature = request.headers['stripe-signature']
+  const signature = request.headers.get('stripe-signature')
 
   // var to hold event data
   let event
