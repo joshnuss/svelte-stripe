@@ -1,7 +1,3 @@
-<script context="module">
-  console.warn('svelte-stripe: <Container/> is deprecated, please use <Elements/> instead.')
-</script>
-
 <script>
   import { setContext } from 'svelte'
   import { isServer, register } from './util'
@@ -14,8 +10,6 @@
 
   register(stripe)
   setContext('stripe', { stripe, elements })
-
-  console.warn('svelte-stripe: <Container/> is deprecated, please use <Elements/> instead.')
 </script>
 
 <slot />

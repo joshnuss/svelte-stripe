@@ -37,12 +37,12 @@ VITE_STRIPE_PUBLIC_KEY=pk_test_...
 STRIPE_SECRET_KEY=sk_test_...
 ```
 
-In your payment page, initialize Stripe and add a `<Container>` component:
+In your payment page, initialize Stripe and add a `<Elements>` component:
 
 ```html
 <script>
   import { loadStripe } from '@stripe/stripe-js'
-  import { Container } from  'svelte-stripe'
+  import { Elements } from  'svelte-stripe'
   import { onMount } from 'svelte';
 
   let stripe = null
@@ -53,9 +53,9 @@ In your payment page, initialize Stripe and add a `<Container>` component:
 </script>
 
 {#if stripe}
-  <Container {stripe}>
+  <Elements {stripe}>
     <!-- this is where your Stripe components go -->
-  </Container>
+  </Elements>
 {/if}
 ```
 
@@ -140,7 +140,7 @@ const result = await stripe
 These use the `<CardNumber>`, `<CardExpiry>` and `<CardCvc>` components:
 
 ```html
-<Container {stripe}>
+<Elements {stripe}>
   <form on:submit|preventDefault={submit}>
     <CardNumber bind:element={cardElement}/>
     <CardExpiry />
@@ -148,7 +148,7 @@ These use the `<CardNumber>`, `<CardExpiry>` and `<CardCvc>` components:
 
     <button>Pay</button>
   </form>
-</Container>
+</Elements>
 ```
 
 When the form submits, pass the `cardElement` to [`stripe.confirmCardPayment()`](https://stripe.com/docs/js/payment_intents/confirm_card_payment), ie:
@@ -173,9 +173,9 @@ const result = await stripe
 To display a GooglePay or ApplePay button, use the `<PaymentRequestButton/>`.
 
 ```html
-<Container {stripe}>
+<Elements {stripe}>
   <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
-</Container>
+</Elements>
 ```
 
 It requires that you pass metadata using the `paymentRequest` prop:
@@ -225,7 +225,7 @@ async function pay(e) {
 To process SEPA debits, use the `<Iban>` component:
 
 ```html
-<Container {stripe}>
+<Elements {stripe}>
   <form on:submit|preventDefault={submit}>
     <input name="name" bind:value={name} placeholder="Name"/>
 
@@ -234,7 +234,7 @@ To process SEPA debits, use the `<Iban>` component:
 
     <button>Pay</button>
   </form>
-</Container>
+</Elements>
 ```
 
 To process the payment use [`stripe.confirmSepaDebitPayment()`](https://stripe.com/docs/js/payment_intents/confirm_sepa_debit_payment):
@@ -260,7 +260,7 @@ const result = await stripe
 To accept iDEAL payments, use the `<Ideal>` component:
 
 ```html
-<Container {stripe}>
+<Elements {stripe}>
   <form on:submit|preventDefault={submit}>
     <input name="name" bind:value={name} placeholder="Name"/>
     <input name="email" bind:value={email} placeholder="E-mail" type='email'/>
@@ -268,7 +268,7 @@ To accept iDEAL payments, use the `<Ideal>` component:
 
     <button>Pay</button>
   </form>
-</Container>
+</Elements>
 ```
 
 To complete the payment call [`stripe.confirmIdealPayment()`](https://stripe.com/docs/js/payment_intents/confirm_ideal_payment), and make sure the pass a `return_url`:

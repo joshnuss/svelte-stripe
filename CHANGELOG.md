@@ -2,6 +2,7 @@
 
 ## 0.0.18
 
+- Deprecated `<Container/>`, replaced by `<Elements/>`
 - Added example for Konbini
 - Added example for WeChat Pay
 - Added example for Alipay

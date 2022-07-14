@@ -10,7 +10,7 @@ Everything you need to add Stripe to your Svelte project. 100% [svelte-kit](http
 
 The following components are provided:
 
-- `<Container/>`: A wrapper component to set context.
+- `<Elements/>`: A wrapper component to set context.
 - `<CardNumber/>`: Input field for the card's number.
 - `<CardExpiry/>`: Input field for the card's expiration date.
 - `<CardCvc/>`: Input field for Card Verification Value.

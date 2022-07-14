@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
-  import { Container, PaymentRequestButton } from '$lib'
+  import { Elements, PaymentRequestButton } from '$lib'
 
   let stripe = null
   let error = null
@@ -66,11 +66,11 @@
 {/if}
 
 {#if stripe}
-  <Container {stripe}>
+  <Elements {stripe}>
     <div class="wrapper">
       <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
     </div>
-  </Container>
+  </Elements>
 {:else}
   Loading...
 {/if}

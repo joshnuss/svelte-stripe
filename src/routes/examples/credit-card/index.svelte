@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
-  import { Container, CardNumber, CardExpiry, CardCvc } from '$lib'
+  import { Elements, CardNumber, CardExpiry, CardCvc } from '$lib'
 
   let stripe = null
   let error = null
@@ -66,7 +66,7 @@
 {/if}
 
 {#if stripe}
-  <Container {stripe}>
+  <Elements {stripe}>
     <form on:submit|preventDefault={submit}>
       <input name="name" bind:value={name} placeholder="Your name" disabled={processing}/>
       <CardNumber bind:element={cardElement} classes={{base: 'input'}}/>
@@ -84,7 +84,7 @@
         {/if}
       </button>
     </form>
-  </Container>
+  </Elements>
 {:else}
   Loading...
 {/if}
