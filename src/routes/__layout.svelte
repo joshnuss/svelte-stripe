@@ -28,7 +28,10 @@
 
               <ul>
                 <li>
-                  <a href="/#payment-element">Payment Element</a>
+                  <a href="/#payment-element">Payment element</a>
+                </li>
+                <li>
+                  <a href="/#link-authentication">Link authentication</a>
                 </li>
                 <li>
                   <a href="/#credit-cards">Credit cards</a>

@@ -104,7 +104,10 @@ To use it, drop a `<PaymentElement>` component in your form:
 
 ```html
 <form on:submit|preventDefault={submit}>
-  <PaymentElement {stripe} {clientSecret} bind:elements/>
+  <Elements {stripe} {clientSecret} bind:elements>
+    <PaymentElement/>
+  </Elements>
+
   <button>Pay</button>
 </form>
 ```
@@ -130,6 +133,28 @@ const result = await stripe
     // specify redirect: 'if_required' or a `return_url`
     redirect: 'if_required'
   })
+```
+
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element)
+[demo](/examples/payment-element)
+
+#### Link Authentication
+
+With [Link](https://link.co), customer's don't have to re-enter payment and address details for each purchase. Their details are retreived based on their e-mail address.
+
+Once they enter their e-mail they receive an SMS code to verify their identity.
+
+It works in conjuction with `<PaymentElement>`:
+
+```html
+<form on:submit|preventDefault={submit}>
+  <Elements {stripe} {clientSecret} bind:elements>
+    <LinkAuthenticationElement/>
+    <PaymentElement/>
+  </Elements>
+
+  <button>Pay</button>
+</form>
 ```
 
 [code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element)
