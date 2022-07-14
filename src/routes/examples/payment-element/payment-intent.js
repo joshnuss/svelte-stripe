@@ -5,10 +5,11 @@ const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
 export async function post() {
   const paymentIntent = await stripe.paymentIntents.create({
     amount: 2000,
-    currency: 'eur',
-    automatic_payment_methods: {
-      enabled: true,
-    }
+    currency: 'usd',
+    payment_method_types: ['card', 'link'],
+    // automatic_payment_methods: {
+    //   enabled: true,
+    // }
   })
 
   return {

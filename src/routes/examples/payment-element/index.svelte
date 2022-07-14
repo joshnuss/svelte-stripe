@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
-  import { PaymentElement } from '$lib'
+  import { Elements, PaymentElement, LinkAuthenticationElement } from '$lib'
 
   let stripe = null
   let clientSecret = null
@@ -68,25 +68,27 @@
 {/if}
 
 {#if stripe && clientSecret}
-  <form on:submit|preventDefault={submit}>
-    <PaymentElement
-      {stripe}
-      {clientSecret}
-      bind:elements
-      theme="flat"
-      labels="floating"
-      variables={{colorPrimary: '#7c4dff'}}
-      rules={{'.Input': { border: 'solid 1px #0002' }}}
-    />
+  <Elements
+    {stripe}
+    {clientSecret}
+    theme="flat"
+    labels="floating"
+    variables={{colorPrimary: '#7c4dff'}}
+    rules={{'.Input': { border: 'solid 1px #0002' }}}
+    bind:elements>
+    <form on:submit|preventDefault={submit}>
+      <LinkAuthenticationElement/>
+      <PaymentElement/>
 
-    <button disabled={processing}>
-      {#if processing}
-        Processing...
-      {:else}
-        Pay
-      {/if}
-    </button>
-  </form>
+      <button disabled={processing}>
+        {#if processing}
+          Processing...
+        {:else}
+          Pay
+        {/if}
+      </button>
+    </form>
+  </Elements>
 {:else}
   Loading...
 {/if}

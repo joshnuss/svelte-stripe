@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.19
+
+- Added `<LinkAuthenticationElement>`, see: https://stripe.com/docs/payments/link/accept-a-payment
+
 ## 0.0.18
 
 - Deprecated `<Container/>`, replaced by `<Elements/>`

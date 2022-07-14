@@ -2,6 +2,9 @@
   import { onMount, getContext, createEventDispatcher } from 'svelte'
   import { mount } from './util'
 
+  /** @type {import('@stripe/stripe-js').StripeLinkAuthenticationElementOptions["defaultValues"]?} */
+  export let defaultValues = null
+
   /** @type {import('@stripe/stripe-js').StripeElementBase} */
   let element
 
@@ -14,7 +17,8 @@
   const { elements } = getContext('stripe')
 
   onMount(() => {
-    element = mount(wrapper, 'payment', elements, dispatch)
+    const options = defaultValues ? { defaultValues } : {}
+    element = mount(wrapper, 'linkAuthentication', elements, dispatch, options)
 
     return () => element.unmount()
   })
