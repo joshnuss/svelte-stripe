@@ -4,11 +4,11 @@
   "homepage": "https://sveltestripe.com",
   "license": "MIT",
   "scripts": {
-    "dev": "dotenv -c development -- svelte-kit dev",
-    "build": "dotenv -c development svelte-kit build",
+    "dev": "dotenv -c development -- vite dev",
+    "build": "dotenv -c development vite build",
     "package": "svelte-kit package",
     "publish": "npm run package && cd package && npm publish",
-    "preview": "dotenv -c development svelte-kit preview",
+    "preview": "dotenv -c development vite preview",
     "prepare": "svelte-kit sync",
     "lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .prettierignore .",
     "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. ."
@@ -17,6 +17,7 @@
     "@stripe/stripe-js": "^1.24.0",
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
+    "@vitejs/plugin-basic-ssl": "^0.1.1",
     "dotenv-cli": "^5.0.0",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
@@ -32,7 +33,7 @@
     "svelte": "^3.46.4",
     "svelte2tsx": "^0.5.6",
     "typescript": "^4.6.2",
-    "vite-plugin-mkcert": "^1.6.0"
+    "vite": "^3.0.0"
   },
   "type": "module"
 }
