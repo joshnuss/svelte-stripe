@@ -29,7 +29,7 @@
   export let loader = 'auto'
 
   /** @type {string?} */
-  export let clientSecret = null
+  export let clientSecret = undefined
 
   /** @type {import('@stripe/stripe-js').StripeElements?} */
   export let elements = isServer ? null : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret, loader })
