@@ -13,8 +13,10 @@
     "lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .prettierignore .",
     "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. ."
   },
+  "dependencies": {
+    "@stripe/stripe-js": "^1.24.0"
+  },
   "devDependencies": {
-    "@stripe/stripe-js": "^1.24.0",
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
     "@vitejs/plugin-basic-ssl": "^0.1.1",

@@ -2,7 +2,7 @@ import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
 
-export async function get(req) {
+export async function GET(req) {
   const { searchParams } = req.url
   const intentId = searchParams.get('payment_intent')
   const clientSecret = searchParams.get('payment_intent_client_secret')

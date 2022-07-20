@@ -6,7 +6,7 @@
 
 # svelte-stripe
 
-Everything you need to accept Stripe payments with your Svelte projects. [SvelteKit](https://kit.svelte.dev) is fully supported.
+Everything you need to add [Stripe Elements](https://stripe.com/en-gb-us/payments/elements) to your [Svelte](https://svelte.dev) & [SvelteKit](https://kit.svelte.dev) projects.
 
 Links:
 [npm](https://npmjs.org/package/svelte-stripe)
@@ -16,15 +16,14 @@ Links:
 
 ## Installation
 
-To configure your project add these 3 packages:
+To configure your project, add these 2 packages:
 
 ```bash
-pnpm install -D svelte-stripe @stripe/stripe-js stripe
+pnpm install -D stripe svelte-stripe
 ```
 
-- [svelte-stripe](https://npmjs.org/package/svelte-stripe) is the Svelte wrapper.
-- [@stripe/stripe-js](https://npmjs.org/package/@stripe/stripe-js) is the official client-side/browser version of Stripe.
-- [stripe](https://npmjs.org/package/stripe) is the official server-side/NODE version of Stripe.
+- [stripe](https://npmjs.org/package/stripe) is the official server-side version of Stripe.
+- [svelte-stripe](https://npmjs.org/package/svelte-stripe) is the community-supported wrapper for Stripe Elements.
 
 ## Docs
 
@@ -72,7 +71,7 @@ import Stripe from 'stripe'
 const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
 
 // handle POST /create-payment-intent
-export async function post() {
+export async function POST() {
   // create the payment intent
   const paymentIntent = await stripe.paymentIntents.create({
     amount: 2000,
@@ -104,7 +103,10 @@ To use it, drop a `<PaymentElement>` component in your form:
 
 ```html
 <form on:submit|preventDefault={submit}>
-  <PaymentElement {stripe} {clientSecret} bind:elements/>
+  <Elements {stripe} {clientSecret} bind:elements>
+    <PaymentElement/>
+  </Elements>
+
   <button>Pay</button>
 </form>
 ```
@@ -130,6 +132,28 @@ const result = await stripe
     // specify redirect: 'if_required' or a `return_url`
     redirect: 'if_required'
   })
+```
+
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element)
+[demo](/examples/payment-element)
+
+#### Link Authentication
+
+With [Link](https://link.co), customer's don't have to re-enter payment and address details for each purchase. Their details are retreived based on their e-mail address.
+
+Once they enter their e-mail they receive an SMS code to verify their identity.
+
+It works in conjuction with `<PaymentElement>`:
+
+```html
+<form on:submit|preventDefault={submit}>
+  <Elements {stripe} {clientSecret} bind:elements>
+    <LinkAuthenticationElement/>
+    <PaymentElement/>
+  </Elements>
+
+  <button>Pay</button>
+</form>
 ```
 
 [code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element)
@@ -310,7 +334,7 @@ const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
 const endpointSecret = process.env['STRIPE_WEBHOOK_SECRET']
 
 // endpoint to handle incoming webhooks
-export async function post({ request }) {
+export async function POST({ request }) {
   // extract body
   const body = await request.text()
 
