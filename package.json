@@ -1,6 +1,6 @@
 {
   "name": "svelte-stripe",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "homepage": "https://sveltestripe.com",
   "license": "MIT",
   "scripts": {
