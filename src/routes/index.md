@@ -19,12 +19,11 @@ Links:
 To configure your project add these 3 packages:
 
 ```bash
-pnpm install -D svelte-stripe @stripe/stripe-js stripe
+pnpm install -D stripe svelte-stripe
 ```
 
-- [svelte-stripe](https://npmjs.org/package/svelte-stripe) is the Svelte wrapper.
-- [@stripe/stripe-js](https://npmjs.org/package/@stripe/stripe-js) is the official client-side/browser version of Stripe.
-- [stripe](https://npmjs.org/package/stripe) is the official server-side/NODE version of Stripe.
+- [stripe](https://npmjs.org/package/stripe) is the official server-side version of Stripe.
+- [svelte-stripe](https://npmjs.org/package/svelte-stripe) is the Svelte wrapper for Stripe Elements.
 
 ## Docs
 

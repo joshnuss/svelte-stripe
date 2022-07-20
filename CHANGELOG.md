@@ -3,6 +3,7 @@
 ## 0.0.19
 
 - Added `<LinkAuthenticationElement>`, see: https://stripe.com/docs/payments/link/accept-a-payment
+- Makes `@stripe/stripe-js` npm package a dependency.
 
 ## 0.0.18
 
