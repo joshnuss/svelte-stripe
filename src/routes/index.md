@@ -6,7 +6,7 @@
 
 # svelte-stripe
 
-Everything you need to accept Stripe payments with your Svelte projects. [SvelteKit](https://kit.svelte.dev) is fully supported.
+Everything you need to add [Stripe Elements](https://stripe.com/en-gb-us/payments/elements) to your [Svelte](https://svelte.dev) & [SvelteKit](https://kit.svelte.dev) projects.
 
 Links:
 [npm](https://npmjs.org/package/svelte-stripe)
@@ -16,14 +16,14 @@ Links:
 
 ## Installation
 
-To configure your project add these 3 packages:
+To configure your project, add these 2 packages:
 
 ```bash
 pnpm install -D stripe svelte-stripe
 ```
 
 - [stripe](https://npmjs.org/package/stripe) is the official server-side version of Stripe.
-- [svelte-stripe](https://npmjs.org/package/svelte-stripe) is the Svelte wrapper for Stripe Elements.
+- [svelte-stripe](https://npmjs.org/package/svelte-stripe) is the community-supported wrapper for Stripe Elements.
 
 ## Docs
 
