@@ -71,7 +71,7 @@ import Stripe from 'stripe'
 const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
 
 // handle POST /create-payment-intent
-export async function post() {
+export async function POST() {
   // create the payment intent
   const paymentIntent = await stripe.paymentIntents.create({
     amount: 2000,
@@ -334,7 +334,7 @@ const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
 const endpointSecret = process.env['STRIPE_WEBHOOK_SECRET']
 
 // endpoint to handle incoming webhooks
-export async function post({ request }) {
+export async function POST({ request }) {
   // extract body
   const body = await request.text()
 
