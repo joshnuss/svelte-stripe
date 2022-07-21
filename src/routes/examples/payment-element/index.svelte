@@ -23,7 +23,7 @@
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({amount: 2000})
+      body: JSON.stringify({})
     })
     const { clientSecret } = await response.json()
 
