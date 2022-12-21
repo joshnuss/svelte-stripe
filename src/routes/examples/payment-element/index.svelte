@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
-  import { Elements, PaymentElement, LinkAuthenticationElement } from '$lib'
+  import { Elements, PaymentElement, LinkAuthenticationElement, Address } from '$lib'
 
   let stripe = null
   let clientSecret = null
@@ -79,6 +79,7 @@
     <form on:submit|preventDefault={submit}>
       <LinkAuthenticationElement/>
       <PaymentElement/>
+      <Address mode="billing"/>
 
       <button disabled={processing}>
         {#if processing}

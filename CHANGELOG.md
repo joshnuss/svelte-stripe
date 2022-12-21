@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.20
+
+- Address `<Address>` element. See: https://stripe.com/docs/js/elements_object/create_address_element
+
 ## 0.0.19
 
 - Added `<LinkAuthenticationElement>`, see: https://stripe.com/docs/payments/link/accept-a-payment
