@@ -2,31 +2,33 @@
   import { onMount, getContext, createEventDispatcher } from 'svelte'
   import { mount } from './util'
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["mode"]} */
+  /** @typedef {import('@stripe/stripe-js').StripeAddressElementOptions} StripeAddressElementOptions */
+
+  /** @type {StripeAddressElementOptions["mode"]} */
   export let mode = 'billing'
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["allowedCountries"]} */
+  /** @type {StripeAddressElementOptions["allowedCountries"]} */
   export let allowedCountries
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["autocomplete"]} */
+  /** @type {StripeAddressElementOptions["autocomplete"]} */
   export let autocomplete = { mode: 'automatic' }
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["blockPoBox"]} */
+  /** @type {StripeAddressElementOptions["blockPoBox"]} */
   export let blockPoBox
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["contacts"]} */
+  /** @type {StripeAddressElementOptions["contacts"]} */
   export let contacts
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["defaultValues"]} */
+  /** @type {StripeAddressElementOptions["defaultValues"]} */
   export let defaultValues
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["fields"]} */
+  /** @type {StripeAddressElementOptions["fields"]} */
   export let fields
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["validation"]} */
+  /** @type {StripeAddressElementOptions["validation"]} */
   export let validation
 
-  /** @type {import('@stripe/stripe-js').StripeAddressElementOptions["display"]} */
+  /** @type {StripeAddressElementOptions["display"]} */
   export let display
 
   /** @type {import('@stripe/stripe-js').StripeElementBase} */
