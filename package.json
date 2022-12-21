@@ -14,11 +14,11 @@
     "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. ."
   },
   "dependencies": {
-    "@stripe/stripe-js": "^1.24.0"
+    "@stripe/stripe-js": "^1.46.0"
   },
   "devDependencies": {
-    "@sveltejs/adapter-vercel": "next",
-    "@sveltejs/kit": "next",
+    "@sveltejs/adapter-vercel": "1.0.0-next.65",
+    "@sveltejs/kit": "1.0.0-next.385",
     "@vitejs/plugin-basic-ssl": "^0.1.1",
     "dotenv-cli": "^5.0.0",
     "eslint": "^8.11.0",
