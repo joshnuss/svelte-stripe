@@ -2,7 +2,7 @@
 
 ## 0.0.20
 
-- Address `<Address>` element. See: https://stripe.com/docs/js/elements_object/create_address_element
+- Added `<Address>` element. See: https://stripe.com/docs/js/elements_object/create_address_element
 
 ## 0.0.19
 
