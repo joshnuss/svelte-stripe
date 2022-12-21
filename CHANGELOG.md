@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.21
+
+- Bump `stripe-js` dep to `1.46`
+
 ## 0.0.20
 
 - Added `<Address>` element. See: https://stripe.com/docs/js/elements_object/create_address_element
