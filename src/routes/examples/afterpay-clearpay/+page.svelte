@@ -3,7 +3,7 @@
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
-  import Address from './_Address.svelte'
+  import Address from './Address.svelte'
 
   let stripe = null
   let error = null
