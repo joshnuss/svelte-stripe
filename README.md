@@ -15,11 +15,12 @@ The following components are provided:
 - `<CardExpiry/>`: Input field for the card's expiration date.
 - `<CardCvc/>`: Input field for Card Verification Value.
 - `<Card/>`: All-in-one component that has inputs for card number, expiry, cvc, and zip code.
-- `<PaymentRequestButton/>`: A GooglePay or ApplePay button, depending on browser.
+- `<PaymentRequestButton/>`: A GooglePay, ApplePay, or Link checkout button, depending on browser and user preferences.
 - `<Iban/>`: Input field for IBAN (International bank account number).
 - `<Ideal/>`: Input field for iDEAL (payment system used in the Netherlands).
 - `<PaymentElement/>`: All-in-one component that allows the user to choose the type of payment.
 - `<LinkAuthenticationElement/>`: Ability to use saved payment methods stored in [Link](https://link.co).
+- `<Address/>`: Component for collecting billing and shipping addresses.
 
 ## Examples
 
