@@ -1,4 +1,4 @@
-import { json as json$1 } from '@sveltejs/kit'
+import { json } from '@sveltejs/kit'
 import Stripe from 'stripe'
 import { SECRET_STRIPE_KEY } from '$env/static/private'
 
@@ -12,7 +12,7 @@ export async function POST({ request }) {
     payment_method_types: ['sepa_debit']
   })
 
-  return json$1({
-  clientSecret: paymentIntent.client_secret
-})
+  return json({
+    clientSecret: paymentIntent.client_secret
+  })
 }
