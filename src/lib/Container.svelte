@@ -1,7 +1,3 @@
-<script context="module">
-  console.warn('svelte-stripe: <Container/> is deprecated, please use <Elements/> instead.')
-</script>
-
 <script>
   import { setContext } from 'svelte'
   import { isServer, register } from './util'
@@ -32,7 +28,9 @@
   export let clientSecret = undefined
 
   /** @type {import('@stripe/stripe-js').StripeElements?} */
-  export let elements = isServer ? null : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret, loader })
+  export let elements = isServer
+    ? null
+    : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret, loader })
 
   register(stripe)
   setContext('stripe', { stripe, elements })
