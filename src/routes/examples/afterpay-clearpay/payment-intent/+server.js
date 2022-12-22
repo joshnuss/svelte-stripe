@@ -1,3 +1,4 @@
+import { json } from '@sveltejs/kit';
 import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
@@ -9,9 +10,7 @@ export async function POST() {
     payment_method_types: ['afterpay_clearpay']
   })
 
-  return {
-    body: {
-      clientSecret: paymentIntent.client_secret
-    }
-  }
+  return json({
+  clientSecret: paymentIntent.client_secret
+})
 }

@@ -12,18 +12,18 @@ export async function GET(req) {
     throw new Error('Client secret mismatch')
 
   if (paymentIntent.status === 'processing') {
-    return {
+    return new Response(undefined, {
       status: 302,
       headers: {
         location: '/examples/sofort/thanks'
       }
-    }
+    })
   }
 
-  return {
+  return new Response(undefined, {
     status: 302,
     headers: {
       location: '/examples/sofort?error=true'
     }
-  }
+  })
 }

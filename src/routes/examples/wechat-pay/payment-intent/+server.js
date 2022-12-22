@@ -1,3 +1,4 @@
+import { json as json$1 } from '@sveltejs/kit';
 import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
@@ -16,9 +17,7 @@ export async function POST({ request }) {
     receipt_email: email
   })
 
-  return {
-    body: {
-      clientSecret: paymentIntent.client_secret
-    }
-  }
+  return json$1({
+  clientSecret: paymentIntent.client_secret
+})
 }

@@ -14,7 +14,7 @@ export async function POST(request) {
   } catch (err) {
     console.warn('⚠️  Webhook signature verification failed.', err.message)
 
-    return { status: 400 }
+    return new Response(undefined, { status: 400 })
   }
 
   if (event.type == 'charge.succeeded') {
@@ -24,5 +24,5 @@ export async function POST(request) {
     console.log(`✅ Charge succeeded ${charge.id}`)
   }
 
-  return {}
+  return new Response(undefined)
 }
