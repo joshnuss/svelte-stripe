@@ -1,3 +1,4 @@
+import { redirect } from '@sveltejs/kit'
 import Stripe from 'stripe'
 import { SECRET_STRIPE_KEY } from '$env/static/private'
 
@@ -13,18 +14,8 @@ export async function GET(req) {
     throw new Error('Client secret mismatch')
 
   if (paymentIntent.status === 'succeeded') {
-    return new Response(undefined, {
-      status: 302,
-      headers: {
-        location: '/examples/alipay/thanks'
-      }
-    })
+    throw redirect(302, '/examples/alipay/thanks')
   }
 
-  return new Response(undefined, {
-    status: 302,
-    headers: {
-      location: '/examples/alipay?error=true'
-    }
-  })
+  throw redirect(302, '/examples/alipay?error=true')
 }
