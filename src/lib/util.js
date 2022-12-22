@@ -7,7 +7,7 @@
  *
  * @returns {import('@stripe/stripe-js').StripeElementBase}
  */
-export function mount(node, type, elements, dispatch, options={}) {
+export function mount(node, type, elements, dispatch, options = {}) {
   const element = elements.create(type, options)
 
   element.mount(node)
@@ -21,7 +21,7 @@ export function mount(node, type, elements, dispatch, options={}) {
   return element
 }
 
-export const isServer = typeof(window) === 'undefined'
+export const isServer = typeof window === 'undefined'
 
 /**
  * @param {import('@stripe/stripe-js').Stripe} stripe
@@ -31,7 +31,7 @@ export function register(stripe) {
   if (!isServer) {
     return stripe.registerAppInfo({
       name: 'svelte-stripe-js',
-      url: 'https://svelte-stripe-js.vercel.app',
+      url: 'https://svelte-stripe-js.vercel.app'
     })
   }
 }

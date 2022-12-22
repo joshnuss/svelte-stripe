@@ -13,11 +13,11 @@ export async function POST() {
       konbini: {
         product_description: 'Tシャツ',
         expires_after_days: 3
-      },
+      }
     }
   })
 
   return json({
-  clientSecret: paymentIntent.client_secret
-})
+    clientSecret: paymentIntent.client_secret
+  })
 }

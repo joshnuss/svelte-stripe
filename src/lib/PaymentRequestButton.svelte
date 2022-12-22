@@ -40,7 +40,7 @@
     if (result) {
       canMakePayment = true
       element.mount(wrapper)
-      paymentRequestObject.on('paymentmethod', e => {
+      paymentRequestObject.on('paymentmethod', (e) => {
         dispatch('paymentmethod', e)
       })
     } else {

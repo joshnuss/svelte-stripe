@@ -12,9 +12,9 @@
   const paymentRequest = {
     country: 'US',
     currency: 'usd',
-    total: {label: 'Demo total', amount: 1099},
+    total: { label: 'Demo total', amount: 1099 },
     requestPayerName: true,
-    requestPayerEmail: true,
+    requestPayerEmail: true
   }
 
   onMount(async () => {
@@ -35,9 +35,7 @@
     // create payment intent server side
     const clientSecret = await createPaymentIntent()
 
-    let result = await stripe.confirmCardPayment(clientSecret,
-      { payment_method: paymentMethod.id }
-    )
+    let result = await stripe.confirmCardPayment(clientSecret, { payment_method: paymentMethod.id })
 
     if (result.error) {
       e.detail.complete('fail')
@@ -55,21 +53,32 @@
 
 <h1>Payment Request Example</h1>
 
-<p>If you see a blank screen, it's because this demo will only work if the TLD is <code>https://localhost</code> or if you're using production keys.</p>
-<p>For ApplePay, the production domain must be <a href="https://support.stripe.com/questions/enable-apple-pay-on-your-stripe-account">submitted to Apple</a>.</p>
+<p>
+  If you see a blank screen, it's because this demo will only work if the TLD is <code
+    >https://localhost</code
+  > or if you're using production keys.
+</p>
+<p>
+  For ApplePay, the production domain must be <a
+    href="https://support.stripe.com/questions/enable-apple-pay-on-your-stripe-account"
+    >submitted to Apple</a
+  >.
+</p>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-request">View code</a>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-request"
+    >View code</a
+  >
 </nav>
 
 {#if error}
-  <p class=error>{error.message} Please try again.</p>
+  <p class="error">{error.message} Please try again.</p>
 {/if}
 
 {#if stripe}
   <Elements {stripe}>
     <div class="wrapper">
-      <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
+      <PaymentRequestButton {paymentRequest} on:paymentmethod={pay} />
     </div>
   </Elements>
 {:else}
@@ -77,7 +86,9 @@
 {/if}
 
 <style>
-  .error { color: tomato }
+  .error {
+    color: tomato;
+  }
   .wrapper {
     margin: 3rem 0;
     width: 300px;

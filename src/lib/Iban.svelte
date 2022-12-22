@@ -12,7 +12,7 @@
   export let supportedCountries = []
 
   /** @type {string} */
-  export let placeholderCountry = ""
+  export let placeholderCountry = ''
 
   /** @type {boolean?} */
   export let hideIcon = false
@@ -35,7 +35,15 @@
   const { elements } = getContext('stripe')
 
   onMount(() => {
-    const options = { classes, style, supportedCountries, placeholderCountry, disabled, hideIcon, iconStyle }
+    const options = {
+      classes,
+      style,
+      supportedCountries,
+      placeholderCountry,
+      disabled,
+      hideIcon,
+      iconStyle
+    }
 
     element = mount(wrapper, 'iban', elements, dispatch, options)
 

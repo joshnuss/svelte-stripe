@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit'
 import Stripe from 'stripe'
 import { SECRET_STRIPE_KEY } from '$env/static/private'
 
@@ -8,10 +8,10 @@ export async function POST() {
   const paymentIntent = await stripe.paymentIntents.create({
     amount: 2000,
     currency: 'usd',
-    payment_method_types: ['card'],
+    payment_method_types: ['card']
   })
 
   return json({
-  clientSecret: paymentIntent.client_secret
-})
+    clientSecret: paymentIntent.client_secret
+  })
 }

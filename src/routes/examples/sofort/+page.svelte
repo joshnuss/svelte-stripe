@@ -24,7 +24,7 @@
       method: 'POST',
       headers: {
         'content-type': 'application/json'
-      },
+      }
     })
     const { clientSecret } = await response.json()
 
@@ -41,22 +41,21 @@
     const clientSecret = await createPaymentIntent()
 
     // confirm payment with stripe
-    const result = await stripe
-      .confirmSofortPayment(clientSecret, {
-        payment_method: {
-          sofort: {
-            country: 'DE'
-          },
-          billing_details: {
-            name,
-            email
-          },
+    const result = await stripe.confirmSofortPayment(clientSecret, {
+      payment_method: {
+        sofort: {
+          country: 'DE'
         },
-        return_url: `${window.location.origin}/examples/sofort/return`
-      })
+        billing_details: {
+          name,
+          email
+        }
+      },
+      return_url: `${window.location.origin}/examples/sofort/return`
+    })
 
     // log results, for debugging
-    console.log({result})
+    console.log({ result })
 
     if (result.error) {
       // payment failed, notify user
@@ -69,17 +68,33 @@
 <h1>Sofort Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/sofort">View code</a>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/sofort"
+    >View code</a
+  >
 </nav>
 
 {#if error}
-  <p class=error>Payment failed. Please try again.</p>
+  <p class="error">Payment failed. Please try again.</p>
 {/if}
 
 {#if stripe}
   <form on:submit|preventDefault={submit}>
-    <input name="name" bind:value={name} placeholder="Name" type='text' required disabled={processing}/>
-    <input name="email" bind:value={email} placeholder="E-mail" type='email' required disabled={processing}/>
+    <input
+      name="name"
+      bind:value={name}
+      placeholder="Name"
+      type="text"
+      required
+      disabled={processing}
+    />
+    <input
+      name="email"
+      bind:value={email}
+      placeholder="E-mail"
+      type="email"
+      required
+      disabled={processing}
+    />
 
     <button disabled={processing}>
       {#if processing}
@@ -106,7 +121,8 @@
     margin: 2rem 0;
   }
 
-  input, :global(.input) {
+  input,
+  :global(.input) {
     border: solid 1px var(--gray-color);
     padding: 1rem;
     border-radius: 5px;

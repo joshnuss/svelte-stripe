@@ -6,7 +6,7 @@ const stripe = new Stripe(SECRET_STRIPE_KEY)
 export async function POST(request) {
   const rawBody = Buffer.from(request.rawBody)
   const signature = request.headers['stripe-signature']
-  
+
   let event
 
   try {

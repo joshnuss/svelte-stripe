@@ -38,14 +38,13 @@
     processing = true
 
     // confirm payment with stripe
-    const result = await stripe
-      .confirmPayment({
-        elements,
-        redirect: 'if_required'
-      })
+    const result = await stripe.confirmPayment({
+      elements,
+      redirect: 'if_required'
+    })
 
     // log results, for debugging
-    console.log({result})
+    console.log({ result })
 
     if (result.error) {
       // payment failed, notify user
@@ -61,11 +60,13 @@
 <h1>Payment Element Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element">View code</a>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element"
+    >View code</a
+  >
 </nav>
 
 {#if error}
-  <p class=error>{error.message} Please try again.</p>
+  <p class="error">{error.message} Please try again.</p>
 {/if}
 
 {#if stripe && clientSecret}
@@ -74,13 +75,14 @@
     {clientSecret}
     theme="flat"
     labels="floating"
-    variables={{colorPrimary: '#7c4dff'}}
-    rules={{'.Input': { border: 'solid 1px #0002' }}}
-    bind:elements>
+    variables={{ colorPrimary: '#7c4dff' }}
+    rules={{ '.Input': { border: 'solid 1px #0002' } }}
+    bind:elements
+  >
     <form on:submit|preventDefault={submit}>
-      <LinkAuthenticationElement/>
-      <PaymentElement/>
-      <Address mode="billing"/>
+      <LinkAuthenticationElement />
+      <PaymentElement />
+      <Address mode="billing" />
 
       <button disabled={processing}>
         {#if processing}

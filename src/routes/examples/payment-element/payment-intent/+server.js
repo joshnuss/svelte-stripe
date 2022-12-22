@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit'
 import Stripe from 'stripe'
 import { SECRET_STRIPE_KEY } from '$env/static/private'
 
@@ -9,11 +9,11 @@ export async function POST() {
     amount: 2000,
     currency: 'usd',
     automatic_payment_methods: {
-      enabled: true,
+      enabled: true
     }
   })
 
   return json({
-  clientSecret: paymentIntent.client_secret
-})
+    clientSecret: paymentIntent.client_secret
+  })
 }

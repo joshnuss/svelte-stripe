@@ -32,18 +32,17 @@
     const clientSecret = await createPaymentIntent()
 
     // confirm payment with stripe
-    const result = await stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name
-          }
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+        billing_details: {
+          name
         }
-      })
+      }
+    })
 
     // log results, for debugging
-    console.log({result})
+    console.log({ result })
 
     if (result.error) {
       // payment failed, notify user
@@ -59,22 +58,24 @@
 <h1>Credit Card Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/credit-card">View code</a>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/credit-card"
+    >View code</a
+  >
 </nav>
 
 {#if error}
-  <p class=error>{error.message} Please try again.</p>
+  <p class="error">{error.message} Please try again.</p>
 {/if}
 
 {#if stripe}
   <Elements {stripe}>
     <form on:submit|preventDefault={submit}>
-      <input name="name" bind:value={name} placeholder="Your name" disabled={processing}/>
-      <CardNumber bind:element={cardElement} classes={{base: 'input'}}/>
+      <input name="name" bind:value={name} placeholder="Your name" disabled={processing} />
+      <CardNumber bind:element={cardElement} classes={{ base: 'input' }} />
 
       <div class="row">
-        <CardExpiry classes={{base: 'input'}}/>
-        <CardCvc classes={{base: 'input'}}/>
+        <CardExpiry classes={{ base: 'input' }} />
+        <CardCvc classes={{ base: 'input' }} />
       </div>
 
       <button disabled={processing}>
@@ -109,7 +110,8 @@
     gap: 5px;
   }
 
-  input, :global(.input) {
+  input,
+  :global(.input) {
     border: solid 1px var(--gray-color);
     padding: 1rem;
     border-radius: 5px;

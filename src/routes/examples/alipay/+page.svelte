@@ -41,13 +41,12 @@
     const clientSecret = await createPaymentIntent()
 
     // confirm payment with stripe
-    const result = await stripe
-      .confirmAlipayPayment(clientSecret, {
-        return_url: `${window.location.origin}/examples/alipay/return`
-      })
+    const result = await stripe.confirmAlipayPayment(clientSecret, {
+      return_url: `${window.location.origin}/examples/alipay/return`
+    })
 
     // log results, for debugging
-    console.log({result})
+    console.log({ result })
 
     if (result.error) {
       // payment failed, notify user
@@ -63,16 +62,24 @@
 <h1>Alipay Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/alipay">View code</a>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/alipay"
+    >View code</a
+  >
 </nav>
 
 {#if error}
-  <p class=error>Payment failed. Please try again.</p>
+  <p class="error">Payment failed. Please try again.</p>
 {/if}
 
 {#if stripe}
   <form on:submit|preventDefault={submit}>
-    <input name="email" bind:value={email} placeholder="E-mail" type='email' disabled={processing}/>
+    <input
+      name="email"
+      bind:value={email}
+      placeholder="E-mail"
+      type="email"
+      disabled={processing}
+    />
 
     <button disabled={processing}>
       {#if processing}
@@ -99,7 +106,8 @@
     margin: 2rem 0;
   }
 
-  input, :global(.input) {
+  input,
+  :global(.input) {
     border: solid 1px var(--gray-color);
     padding: 1rem;
     border-radius: 5px;

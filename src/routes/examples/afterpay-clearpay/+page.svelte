@@ -41,7 +41,7 @@
       method: 'POST',
       headers: {
         'content-type': 'application/json'
-      },
+      }
     })
     const { clientSecret } = await response.json()
 
@@ -58,24 +58,23 @@
     const clientSecret = await createPaymentIntent()
 
     // confirm payment with stripe
-    const result = await stripe
-      .confirmAfterpayClearpayPayment(clientSecret, {
-        payment_method: {
-          billing_details: {
-            name,
-            email,
-            address: billingAddress
-          }
-        },
-        shipping: {
+    const result = await stripe.confirmAfterpayClearpayPayment(clientSecret, {
+      payment_method: {
+        billing_details: {
           name,
-          address: shippingAddress,
-        },
-        return_url: `${window.location.origin}/examples/afterpay-clearpay/return`
-      })
+          email,
+          address: billingAddress
+        }
+      },
+      shipping: {
+        name,
+        address: shippingAddress
+      },
+      return_url: `${window.location.origin}/examples/afterpay-clearpay/return`
+    })
 
     // log results, for debugging
-    console.log({result})
+    console.log({ result })
 
     if (result.error) {
       // payment failed, notify user
@@ -88,27 +87,26 @@
 <h1>Afterpay/Clearpay Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/afterpay-clearpay">View code</a>
+  <a
+    href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/afterpay-clearpay"
+    >View code</a
+  >
 </nav>
 
 {#if error}
-  <p class=error>Payment failed. Please try again.</p>
+  <p class="error">Payment failed. Please try again.</p>
 {/if}
 
 {#if stripe}
   <form on:submit|preventDefault={submit}>
     <Address legend="Billing" bind:address={billingAddress}>
-      <label for="name">
-        Name
-      </label>
+      <label for="name"> Name </label>
       <input id="name" bind:value={name} required />
-      <label for="email">
-        Email
-      </label>
+      <label for="email"> Email </label>
       <input type="email" id="email" bind:value={email} required />
     </Address>
 
-    <Address legend="Shipping" bind:address={shippingAddress}/>
+    <Address legend="Shipping" bind:address={shippingAddress} />
 
     <button disabled={processing}>
       {#if processing}
@@ -135,7 +133,9 @@
     margin: 2rem 0;
   }
 
-  form :global(input), :global(.input), form :global(select) {
+  form :global(input),
+  :global(.input),
+  form :global(select) {
     border: solid 1px var(--gray-color);
     padding: 1rem;
     border-radius: 5px;

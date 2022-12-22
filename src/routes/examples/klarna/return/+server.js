@@ -10,8 +10,7 @@ export async function GET(req) {
   const clientSecret = searchParams.get('payment_intent_client_secret')
   const paymentIntent = await stripe.paymentIntents.retrieve(intentId)
 
-  if (paymentIntent.client_secret !== clientSecret)
-    throw new Error('Client secret mismatch')
+  if (paymentIntent.client_secret !== clientSecret) throw new Error('Client secret mismatch')
 
   if (paymentIntent.status === 'succeeded') {
     throw redirect(302, '/examples/klarna/thanks')

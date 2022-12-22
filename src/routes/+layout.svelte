@@ -4,7 +4,7 @@
   import GithubBadge from './_githubBadge.svelte'
 </script>
 
-<GithubBadge/>
+<GithubBadge />
 
 <div id="container">
   <aside class="toc">
@@ -66,6 +66,6 @@
   </aside>
 
   <main>
-    <slot/>
+    <slot />
   </main>
 </div>

@@ -22,7 +22,7 @@
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({amount: 2000})
+      body: JSON.stringify({ amount: 2000 })
     })
     const { clientSecret } = await response.json()
 
@@ -39,19 +39,18 @@
     const clientSecret = await createPaymentIntent()
 
     // confirm payment with stripe
-    const result = await stripe
-      .confirmSepaDebitPayment(clientSecret, {
-        payment_method: {
-          sepa_debit: ibanElement,
-          billing_details: {
-            name,
-            email
-          }
+    const result = await stripe.confirmSepaDebitPayment(clientSecret, {
+      payment_method: {
+        sepa_debit: ibanElement,
+        billing_details: {
+          name,
+          email
         }
-      })
+      }
+    })
 
     // log results, for debugging
-    console.log({result})
+    console.log({ result })
 
     if (result.error) {
       // payment failed, notify user
@@ -67,19 +66,27 @@
 <h1>SEPA Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/sepa">View code</a>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/sepa"
+    >View code</a
+  >
 </nav>
 
 {#if error}
-  <p class=error>{error.message} Please try again.</p>
+  <p class="error">{error.message} Please try again.</p>
 {/if}
 
 {#if stripe}
   <Elements {stripe}>
     <form on:submit|preventDefault={submit}>
-      <input name="name" bind:value={name} placeholder="Name" disabled={processing}/>
-      <input name="email" bind:value={email} placeholder="E-mail" type='email' disabled={processing}/>
-      <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{base: 'input'}}/>
+      <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
+      <input
+        name="email"
+        bind:value={email}
+        placeholder="E-mail"
+        type="email"
+        disabled={processing}
+      />
+      <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{ base: 'input' }} />
 
       <button disabled={processing}>
         {#if processing}
@@ -107,7 +114,8 @@
     margin: 2rem 0;
   }
 
-  input, :global(.input) {
+  input,
+  :global(.input) {
     border: solid 1px var(--gray-color);
     padding: 1rem;
     border-radius: 5px;

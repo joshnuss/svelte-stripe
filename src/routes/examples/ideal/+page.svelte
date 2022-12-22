@@ -27,7 +27,7 @@
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({amount: 2000})
+      body: JSON.stringify({ amount: 2000 })
     })
     const { clientSecret } = await response.json()
 
@@ -44,20 +44,19 @@
     const clientSecret = await createPaymentIntent()
 
     // confirm payment with stripe
-    const result = await stripe
-      .confirmIdealPayment(clientSecret, {
-        payment_method: {
-          ideal: idealElement,
-          billing_details: {
-            name,
-            email
-          }
-        },
-        return_url: `${window.location.origin}/examples/ideal/return`
-      })
+    const result = await stripe.confirmIdealPayment(clientSecret, {
+      payment_method: {
+        ideal: idealElement,
+        billing_details: {
+          name,
+          email
+        }
+      },
+      return_url: `${window.location.origin}/examples/ideal/return`
+    })
 
     // log results, for debugging
-    console.log({result})
+    console.log({ result })
 
     if (result.error) {
       // payment failed, notify user
@@ -73,19 +72,27 @@
 <h1>iDEAL Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/ideal">View code</a>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/ideal"
+    >View code</a
+  >
 </nav>
 
 {#if error}
-  <p class=error>Payment failed. Please try again.</p>
+  <p class="error">Payment failed. Please try again.</p>
 {/if}
 
 {#if stripe}
   <Elements {stripe}>
     <form on:submit|preventDefault={submit}>
-      <input name="name" bind:value={name} placeholder="Name" disabled={processing}/>
-      <input name="email" bind:value={email} placeholder="E-mail" type='email' disabled={processing}/>
-      <Ideal bind:element={idealElement} classes={{base: 'input'}}/>
+      <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
+      <input
+        name="email"
+        bind:value={email}
+        placeholder="E-mail"
+        type="email"
+        disabled={processing}
+      />
+      <Ideal bind:element={idealElement} classes={{ base: 'input' }} />
 
       <button disabled={processing}>
         {#if processing}
@@ -113,7 +120,8 @@
     margin: 2rem 0;
   }
 
-  input, :global(.input) {
+  input,
+  :global(.input) {
     border: solid 1px var(--gray-color);
     padding: 1rem;
     border-radius: 5px;

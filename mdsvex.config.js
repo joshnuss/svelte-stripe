@@ -9,10 +9,7 @@ const config = {
   },
 
   remarkPlugins: [],
-  rehypePlugins: [
-    rehypeSlug,
-    rehypeAutolinkHeadings
-  ]
+  rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings]
 }
 
 export default config

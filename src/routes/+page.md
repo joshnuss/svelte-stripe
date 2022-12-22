@@ -1,4 +1,5 @@
 <svelte:head>
+
   <title>svelte-stripe</title>
   <meta name="keywords" content="svelte,stripe,credit,debit,card,payment,applepay,googlepay,sepa,ideal">
   <meta name="description" content="Everything you need to access Stripe payments with Svelte">
@@ -41,7 +42,7 @@ In your payment page, initialize Stripe and add a `<Elements>` component:
 ```html
 <script>
   import { loadStripe } from '@stripe/stripe-js'
-  import { Elements } from  'svelte-stripe'
+  import { Elements } from 'svelte-stripe'
   import { onMount } from 'svelte'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
 
@@ -53,9 +54,9 @@ In your payment page, initialize Stripe and add a `<Elements>` component:
 </script>
 
 {#if stripe}
-  <Elements {stripe}>
-    <!-- this is where your Stripe components go -->
-  </Elements>
+<Elements {stripe}>
+  <!-- this is where your Stripe components go -->
+</Elements>
 {/if}
 ```
 
@@ -81,7 +82,7 @@ export async function POST() {
     currency: 'usd',
     // specify what payment methods are allowed
     // can be card, sepa_debit, ideal, etc...
-    payment_method_types: ['card'],
+    payment_method_types: ['card']
   })
 
   // return the clientSecret to the client
@@ -104,9 +105,9 @@ An all-in-one component that supports credit cards, SEPA, GooglePay and ApplePay
 To use it, drop a `<PaymentElement>` component in your form:
 
 ```html
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault="{submit}">
   <Elements {stripe} {clientSecret} bind:elements>
-    <PaymentElement/>
+    <PaymentElement />
   </Elements>
 
   <button>Pay</button>
@@ -120,7 +121,7 @@ const paymentIntent = await stripe.paymentIntents.create({
   amount: 2000,
   currency: 'eur',
   automatic_payment_methods: {
-    enabled: true,
+    enabled: true
   }
 })
 ```
@@ -128,12 +129,11 @@ const paymentIntent = await stripe.paymentIntents.create({
 Once the form is submitted, call [`stripe.confirmPayment()`](https://stripe.com/docs/js/payment_intents/confirm_payment)
 
 ```javascript
-const result = await stripe
-  .confirmPayment({
-    elements,
-    // specify redirect: 'if_required' or a `return_url`
-    redirect: 'if_required'
-  })
+const result = await stripe.confirmPayment({
+  elements,
+  // specify redirect: 'if_required' or a `return_url`
+  redirect: 'if_required'
+})
 ```
 
 [code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-element)
@@ -148,10 +148,10 @@ Once they enter their e-mail they receive an SMS code to verify their identity.
 It works in conjuction with `<PaymentElement>`:
 
 ```html
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault="{submit}">
   <Elements {stripe} {clientSecret} bind:elements>
-    <LinkAuthenticationElement/>
-    <PaymentElement/>
+    <LinkAuthenticationElement />
+    <PaymentElement />
   </Elements>
 
   <button>Pay</button>
@@ -167,8 +167,8 @@ These use the `<CardNumber>`, `<CardExpiry>` and `<CardCvc>` components:
 
 ```html
 <Elements {stripe}>
-  <form on:submit|preventDefault={submit}>
-    <CardNumber bind:element={cardElement}/>
+  <form on:submit|preventDefault="{submit}">
+    <CardNumber bind:element="{cardElement}" />
     <CardExpiry />
     <CardCvc />
 
@@ -200,7 +200,7 @@ To display a GooglePay or ApplePay button, use the `<PaymentRequestButton/>`.
 
 ```html
 <Elements {stripe}>
-  <PaymentRequestButton {paymentRequest} on:paymentmethod={pay}/>
+  <PaymentRequestButton {paymentRequest} on:paymentmethod="{pay}" />
 </Elements>
 ```
 
@@ -211,9 +211,9 @@ It requires that you pass metadata using the `paymentRequest` prop:
 const paymentRequest = {
   country: 'US',
   currency: 'usd',
-  total: {label: 'Demo total', amount: 1099},
+  total: { label: 'Demo total', amount: 1099 },
   requestPayerName: true,
-  requestPayerEmail: true,
+  requestPayerEmail: true
 }
 ```
 
@@ -252,8 +252,8 @@ To process SEPA debits, use the `<Iban>` component:
 
 ```html
 <Elements {stripe}>
-  <form on:submit|preventDefault={submit}>
-    <input name="name" bind:value={name} placeholder="Name"/>
+  <form on:submit|preventDefault="{submit}">
+    <input name="name" bind:value="{name}" placeholder="Name" />
 
     <!-- customize the list of countries, or use "SEPA" to allow all supported countries -->
     <Iban supportedCountries={['SEPA']} bind:element={ibanElement}/>
@@ -266,16 +266,15 @@ To process SEPA debits, use the `<Iban>` component:
 To process the payment use [`stripe.confirmSepaDebitPayment()`](https://stripe.com/docs/js/payment_intents/confirm_sepa_debit_payment):
 
 ```javascript
-const result = await stripe
-  .confirmSepaDebitPayment(clientSecret, {
-    payment_method: {
-      sepa_debit: ibanElement,
-      billing_details: {
-        name,
-        email
-      }
+const result = await stripe.confirmSepaDebitPayment(clientSecret, {
+  payment_method: {
+    sepa_debit: ibanElement,
+    billing_details: {
+      name,
+      email
     }
-  })
+  }
+})
 ```
 
 [code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/sepa)
@@ -287,10 +286,10 @@ To accept iDEAL payments, use the `<Ideal>` component:
 
 ```html
 <Elements {stripe}>
-  <form on:submit|preventDefault={submit}>
-    <input name="name" bind:value={name} placeholder="Name"/>
-    <input name="email" bind:value={email} placeholder="E-mail" type='email'/>
-    <Ideal bind:element={idealElement}/>
+  <form on:submit|preventDefault="{submit}">
+    <input name="name" bind:value="{name}" placeholder="Name" />
+    <input name="email" bind:value="{email}" placeholder="E-mail" type="email" />
+    <Ideal bind:element="{idealElement}" />
 
     <button>Pay</button>
   </form>
@@ -300,17 +299,16 @@ To accept iDEAL payments, use the `<Ideal>` component:
 To complete the payment call [`stripe.confirmIdealPayment()`](https://stripe.com/docs/js/payment_intents/confirm_ideal_payment), and make sure the pass a `return_url`:
 
 ```javascript
-const result = await stripe
-  .confirmIdealPayment(clientSecret, {
-    payment_method: {
-      ideal: idealElement,
-      billing_details: {
-        name,
-        email
-      }
-    },
-    return_url: `${window.location.origin}/return`
-  })
+const result = await stripe.confirmIdealPayment(clientSecret, {
+  payment_method: {
+    ideal: idealElement,
+    billing_details: {
+      name,
+      email
+    }
+  },
+  return_url: `${window.location.origin}/return`
+})
 ```
 
 [code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/ideal)
