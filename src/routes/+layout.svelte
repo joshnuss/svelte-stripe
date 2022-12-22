@@ -1,7 +1,7 @@
 <script>
   import '../prism-theme.css'
   import '../app.css'
-  import GithubBadge from './_githubBadge.svelte'
+  import GithubBadge from './GithubBadge.svelte'
 </script>
 
 <GithubBadge />
