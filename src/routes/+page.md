@@ -32,8 +32,8 @@ pnpm install -D stripe svelte-stripe
 Add your private and public keys to your environment:
 
 ```bash
-VITE_STRIPE_PUBLIC_KEY=pk_test_...
-STRIPE_SECRET_KEY=sk_test_...
+PUBLIC_STRIPE_KEY=pk_test_...
+SECRET_STRIPE_KEY=sk_test_...
 ```
 
 In your payment page, initialize Stripe and add a `<Elements>` component:
@@ -42,12 +42,13 @@ In your payment page, initialize Stripe and add a `<Elements>` component:
 <script>
   import { loadStripe } from '@stripe/stripe-js'
   import { Elements } from  'svelte-stripe'
-  import { onMount } from 'svelte';
+  import { onMount } from 'svelte'
+  import { PUBLIC_STRIPE_KEY } from '$env/static/public'
 
   let stripe = null
 
   onMount(async () => {
-    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+    stripe = await loadStripe(PUBLIC_STRIPE_KEY)
   })
 </script>
 
@@ -66,9 +67,10 @@ Let's add an endpoint `src/routes/create-payment-intent.js` to create the "payme
 
 ```javascript
 import Stripe from 'stripe'
+import { SECRET_STRIPE_KEY } from '$env/static/private'
 
 // initialize Stripe
-const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
+const stripe = new Stripe(SECRET_STRIPE_KEY)
 
 // handle POST /create-payment-intent
 export async function POST() {
@@ -325,13 +327,10 @@ Here's an example of handling a `charge.succeeded` webhook with SvelteKit:
 ```javascript
 // in src/routes/stripe/webhooks.js
 import Stripe from 'stripe'
+import { SECRET_STRIPE_KEY, STRIPE_WEBHOOK_SECRET } from '$env/static/private'
 
 // init api client
-const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'])
-
-// get webhook secret
-// find yours at https://dashboard.stripe.com/webhooks
-const endpointSecret = process.env['STRIPE_WEBHOOK_SECRET']
+const stripe = new Stripe(SECRET_STRIPE_KEY)
 
 // endpoint to handle incoming webhooks
 export async function POST({ request }) {
@@ -346,7 +345,7 @@ export async function POST({ request }) {
 
   // verify it
   try {
-    event = stripe.webhooks.constructEvent(body, signature, endpointSecret)
+    event = stripe.webhooks.constructEvent(body, signature, STRIPE_WEBHOOK_SECRET)
   } catch (err) {
     // signature is invalid!
     console.warn('⚠️  Webhook signature verification failed.', err.message)

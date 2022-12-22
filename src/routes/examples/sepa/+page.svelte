@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
+  import { PUBLIC_STRIPE_KEY } from '$env/static/public'
   import { Elements, Iban } from '$lib'
 
   let stripe = null
@@ -12,7 +13,7 @@
   let email
 
   onMount(async () => {
-    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+    stripe = await loadStripe(PUBLIC_STRIPE_KEY)
   })
 
   async function createPaymentIntent() {

@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
+  import { PUBLIC_STRIPE_KEY } from '$env/static/public'
 
   let stripe = null
   let error = null
@@ -10,7 +11,7 @@
   let name
 
   onMount(async () => {
-    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+    stripe = await loadStripe(PUBLIC_STRIPE_KEY)
 
     // check if ?error=true query string is set
     const searchParams = new URLSearchParams(window.location.search)

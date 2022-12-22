@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
+  import { PUBLIC_STRIPE_KEY_JP } from '$env/static/public'
 
   let stripe = null
   let error = null
@@ -11,7 +12,7 @@
   let phone
 
   onMount(async () => {
-    stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY_JP)
+    stripe = await loadStripe(PUBLIC_STRIPE_KEY_JP)
   })
 
   async function createPaymentIntent() {
