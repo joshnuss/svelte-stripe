@@ -2,7 +2,8 @@
 
 ## 0.0.21
 
-- Bump `stripe-js` dep to `1.46`
+- Bumped `stripe-js` dep to `1.46`
+- Migrated to SvelteKit `1.0`
 
 ## 0.0.20
 
