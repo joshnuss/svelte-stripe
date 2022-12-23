@@ -1,6 +1,6 @@
 # [svelte-stripe](https://sveltestripe.com)
 
-Everything you need to add Stripe Elements to your Svelte project. 100% [svelte-kit](https://kit.svelte.dev/) compatible.
+Everything you need to add Stripe Elements to your Svelte project. 100% [SvelteKit](https://kit.svelte.dev/) compatible.
 
 > Stripe is now [sponsoring this project](#sponsors)
 
