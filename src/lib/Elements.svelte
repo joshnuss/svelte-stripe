@@ -24,13 +24,16 @@
   /** @type {StripeElementsOptions["loader"]} */
   export let loader = 'auto'
 
+  /** @type {StripeElementsOptions["fonts"]} */
+  export let fonts = []
+
   /** @type {string?} */
   export let clientSecret = undefined
 
   /** @type {import('@stripe/stripe-js').StripeElements?} */
   export let elements = isServer
     ? null
-    : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret, loader })
+    : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret, fonts, loader })
 
   register(stripe)
   setContext('stripe', { stripe, elements })
