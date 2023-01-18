@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.22
+
+- Added `font` option to `<Elements/>`
+- Allow changing appearance of `<Elements/>`
+
 ## 0.0.21
 
 - Bumped `stripe-js` dep to `1.46`
