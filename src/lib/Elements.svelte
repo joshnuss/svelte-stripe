@@ -30,13 +30,21 @@
   /** @type {string?} */
   export let clientSecret = undefined
 
+  $: appearance = {
+    theme, variables, rules, labels
+  }
+
   /** @type {import('@stripe/stripe-js').StripeElements?} */
   export let elements = isServer
     ? null
-    : stripe.elements({ appearance: { theme, variables, rules, labels }, clientSecret, fonts, loader })
+    : stripe.elements({ appearance, clientSecret, fonts, loader })
 
   register(stripe)
   setContext('stripe', { stripe, elements })
+
+  $: if (elements) {
+    elements.update({ appearance })
+  }
 </script>
 
 <slot />
