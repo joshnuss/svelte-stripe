@@ -4,6 +4,7 @@
 
 - Added `font` option to `<Elements/>`
 - Allow changing appearance of `<Elements/>`
+- Add support for re-mounting components
 
 ## 0.0.21
 
