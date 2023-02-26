@@ -4,7 +4,8 @@
 
 - Added `font` option to `<Elements/>`
 - Allow changing appearance of `<Elements/>`
-- Add support for re-mounting components
+- Added support for re-mounting components
+- Added `locale` option to `<Elements/>`
 
 ## 0.0.21
 
