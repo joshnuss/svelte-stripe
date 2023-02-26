@@ -47,7 +47,7 @@
 
     element = mount(wrapper, 'iban', elements, dispatch, options)
 
-    return () => element.unmount()
+    return () => element.destroy()
   })
 
   export function blur() {

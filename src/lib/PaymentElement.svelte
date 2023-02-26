@@ -16,7 +16,7 @@
   onMount(() => {
     element = mount(wrapper, 'payment', elements, dispatch)
 
-    return () => element.unmount()
+    return () => element.destroy()
   })
 
   export function blur() {

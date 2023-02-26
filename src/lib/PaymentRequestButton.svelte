@@ -48,7 +48,7 @@
       wrapper.style.display = 'none'
     }
 
-    return () => element.unmount()
+    return () => element.destroy()
   })
 </script>
 
