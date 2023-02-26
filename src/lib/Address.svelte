@@ -56,7 +56,7 @@
     }
     element = mount(wrapper, 'address', elements, dispatch, options)
 
-    return () => element.unmount()
+    return () => element.destroy()
   })
 
   export function blur() {

@@ -20,7 +20,7 @@
     const options = defaultValues ? { defaultValues } : {}
     element = mount(wrapper, 'linkAuthentication', elements, dispatch, options)
 
-    return () => element.unmount()
+    return () => element.destroy()
   })
 
   export function blur() {

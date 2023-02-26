@@ -36,7 +36,7 @@
 
     element = mount(wrapper, 'cardNumber', elements, dispatch, options)
 
-    return () => element.unmount()
+    return () => element.destroy()
   })
 
   export function blur() {
