@@ -325,10 +325,11 @@ Here's an example of handling a `charge.succeeded` webhook with SvelteKit:
 ```javascript
 // in src/routes/stripe/webhooks.js
 import Stripe from 'stripe'
-import { SECRET_STRIPE_KEY, STRIPE_WEBHOOK_SECRET } from '$env/static/private'
+import { error, json } from '@sveltejs/kit'
+import { env } from '$env/dynamic/private'
 
 // init api client
-const stripe = new Stripe(SECRET_STRIPE_KEY)
+const stripe = new Stripe(env.SECRET_STRIPE_KEY)
 
 // endpoint to handle incoming webhooks
 export async function POST({ request }) {
@@ -343,13 +344,13 @@ export async function POST({ request }) {
 
   // verify it
   try {
-    event = stripe.webhooks.constructEvent(body, signature, STRIPE_WEBHOOK_SECRET)
+    event = stripe.webhooks.constructEvent(body, signature, env.STRIPE_WEBHOOK_SECRET)
   } catch (err) {
     // signature is invalid!
     console.warn('⚠️  Webhook signature verification failed.', err.message)
 
     // return, because it's a bad request
-    return { status: 400 }
+    return error(400, 'Invalid request')
   }
 
   // signature has been verified, so we can process events
@@ -362,8 +363,8 @@ export async function POST({ request }) {
     console.log(`✅ Charge succeeded ${charge.id}`)
   }
 
-  // return status 200
-  return {}
+  // return a 200 with an empty JSON response
+  return json()
 }
 ```
 
