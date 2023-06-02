@@ -59,10 +59,10 @@ See [documentation](https://sveltestripe.com) for setup instructions and example
 
 ## Development mode
 
-Run `pnpm dev` with environment loaded, and visit `https://localhost:3000`:
+Run `pnpm dev` and visit `https://localhost:5173`:
 
 ```bash
-npx dotenv -c development pnpm dev
+pnpm dev
 ```
 
 ## License

@@ -64,7 +64,7 @@ In your payment page, initialize Stripe and add a `<Elements>` component:
 
 Before making a charge, Stripe should be notified by creating a [payment intent](https://stripe.com/docs/api/payment_intents). It's a way to tell Stripe what amount to capture and to attach any relavent metadata, for example, the products they are buying. This must happen server-side to avoid anyone tampering with the amount.
 
-Let's add an endpoint `src/routes/create-payment-intent.js` to create the "payment intent":
+Let's add an endpoint `src/routes/create-payment-intent/+server.js` to create the "payment intent":
 
 ```javascript
 import Stripe from 'stripe'
@@ -323,7 +323,7 @@ The webhook payload contains a signature that should be verified to ensure the d
 Here's an example of handling a `charge.succeeded` webhook with SvelteKit:
 
 ```javascript
-// in src/routes/stripe/webhooks.js
+// in src/routes/stripe/webhooks/+server.js
 import Stripe from 'stripe'
 import { error, json } from '@sveltejs/kit'
 import { env } from '$env/dynamic/private'
@@ -373,7 +373,7 @@ export async function POST({ request }) {
 In development mode, webhooks can be routed to your dev machine using [Stripe's CLI](https://stripe.com/docs/stripe-cli). Example:
 
 ```bash
-stripe listen --forward-to localhost:3000/stripe/webhooks
+stripe listen --forward-to localhost:5173/stripe/webhooks
 ```
 
 For more information on webhooks, see [Stripe's Webhook Docs](https://stripe.com/docs/webhooks).
