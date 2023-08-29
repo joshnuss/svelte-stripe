@@ -38,22 +38,6 @@
 
     return () => element.destroy()
   })
-
-  export function blur() {
-    element.blur()
-  }
-
-  export function clear() {
-    element.clear()
-  }
-
-  export function destroy() {
-    element.destroy()
-  }
-
-  export function focus() {
-    element.focus()
-  }
 </script>
 
 <div bind:this={wrapper} />
