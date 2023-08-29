@@ -40,6 +40,7 @@ There is example code for:
 - [Klarna](src/routes/examples/klarna)
 - [Sofort](src/routes/examples/sofort)
 - [Afterpay/Clearpay](src/routes/examples/afterpay-clearpay)
+- [PaymentMethodMessaging](src/routes/examples/payment-method-messaging)
 
 Please open a PR or issue, if you'd like to add more.
 
