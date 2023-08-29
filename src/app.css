@@ -29,6 +29,7 @@ h4 {
 
 h1 {
   font-size: 3rem;
+  line-height: 3rem;
   letter-spacing: -0.5px;
   color: var(--link-color);
   margin: 2rem 0 4rem 0;
