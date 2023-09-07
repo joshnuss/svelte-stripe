@@ -2,6 +2,8 @@
   import { onMount, getContext, createEventDispatcher } from 'svelte'
   import { mount } from './util'
 
+  export let options = {}
+
   /** @type {import('@stripe/stripe-js').StripeElementBase} */
   let element
 
@@ -14,7 +16,7 @@
   const { elements } = getContext('stripe')
 
   onMount(() => {
-    element = mount(wrapper, 'payment', elements, dispatch)
+    element = mount(wrapper, 'payment', elements, dispatch, options)
 
     return () => element.destroy()
   })
