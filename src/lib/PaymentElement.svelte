@@ -15,13 +15,10 @@
   /** @type {import("./types").ElementsContext} */
   const { elements } = getContext('stripe')
 
-  /** @type {StripePaymentElementOptions["defaultValues"]} */
-  export let defaultValues
+  /** @type {StripePaymentElementOptions?} */
+  export let options
 
   onMount(() => {
-    const options = {
-      defaultValues
-    }
     element = mount(wrapper, 'payment', elements, dispatch, options)
 
     return () => element.destroy()
