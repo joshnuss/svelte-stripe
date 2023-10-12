@@ -2,6 +2,8 @@
   import { onMount, getContext, createEventDispatcher } from 'svelte'
   import { mount } from './util'
 
+  /** @typedef {import('@stripe/stripe-js').StripePaymentElementOptions} StripePaymentElementOptions */
+
   /** @type {import('@stripe/stripe-js').StripeElementBase} */
   let element
 
@@ -13,8 +15,14 @@
   /** @type {import("./types").ElementsContext} */
   const { elements } = getContext('stripe')
 
+  /** @type {StripePaymentElementOptions["defaultValues"]} */
+  export let defaultValues
+
   onMount(() => {
-    element = mount(wrapper, 'payment', elements, dispatch)
+    const options = {
+      defaultValues
+    }
+    element = mount(wrapper, 'payment', elements, dispatch, options)
 
     return () => element.destroy()
   })
