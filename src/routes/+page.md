@@ -107,33 +107,11 @@ To use it, drop a `<PaymentElement>` component in your form:
 ```html
 <form on:submit|preventDefault="{submit}">
   <Elements {stripe} {clientSecret} bind:elements>
-    <PaymentElement />
+    <PaymentElement options={...} />
   </Elements>
 
   <button>Pay</button>
 </form>
-```
-
-When you want to set default values as per the [Stripe Payment Element Options `defaultValues` object](https://stripe.com/docs/js/elements_object/create_payment_element#payment_element_create-options) you do so by the following:
-
-```Javascript
-const options = {
-  defaultValues: {
-    billingDetails: {
-      email: 'johnd@domain.com',
-      name: 'John Doe',
-      phone: '888-888-8888',
-      address: {
-        postal_code: '10001',
-        country: 'US',
-      }
-    },
-  }
-}
-```
-
-```html
-<PaymentElement options={options}  />
 ```
 
 Then when creating the payment intent, enable the `automatic_payment_methods:` option:
