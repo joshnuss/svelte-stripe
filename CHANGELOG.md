@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.23
+
+- Added `options` to `<PaymentElement/>`
+- Added `<PaymentMethodMessaging/>` component
+
 ## 0.0.22
 
 - Added `font` option to `<Elements/>`
