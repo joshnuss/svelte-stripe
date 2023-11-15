@@ -13,7 +13,7 @@
     "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. ."
   },
   "dependencies": {
-    "@stripe/stripe-js": "^1.46.0"
+    "@stripe/stripe-js": "^2.1.11"
   },
   "devDependencies": {
     "@sveltejs/adapter-vercel": "^1.0.0",
