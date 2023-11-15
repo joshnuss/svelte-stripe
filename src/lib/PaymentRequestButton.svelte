@@ -37,12 +37,15 @@
     element = elements.create('paymentRequestButton', options)
     const result = await paymentRequestObject.canMakePayment()
 
+    paymentRequestObject.on('token', (e) => dispatch('token', e))
+    paymentRequestObject.on('cancel', (e) => dispatch('cancel', e))
+    paymentRequestObject.on('paymentmethod', (e) => dispatch('paymentmethod', e))
+    paymentRequestObject.on('shippingaddresschange', (e) => dispatch('shippingaddresschange', e))
+    paymentRequestObject.on('shippingoptionchange', (e) => dispatch('shippingoptionchange', e))
+
     if (result) {
       canMakePayment = true
       element.mount(wrapper)
-      paymentRequestObject.on('paymentmethod', (e) => {
-        dispatch('paymentmethod', e)
-      })
     } else {
       canMakePayment = false
       wrapper.style.display = 'none'
