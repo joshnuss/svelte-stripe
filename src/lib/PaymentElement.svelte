@@ -16,7 +16,7 @@
   const { elements } = getContext('stripe')
 
   /** @type {StripePaymentElementOptions?} */
-  export let options
+  export let options = undefined
 
   onMount(() => {
     element = mount(wrapper, 'payment', elements, dispatch, options)
