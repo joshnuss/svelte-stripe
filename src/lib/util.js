@@ -17,6 +17,9 @@ export function mount(node, type, elements, dispatch, options = {}) {
   element.on('blur', (e) => dispatch('blur', e))
   element.on('escape', (e) => dispatch('escape', e))
   element.on('click', (e) => dispatch('click', e))
+  element.on('loaderror', (e) => dispatch('loaderror', e))
+  element.on('loaderstart', (e) => dispatch('loaderstart', e))
+  element.on('networkschange', (e) => dispatch('networkschange', e))
 
   return element
 }
