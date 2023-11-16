@@ -5,6 +5,9 @@
   /** @type {import('@stripe/stripe-js').Stripe?} */
   export let stripe
 
+  /** @type {StripeElementsOptions["mode"]} */
+  export let mode = undefined
+
   /** @typedef { import('@stripe/stripe-js').Appearance } Appearance */
 
   /** @type {Appearance["theme"]} */
@@ -30,6 +33,12 @@
   /** @type {StripeElementsOptions["locale"]} */
   export let locale = "auto"
 
+  /** @type {StripeElementsOptions["currency"]} */
+  export let currency = undefined
+
+  /** @type {StripeElementsOptions["amount"]} */
+  export let amount = undefined
+
   /** @type {string?} */
   export let clientSecret = undefined
 
@@ -40,7 +49,7 @@
   /** @type {import('@stripe/stripe-js').StripeElements?} */
   export let elements = isServer
     ? null
-    : stripe.elements({ appearance, clientSecret, fonts, loader, locale })
+    : stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
 
   register(stripe)
   setContext('stripe', { stripe, elements })
