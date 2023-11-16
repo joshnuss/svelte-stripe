@@ -395,8 +395,9 @@ See [appearance docs](https://stripe.com/docs/elements/appearance-api) for more 
 
 All demos are running in test-mode, any of Stripe's [test card numbers](https://stripe.com/docs/testing#cards) will work.
 
-- [PaymentElement](/examples/payment-element)
+- [Payment Element](/examples/payment-element)
 - [Express Checkout](/examples/express-checkout)
+- [Embedded Checkout](/examples/embedded-checkout)
 - [Credit Card](/examples/credit-card)
 - [Apple Pay](/examples/payment-request)
 - [Google Pay](/examples/payment-request)
