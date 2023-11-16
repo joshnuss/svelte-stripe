@@ -29,6 +29,7 @@ There is example code for:
 
 - [Payment Element](src/routes/examples/payment-element)
 - [Express Checkout](src/routes/examples/express-checkout)
+- [Embedded Checkout](src/routes/examples/embedded-checkout)
 - [Link](src/routes/examples/payment-element)
 - [Credit card](src/routes/examples/credit-card)
 - [GooglePay](src/routes/examples/payment-request)

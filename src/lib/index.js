@@ -10,6 +10,7 @@ export { default as LinkAuthenticationElement } from './LinkAuthenticationElemen
 export { default as Address } from './Address.svelte'
 export { default as PaymentMethodMessaging } from './PaymentMethodMessaging.svelte'
 export { default as ExpressCheckout } from './ExpressCheckout.svelte'
+export { default as EmbeddedCheckout } from './EmbeddedCheckout.svelte'
 export { default as Elements } from './Elements.svelte'
 export { default as Container } from './Container.svelte'
 export { isServer } from './util'
