@@ -387,6 +387,7 @@ TODO
 All demos are running in test-mode, any of Stripe's [test card numbers](https://stripe.com/docs/testing#cards) will work.
 
 - [PaymentElement](/examples/payment-element)
+- [Express Checkout](/examples/express-checkout)
 - [Credit Card](/examples/credit-card)
 - [Apple Pay](/examples/payment-request)
 - [Google Pay](/examples/payment-request)
