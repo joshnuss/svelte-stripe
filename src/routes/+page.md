@@ -380,7 +380,18 @@ For more information on webhooks, see [Stripe's Webhook Docs](https://stripe.com
 
 ## Styling
 
-TODO
+Components can be styled by setting attributes on the `<Elements/>` container.
+
+```html
+<Elements
+  theme="flat"
+  labels="floating"
+  variables={{ colorPrimary: 'pink' }}
+  rules={...}
+  />
+```
+
+See [appearance docs](https://stripe.com/docs/elements/appearance-api) for more examples.
 
 ## Examples
 
