@@ -69,7 +69,7 @@
   <p class="error">{error.message} Please try again.</p>
 {/if}
 
-{#if stripe && clientSecret}
+{#if clientSecret}
   <Elements
     {stripe}
     {clientSecret}

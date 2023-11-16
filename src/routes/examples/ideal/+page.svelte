@@ -81,31 +81,27 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-{#if stripe}
-  <Elements {stripe}>
-    <form on:submit|preventDefault={submit}>
-      <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
-      <input
-        name="email"
-        bind:value={email}
-        placeholder="E-mail"
-        type="email"
-        disabled={processing}
-      />
-      <Ideal bind:element={idealElement} classes={{ base: 'input' }} />
+<Elements {stripe}>
+  <form on:submit|preventDefault={submit}>
+    <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
+    <input
+      name="email"
+      bind:value={email}
+      placeholder="E-mail"
+      type="email"
+      disabled={processing}
+    />
+    <Ideal bind:element={idealElement} classes={{ base: 'input' }} />
 
-      <button disabled={processing}>
-        {#if processing}
-          Processing...
-        {:else}
-          Pay
-        {/if}
-      </button>
-    </form>
-  </Elements>
-{:else}
-  Loading...
-{/if}
+    <button disabled={processing}>
+      {#if processing}
+        Processing...
+      {:else}
+        Pay
+      {/if}
+    </button>
+  </form>
+</Elements>
 
 <style>
   .error {

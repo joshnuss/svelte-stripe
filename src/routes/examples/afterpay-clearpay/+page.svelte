@@ -97,28 +97,24 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-{#if stripe}
-  <form on:submit|preventDefault={submit}>
-    <Address legend="Billing" bind:address={billingAddress}>
-      <label for="name"> Name </label>
-      <input id="name" bind:value={name} required />
-      <label for="email"> Email </label>
-      <input type="email" id="email" bind:value={email} required />
-    </Address>
+<form on:submit|preventDefault={submit}>
+  <Address legend="Billing" bind:address={billingAddress}>
+    <label for="name"> Name </label>
+    <input id="name" bind:value={name} required />
+    <label for="email"> Email </label>
+    <input type="email" id="email" bind:value={email} required />
+  </Address>
 
-    <Address legend="Shipping" bind:address={shippingAddress} />
+  <Address legend="Shipping" bind:address={shippingAddress} />
 
-    <button disabled={processing}>
-      {#if processing}
-        Processing...
-      {:else}
-        Pay with Afterpay/Clearpay
-      {/if}
-    </button>
-  </form>
-{:else}
-  Loading...
-{/if}
+  <button disabled={processing}>
+    {#if processing}
+      Processing...
+    {:else}
+      Pay with Afterpay/Clearpay
+    {/if}
+  </button>
+</form>
 
 <style>
   .error {

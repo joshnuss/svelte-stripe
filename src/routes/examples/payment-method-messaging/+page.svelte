@@ -22,15 +22,11 @@
   >
 </nav>
 
-{#if stripe}
-  <Elements {stripe}>
-    <PaymentMethodMessaging
-      currency="USD"
-      countryCode="US"
-      amount={1000}
-      paymentMethodTypes={['afterpay_clearpay', 'klarna', 'affirm']}
-    />
-  </Elements>
-{:else}
-  Loading...
-{/if}
+<Elements {stripe}>
+  <PaymentMethodMessaging
+    currency="USD"
+    countryCode="US"
+    amount={100000}
+    paymentMethodTypes={['afterpay_clearpay', 'klarna', 'affirm']}
+  />
+</Elements>
