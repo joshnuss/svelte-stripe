@@ -19,6 +19,7 @@ The following components are provided:
 - `<Iban/>`: Input field for IBAN (International bank account number).
 - `<Ideal/>`: Input field for iDEAL (payment system used in the Netherlands).
 - `<PaymentElement/>`: All-in-one component that allows the user to choose the type of payment.
+- `<ExpressCheckout/>`: Pay with a wallet without leaving the page.
 - `<LinkAuthenticationElement/>`: Ability to use saved payment methods stored in [Link](https://link.co).
 - `<Address/>`: Component for collecting billing and shipping addresses.
 
@@ -27,6 +28,7 @@ The following components are provided:
 There is example code for:
 
 - [Payment Element](src/routes/examples/payment-element)
+- [Express Checkout](src/routes/examples/express-checkout)
 - [Link](src/routes/examples/payment-element)
 - [Credit card](src/routes/examples/credit-card)
 - [GooglePay](src/routes/examples/payment-request)
