@@ -75,15 +75,11 @@
   <p class="error">{error.message} Please try again.</p>
 {/if}
 
-{#if stripe}
-  <Elements {stripe}>
-    <div class="wrapper">
-      <PaymentRequestButton {paymentRequest} on:paymentmethod={pay} />
-    </div>
-  </Elements>
-{:else}
-  Loading...
-{/if}
+<Elements {stripe}>
+  <div class="wrapper">
+    <PaymentRequestButton {paymentRequest} on:paymentmethod={pay} />
+  </div>
+</Elements>
 
 <style>
   .error {

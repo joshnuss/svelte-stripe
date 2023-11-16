@@ -67,29 +67,25 @@
   <p class="error">{error.message} Please try again.</p>
 {/if}
 
-{#if stripe}
-  <Elements {stripe}>
-    <form on:submit|preventDefault={submit}>
-      <input name="name" bind:value={name} placeholder="Your name" disabled={processing} />
-      <CardNumber bind:element={cardElement} classes={{ base: 'input' }} />
+<Elements {stripe}>
+  <form on:submit|preventDefault={submit}>
+    <input name="name" bind:value={name} placeholder="Your name" disabled={processing} />
+    <CardNumber bind:element={cardElement} classes={{ base: 'input' }} />
 
-      <div class="row">
-        <CardExpiry classes={{ base: 'input' }} />
-        <CardCvc classes={{ base: 'input' }} />
-      </div>
+    <div class="row">
+      <CardExpiry classes={{ base: 'input' }} />
+      <CardCvc classes={{ base: 'input' }} />
+    </div>
 
-      <button disabled={processing}>
-        {#if processing}
-          Processing...
-        {:else}
-          Pay
-        {/if}
-      </button>
-    </form>
-  </Elements>
-{:else}
-  Loading...
-{/if}
+    <button disabled={processing}>
+      {#if processing}
+        Processing...
+      {:else}
+        Pay
+      {/if}
+    </button>
+  </form>
+</Elements>
 
 <style>
   .error {

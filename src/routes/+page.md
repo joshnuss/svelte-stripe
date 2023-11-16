@@ -53,11 +53,9 @@ In your payment page, initialize Stripe and add a `<Elements>` component:
   })
 </script>
 
-{#if stripe}
 <Elements {stripe}>
   <!-- this is where your Stripe components go -->
 </Elements>
-{/if}
 ```
 
 ### Creating a payment intent

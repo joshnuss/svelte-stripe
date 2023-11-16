@@ -77,36 +77,32 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-{#if stripe}
-  <form on:submit|preventDefault={submit}>
-    <input
-      name="name"
-      bind:value={name}
-      placeholder="Name"
-      type="text"
-      required
-      disabled={processing}
-    />
-    <input
-      name="email"
-      bind:value={email}
-      placeholder="E-mail"
-      type="email"
-      required
-      disabled={processing}
-    />
+<form on:submit|preventDefault={submit}>
+  <input
+    name="name"
+    bind:value={name}
+    placeholder="Name"
+    type="text"
+    required
+    disabled={processing}
+  />
+  <input
+    name="email"
+    bind:value={email}
+    placeholder="E-mail"
+    type="email"
+    required
+    disabled={processing}
+  />
 
-    <button disabled={processing}>
-      {#if processing}
-        Processing...
-      {:else}
-        Pay with Sofort
-      {/if}
-    </button>
-  </form>
-{:else}
-  Loading...
-{/if}
+  <button disabled={processing}>
+    {#if processing}
+      Processing...
+    {:else}
+      Pay with Sofort
+    {/if}
+  </button>
+</form>
 
 <style>
   .error {

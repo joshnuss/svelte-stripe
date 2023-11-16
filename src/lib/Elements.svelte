@@ -47,16 +47,20 @@
   }
 
   /** @type {import('@stripe/stripe-js').StripeElements?} */
-  export let elements = isServer
-    ? null
-    : stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
+  export let elements = null
 
-  register(stripe)
-  setContext('stripe', { stripe, elements })
+  $: if (stripe) {
+    elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
+
+    register(stripe)
+    setContext('stripe', { stripe, elements })
+  }
 
   $: if (elements) {
     elements.update({ appearance, locale })
   }
 </script>
 
-<slot />
+{#if stripe && elements}
+  <slot />
+{/if}

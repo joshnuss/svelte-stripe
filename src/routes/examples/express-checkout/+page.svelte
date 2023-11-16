@@ -94,26 +94,22 @@
   <p class="error">{error.message} Please try again.</p>
 {/if}
 
-{#if stripe}
-  <Elements
-    {stripe}
-    mode="payment"
-    currency="usd"
-    amount={1099}
-    bind:elements>
+<Elements
+  {stripe}
+  mode="payment"
+  currency="usd"
+  amount={1099}
+  bind:elements>
 
-    <ExpressCheckout
-      on:confirm={confirm}
-      on:click={click}
-      buttonHeight={50}
-      buttonTheme={{googlePay: 'white'}}
-      buttonType={{googlePay: 'donate'}}
-      paymentMethodOrder={['googlePay', 'link']}/>
+  <ExpressCheckout
+    on:confirm={confirm}
+    on:click={click}
+    buttonHeight={50}
+    buttonTheme={{googlePay: 'white'}}
+    buttonType={{googlePay: 'donate'}}
+    paymentMethodOrder={['googlePay', 'link']}/>
 
-  </Elements>
-{:else}
-  Loading...
-{/if}
+</Elements>
 
 <style>
   .error {

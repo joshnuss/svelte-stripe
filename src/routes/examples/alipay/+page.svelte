@@ -71,27 +71,23 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-{#if stripe}
-  <form on:submit|preventDefault={submit}>
-    <input
-      name="email"
-      bind:value={email}
-      placeholder="E-mail"
-      type="email"
-      disabled={processing}
-    />
+<form on:submit|preventDefault={submit}>
+  <input
+    name="email"
+    bind:value={email}
+    placeholder="E-mail"
+    type="email"
+    disabled={processing}
+  />
 
-    <button disabled={processing}>
-      {#if processing}
-        Processing...
-      {:else}
-        Pay with Alipay
-      {/if}
-    </button>
-  </form>
-{:else}
-  Loading...
-{/if}
+  <button disabled={processing}>
+    {#if processing}
+      Processing...
+    {:else}
+      Pay with Alipay
+    {/if}
+  </button>
+</form>
 
 <style>
   .error {
