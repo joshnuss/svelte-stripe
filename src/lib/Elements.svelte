@@ -49,7 +49,7 @@
   /** @type {import('@stripe/stripe-js').StripeElements?} */
   export let elements = null
 
-  $: if (stripe) {
+  $: if (stripe && !elements) {
     elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
 
     register(stripe)
