@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy } from 'svelte'
   import { register } from './util'
 
   /** @type {import('@stripe/stripe-js').Stripe?} */
@@ -9,6 +10,8 @@
 
   let wrapper
 
+  let checkoutElement
+
   $: if (stripe) {
     register(stripe)
   }
@@ -17,9 +20,14 @@
     stripe
       .initEmbeddedCheckout({ clientSecret })
       .then((element) => {
-        element.mount(wrapper)
+        checkoutElement = element
+        checkoutElement.mount(wrapper)
       })
   }
+
+  onDestroy(() => {
+    checkoutElement?.destroy()
+  });
 </script>
 
 {#if stripe && clientSecret}
