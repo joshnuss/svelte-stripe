@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "dotenv -c development -- vite dev",
     "build": "dotenv -c development vite build",
-    "package": "svelte-package",
+    "package": "svelte-package -o package",
     "publish": "npm run package && cd package && npm publish",
     "preview": "dotenv -c development vite preview",
     "lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .prettierignore .",
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@sveltejs/adapter-vercel": "^1.0.6",
     "@sveltejs/kit": "^1.27.6",
-    "@sveltejs/package": "^1.0.2",
+    "@sveltejs/package": "^2.0.0",
     "@vitejs/plugin-basic-ssl": "^0.1.2",
     "dotenv-cli": "^5.1.0",
     "eslint": "^8.53.0",
@@ -52,5 +52,151 @@
       "main",
       "next"
     ]
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./Address.svelte": {
+      "types": "./package/Address.svelte.d.ts",
+      "svelte": "./package/Address.svelte",
+      "default": "./package/Address.svelte"
+    },
+    "./Card.svelte": {
+      "types": "./package/Card.svelte.d.ts",
+      "svelte": "./package/Card.svelte",
+      "default": "./package/Card.svelte"
+    },
+    "./CardCvc.svelte": {
+      "types": "./package/CardCvc.svelte.d.ts",
+      "svelte": "./package/CardCvc.svelte",
+      "default": "./package/CardCvc.svelte"
+    },
+    "./CardExpiry.svelte": {
+      "types": "./package/CardExpiry.svelte.d.ts",
+      "svelte": "./package/CardExpiry.svelte",
+      "default": "./package/CardExpiry.svelte"
+    },
+    "./CardNumber.svelte": {
+      "types": "./package/CardNumber.svelte.d.ts",
+      "svelte": "./package/CardNumber.svelte",
+      "default": "./package/CardNumber.svelte"
+    },
+    "./Container.svelte": {
+      "types": "./package/Container.svelte.d.ts",
+      "svelte": "./package/Container.svelte",
+      "default": "./package/Container.svelte"
+    },
+    "./Elements.svelte": {
+      "types": "./package/Elements.svelte.d.ts",
+      "svelte": "./package/Elements.svelte",
+      "default": "./package/Elements.svelte"
+    },
+    "./EmbeddedCheckout.svelte": {
+      "types": "./package/EmbeddedCheckout.svelte.d.ts",
+      "svelte": "./package/EmbeddedCheckout.svelte",
+      "default": "./package/EmbeddedCheckout.svelte"
+    },
+    "./ExpressCheckout.svelte": {
+      "types": "./package/ExpressCheckout.svelte.d.ts",
+      "svelte": "./package/ExpressCheckout.svelte",
+      "default": "./package/ExpressCheckout.svelte"
+    },
+    "./Iban.svelte": {
+      "types": "./package/Iban.svelte.d.ts",
+      "svelte": "./package/Iban.svelte",
+      "default": "./package/Iban.svelte"
+    },
+    "./Ideal.svelte": {
+      "types": "./package/Ideal.svelte.d.ts",
+      "svelte": "./package/Ideal.svelte",
+      "default": "./package/Ideal.svelte"
+    },
+    "./LinkAuthenticationElement.svelte": {
+      "types": "./package/LinkAuthenticationElement.svelte.d.ts",
+      "svelte": "./package/LinkAuthenticationElement.svelte",
+      "default": "./package/LinkAuthenticationElement.svelte"
+    },
+    "./PaymentElement.svelte": {
+      "types": "./package/PaymentElement.svelte.d.ts",
+      "svelte": "./package/PaymentElement.svelte",
+      "default": "./package/PaymentElement.svelte"
+    },
+    "./PaymentMethodMessaging.svelte": {
+      "types": "./package/PaymentMethodMessaging.svelte.d.ts",
+      "svelte": "./package/PaymentMethodMessaging.svelte",
+      "default": "./package/PaymentMethodMessaging.svelte"
+    },
+    "./PaymentRequestButton.svelte": {
+      "types": "./package/PaymentRequestButton.svelte.d.ts",
+      "svelte": "./package/PaymentRequestButton.svelte",
+      "default": "./package/PaymentRequestButton.svelte"
+    },
+    ".": {
+      "types": "./package/index.d.ts",
+      "svelte": "./package/index.js",
+      "default": "./package/index.js"
+    },
+    "./util": {
+      "types": "./package/util.d.ts",
+      "default": "./package/util.js"
+    }
+  },
+  "files": [
+    "package"
+  ],
+  "svelte": "./package/index.js",
+  "typesVersions": {
+    ">4.0": {
+      "Address.svelte": [
+        "./package/Address.svelte.d.ts"
+      ],
+      "Card.svelte": [
+        "./package/Card.svelte.d.ts"
+      ],
+      "CardCvc.svelte": [
+        "./package/CardCvc.svelte.d.ts"
+      ],
+      "CardExpiry.svelte": [
+        "./package/CardExpiry.svelte.d.ts"
+      ],
+      "CardNumber.svelte": [
+        "./package/CardNumber.svelte.d.ts"
+      ],
+      "Container.svelte": [
+        "./package/Container.svelte.d.ts"
+      ],
+      "Elements.svelte": [
+        "./package/Elements.svelte.d.ts"
+      ],
+      "EmbeddedCheckout.svelte": [
+        "./package/EmbeddedCheckout.svelte.d.ts"
+      ],
+      "ExpressCheckout.svelte": [
+        "./package/ExpressCheckout.svelte.d.ts"
+      ],
+      "Iban.svelte": [
+        "./package/Iban.svelte.d.ts"
+      ],
+      "Ideal.svelte": [
+        "./package/Ideal.svelte.d.ts"
+      ],
+      "LinkAuthenticationElement.svelte": [
+        "./package/LinkAuthenticationElement.svelte.d.ts"
+      ],
+      "PaymentElement.svelte": [
+        "./package/PaymentElement.svelte.d.ts"
+      ],
+      "PaymentMethodMessaging.svelte": [
+        "./package/PaymentMethodMessaging.svelte.d.ts"
+      ],
+      "PaymentRequestButton.svelte": [
+        "./package/PaymentRequestButton.svelte.d.ts"
+      ],
+      "index.d.ts": [
+        "./package/index.d.ts"
+      ],
+      "util": [
+        "./package/util.d.ts"
+      ]
+    }
   }
 }
