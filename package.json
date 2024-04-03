@@ -35,10 +35,12 @@
     "rehype-slug": "^5.1.0",
     "semantic-release": "22.0.7",
     "stripe": "^8.222.0",
-    "svelte": "^4.2.12",
     "svelte2tsx": "^0.5.23",
     "typescript": "^5.4.3",
     "vite": "^5.2.8"
+  },
+  "peerDependencies": {
+    "svelte": "^3 || ^4"
   },
   "type": "module",
   "repository": {
