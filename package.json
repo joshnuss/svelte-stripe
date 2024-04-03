@@ -7,7 +7,7 @@
     "dev": "dotenv -c development -- vite dev",
     "build": "dotenv -c development vite build",
     "package": "svelte-package -o package",
-    "publish": "npm run package && cd package && npm publish",
+    "publish": "npm run package && npm publish",
     "preview": "dotenv -c development vite preview",
     "lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .prettierignore .",
     "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
