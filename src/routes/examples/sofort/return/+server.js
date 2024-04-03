@@ -13,8 +13,8 @@ export async function GET(req) {
   if (paymentIntent.client_secret !== clientSecret) throw new Error('Client secret mismatch')
 
   if (paymentIntent.status === 'processing') {
-    throw redirect(302, '/examples/sofort/thanks')
+    redirect(302, '/examples/sofort/thanks');
   }
 
-  throw redirect(302, '/examples/sofort?error=true')
+  redirect(302, '/examples/sofort?error=true');
 }
