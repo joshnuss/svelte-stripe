@@ -13,8 +13,8 @@ export async function GET(req) {
   if (paymentIntent.client_secret !== clientSecret) throw new Error('Client secret mismatch')
 
   if (paymentIntent.status === 'succeeded') {
-    redirect(302, '/examples/afterpay-clearpay/thanks');
+    redirect(302, '/examples/afterpay-clearpay/thanks')
   }
 
-  redirect(302, '/examples/afterpay-clearpay?error=true');
+  redirect(302, '/examples/afterpay-clearpay?error=true')
 }
