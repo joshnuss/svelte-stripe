@@ -43,7 +43,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/joshnuss/svelte-stripe"
+    "url": "git+https://github.com/joshnuss/svelte-stripe.git"
   },
   "publishConfig": {
     "access": "public"
