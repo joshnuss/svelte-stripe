@@ -105,7 +105,7 @@ To use it, drop a `<PaymentElement>` component in your form:
 ```html
 <form on:submit|preventDefault="{submit}">
   <Elements {stripe} {clientSecret} bind:elements>
-    <PaymentElement options={...} />
+    <PaymentElement options="{...}" />
   </Elements>
 
   <button>Pay</button>
