@@ -19,6 +19,9 @@
   onMount(() => {
     const options = defaultValues ? { defaultValues } : {}
     element = mount(wrapper, 'linkAuthentication', elements, dispatch, options)
+    element.on('change', (event) => {
+      dispatch('change', event)
+    })
 
     return () => element.destroy()
   })
