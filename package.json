@@ -37,7 +37,7 @@
     "vite": "^5.2.8"
   },
   "peerDependencies": {
-    "@stripe/stripe-js": "^3 || ^4",
+    "@stripe/stripe-js": "^3",
     "svelte": "^3 || ^4"
   },
   "type": "module",
