@@ -1,6 +1,6 @@
 <script>
   import { setContext } from 'svelte'
-  import { isServer, register } from './util'
+  import { register } from './util'
 
   /** @type {import('@stripe/stripe-js').Stripe?} */
   export let stripe
@@ -31,7 +31,7 @@
   export let fonts = []
 
   /** @type {StripeElementsOptions["locale"]} */
-  export let locale = "auto"
+  export let locale = 'auto'
 
   /** @type {StripeElementsOptions["currency"]} */
   export let currency = undefined
@@ -43,18 +43,32 @@
   export let clientSecret = undefined
 
   $: appearance = {
-    theme, variables, rules, labels
+    theme,
+    variables,
+    rules,
+    labels
   }
 
   /** @type {import('@stripe/stripe-js').StripeElements?} */
   export let elements = null
 
   $: if (stripe && !elements) {
-    elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
+    elements = stripe.elements({
+      mode,
+      currency,
+      amount,
+      appearance,
+      clientSecret,
+      fonts,
+      loader,
+      locale
+    })
 
     register(stripe)
     setContext('stripe', { stripe, elements })
   }
+
+  $: setContext('stripe', { stripe, elements })
 
   $: if (elements) {
     elements.update({ appearance, locale })
