@@ -36,7 +36,7 @@ jobs:
         run: pnpm install
 
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
-        run: pnpm audit signatures
+        run: pnpm audit signatures --prod
 
       - name: Build package
         run: pnpm package
