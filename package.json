@@ -38,7 +38,7 @@
   },
   "peerDependencies": {
     "@stripe/stripe-js": "^3 || ^4",
-    "svelte": "^3 || ^4"
+    "svelte": "^3 || ^4 || ^5"
   },
   "type": "module",
   "repository": {
