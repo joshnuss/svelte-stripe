@@ -2,14 +2,19 @@
   import { onMount, getContext, createEventDispatcher } from 'svelte'
   import { mount } from './util'
 
-  /** @type {import('@stripe/stripe-js').StripeLinkAuthenticationElementOptions["defaultValues"]?} */
-  export let defaultValues = null
+  /**
+   * @typedef {object} Props
+   * @property {import('@stripe/stripe-js').StripeLinkAuthenticationElementOptions["defaultValues"]?} [defaultValues]
+   */
+
+  /** @type {Props} */
+  let { defaultValues = null } = $props();
 
   /** @type {import('@stripe/stripe-js').StripeElementBase} */
   let element
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   const dispatch = createEventDispatcher()
 
@@ -43,4 +48,4 @@
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

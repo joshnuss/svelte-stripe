@@ -2,6 +2,13 @@
   import '../prism-theme.css'
   import '../app.css'
   import GithubBadge from './GithubBadge.svelte'
+  /**
+   * @typedef {Object} Props
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { children } = $props();
 </script>
 
 <GithubBadge />
@@ -66,6 +73,6 @@
   </aside>
 
   <main>
-    <slot />
+    {@render children?.()}
   </main>
 </div>

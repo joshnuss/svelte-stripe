@@ -5,9 +5,9 @@
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
   import { Elements, ExpressCheckout } from '$lib'
 
-  let stripe = null
-  let error = null
-  let elements
+  let stripe = $state(null)
+  let error = $state(null)
+  let elements = $state()
   let processing = false
 
   onMount(async () => {

@@ -4,29 +4,30 @@
 
   /** @typedef { import('@stripe/stripe-js').StripeExpressCheckoutElementOptions } Options */
 
-  /** @type {Options['buttonHeight']} */
-  export let buttonHeight = undefined
+  /**
+   * @typedef {object} Props
+   * @property {Options['buttonHeight']} [buttonHeight]
+   * @property {Options['buttonTheme']} [buttonTheme]
+   * @property {Options['buttonType']} [buttonType]
+   * @property {Options['layout']} [layout]
+   * @property {Options['paymentMethodOrder']} [paymentMethodOrder]
+   * @property {Options['wallets']} [wallets]
+   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
+   */
 
-  /** @type {Options['buttonTheme']} */
-  export let buttonTheme = undefined
-
-  /** @type {Options['buttonType']} */
-  export let buttonType = undefined
-
-  /** @type {Options['layout']} */
-  export let layout = undefined
-
-  /** @type {Options['paymentMethodOrder']} */
-  export let paymentMethodOrder = undefined
-
-  /** @type {Options['wallets']} */
-  export let wallets = undefined
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
-  export let element = null
+  /** @type {Props} */
+  let {
+    buttonHeight = undefined,
+    buttonTheme = undefined,
+    buttonType = undefined,
+    layout = undefined,
+    paymentMethodOrder = undefined,
+    wallets = undefined,
+    element = $bindable()
+  } = $props();
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   const dispatch = createEventDispatcher()
 
@@ -70,4 +71,4 @@
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

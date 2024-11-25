@@ -4,7 +4,6 @@
  * @param {import('@stripe/stripe-js').StripeElements} elements
  * @param {<EventKey extends string>(type: EventKey, detail?: any) => void} dispatch
  * @param {import('@stripe/stripe-js').StripeElementsOptions} options
- *
  * @returns {import('@stripe/stripe-js').StripeElementBase}
  */
 export function mount(node, type, elements, dispatch, options = {}) {

@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte'
 
-  let hosted_voucher_url
+  let hosted_voucher_url = $state()
 
   onMount(() => {
     const searchParams = new URLSearchParams(window.location.search)

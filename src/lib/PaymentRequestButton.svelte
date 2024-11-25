@@ -1,23 +1,26 @@
 <script>
   import { onMount, getContext, createEventDispatcher } from 'svelte'
 
-  /** @type {import('@stripe/stripe-js').StripeElementClasses} */
-  export let classes = {}
+  /**
+   * @typedef {object} Props
+   * @property {import('@stripe/stripe-js').StripeElementClasses} [classes]
+   * @property {import('@stripe/stripe-js').StripePaymentRequestButtonElementOptions["style"]["paymentRequestButton"]} [style]
+   * @property {import('@stripe/stripe-js').PaymentRequestOptions} paymentRequest
+   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
+   * @property {boolean?} [canMakePayment]
+   */
 
-  /** @type {import('@stripe/stripe-js').StripePaymentRequestButtonElementOptions["style"]["paymentRequestButton"]} */
-  export let style = {}
-
-  /** @type {import('@stripe/stripe-js').PaymentRequestOptions} */
-  export let paymentRequest
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
-  export let element = null
-
-  /** @type {boolean?}*/
-  export let canMakePayment = null
+  /** @type {Props} */
+  let {
+    classes = {},
+    style = {},
+    paymentRequest,
+    element = $bindable(),
+    canMakePayment = $bindable()
+  } = $props();
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   /** @type {import('@stripe/stripe-js').PaymentRequest} */
   let paymentRequestObject
@@ -55,4 +58,4 @@
   })
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

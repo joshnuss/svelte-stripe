@@ -8,15 +8,20 @@
   let element
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   const dispatch = createEventDispatcher()
 
   /** @type {import("./types").ElementsContext} */
   const { elements } = getContext('stripe')
 
-  /** @type {StripePaymentElementOptions?} */
-  export let options = undefined
+  /**
+   * @typedef {object} Props
+   * @property {StripePaymentElementOptions?} [options]
+   */
+
+  /** @type {Props} */
+  let { options = undefined } = $props();
 
   onMount(() => {
     element = mount(wrapper, 'payment', elements, dispatch, options)
@@ -41,4 +46,4 @@
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

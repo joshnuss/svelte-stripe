@@ -1,29 +1,37 @@
 <script>
+  import { run } from 'svelte/legacy';
   import { onDestroy } from 'svelte'
   import { register } from './util'
 
-  /** @type {import('@stripe/stripe-js').Stripe?} */
-  export let stripe
+  /**
+   * @typedef {Object} Props
+   * @property {import('@stripe/stripe-js').Stripe?} stripe
+   * @property {string?} clientSecret
+   */
 
-  /** @type {string?} */
-  export let clientSecret
+  /** @type {Props} */
+  let { stripe, clientSecret } = $props();
 
-  let wrapper
+  let wrapper = $state()
 
-  let checkoutElement
+  let checkoutElement = $state()
 
-  $: if (stripe) {
-    register(stripe)
-  }
+  run(() => {
+    if (stripe) {
+      register(stripe)
+    }
+  });
 
-  $: if (stripe && clientSecret && wrapper) {
-    stripe
-      .initEmbeddedCheckout({ clientSecret })
-      .then((element) => {
-        checkoutElement = element
-        checkoutElement.mount(wrapper)
-      })
-  }
+  run(() => {
+    if (stripe && clientSecret && wrapper) {
+      stripe
+        .initEmbeddedCheckout({ clientSecret })
+        .then((element) => {
+          checkoutElement = element
+          checkoutElement.mount(wrapper)
+        })
+    }
+  });
 
   onDestroy(() => {
     checkoutElement?.destroy()
@@ -31,5 +39,5 @@
 </script>
 
 {#if stripe && clientSecret}
-  <div bind:this={wrapper}/>
+  <div bind:this={wrapper}></div>
 {/if}

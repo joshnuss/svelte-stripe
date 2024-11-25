@@ -4,38 +4,37 @@
 
   /** @typedef {import('@stripe/stripe-js').StripeAddressElementOptions} StripeAddressElementOptions */
 
-  /** @type {StripeAddressElementOptions["mode"]} */
-  export let mode
+  /**
+   * @typedef {object} Props
+   * @property {StripeAddressElementOptions["mode"]} mode
+   * @property {StripeAddressElementOptions["allowedCountries"]} [allowedCountries]
+   * @property {StripeAddressElementOptions["autocomplete"]} [autocomplete]
+   * @property {StripeAddressElementOptions["blockPoBox"]} [blockPoBox]
+   * @property {StripeAddressElementOptions["contacts"]} [contacts]
+   * @property {StripeAddressElementOptions["defaultValues"]} [defaultValues]
+   * @property {StripeAddressElementOptions["fields"]} [fields]
+   * @property {StripeAddressElementOptions["validation"]} [validation]
+   * @property {StripeAddressElementOptions["display"]} [display]
+   */
 
-  /** @type {StripeAddressElementOptions["allowedCountries"]} */
-  export let allowedCountries = undefined
-
-  /** @type {StripeAddressElementOptions["autocomplete"]} */
-  export let autocomplete = { mode: 'automatic' }
-
-  /** @type {StripeAddressElementOptions["blockPoBox"]} */
-  export let blockPoBox = undefined
-
-  /** @type {StripeAddressElementOptions["contacts"]} */
-  export let contacts = undefined
-
-  /** @type {StripeAddressElementOptions["defaultValues"]} */
-  export let defaultValues = undefined
-
-  /** @type {StripeAddressElementOptions["fields"]} */
-  export let fields = undefined
-
-  /** @type {StripeAddressElementOptions["validation"]} */
-  export let validation = undefined
-
-  /** @type {StripeAddressElementOptions["display"]} */
-  export let display = undefined
+  /** @type {Props} */
+  let {
+    mode,
+    allowedCountries = undefined,
+    autocomplete = { mode: 'automatic' },
+    blockPoBox = undefined,
+    contacts = undefined,
+    defaultValues = undefined,
+    fields = undefined,
+    validation = undefined,
+    display = undefined
+  } = $props();
 
   /** @type {import('@stripe/stripe-js').StripeElementBase} */
   let element
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   const dispatch = createEventDispatcher()
 
@@ -76,4 +75,4 @@
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

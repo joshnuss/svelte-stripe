@@ -2,32 +2,32 @@
   import { mount } from './util'
   import { onMount, getContext, createEventDispatcher } from 'svelte'
 
-  /** @type {import('@stripe/stripe-js').StripeElementClasses} */
-  export let classes = {}
+  /**
+   * @typedef {object} Props
+   * @property {import('@stripe/stripe-js').StripeElementClasses} [classes]
+   * @property {import('@stripe/stripe-js').StripeElementStyle} [style]
+   * @property {import('@stripe/stripe-js').StripeCardElementOptions["value"]?} [value]
+   * @property {boolean?} [hidePostalCode]
+   * @property {boolean?} [hideIcon]
+   * @property {boolean?} [disabled]
+   * @property {'default' | 'solid'} [iconStyle]
+   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
+   */
 
-  /** @type {import('@stripe/stripe-js').StripeElementStyle} */
-  export let style = {}
-
-  /** @type {import('@stripe/stripe-js').StripeCardElementOptions["value"]?} */
-  export let value = {}
-
-  /** @type {boolean?} */
-  export let hidePostalCode = false
-
-  /** @type {boolean?} */
-  export let hideIcon = false
-
-  /** @type {boolean?} */
-  export let disabled = false
-
-  /** @type {'default' | 'solid'} */
-  export let iconStyle = 'default'
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
-  export let element = null
+  /** @type {Props} */
+  let {
+    classes = {},
+    style = {},
+    value = {},
+    hidePostalCode = false,
+    hideIcon = false,
+    disabled = false,
+    iconStyle = 'default',
+    element = $bindable()
+  } = $props();
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   const dispatch = createEventDispatcher()
 
@@ -59,4 +59,4 @@
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

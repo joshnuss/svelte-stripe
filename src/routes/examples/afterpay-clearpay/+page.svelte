@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
@@ -6,26 +8,26 @@
   import Address from './Address.svelte'
 
   let stripe = null
-  let error = null
-  let processing = false
-  let email = 'jsmith@example.com'
-  let name = 'John Smith'
-  let billingAddress = {
+  let error = $state(null)
+  let processing = $state(false)
+  let email = $state('jsmith@example.com')
+  let name = $state('John Smith')
+  let billingAddress = $state({
     line1: '123 Main',
     line2: 'Apt 100',
     state: 'CA',
     city: 'Los Angeles',
     country: 'US',
     postal_code: '1000'
-  }
-  let shippingAddress = {
+  })
+  let shippingAddress = $state({
     line1: '123 Main',
     line2: 'Apt 100',
     state: 'CA',
     city: 'Los Angeles',
     country: 'US',
     postal_code: '1000'
-  }
+  })
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)
@@ -97,7 +99,7 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-<form on:submit|preventDefault={submit}>
+<form onsubmit={preventDefault(submit)}>
   <Address legend="Billing" bind:address={billingAddress}>
     <label for="name"> Name </label>
     <input id="name" bind:value={name} required />
