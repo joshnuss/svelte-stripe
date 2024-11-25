@@ -104,7 +104,7 @@ An all-in-one component that supports credit cards, SEPA, GooglePay and ApplePay
 To use it, drop a `<PaymentElement>` component in your form:
 
 ```html
-<form on:submit|preventDefault="{submit}">
+<form onsubmit={submit}>
   <Elements {stripe} {clientSecret} bind:elements>
     <PaymentElement options="{...}" />
   </Elements>
@@ -147,7 +147,7 @@ Once they enter their e-mail they receive an SMS code to verify their identity.
 It works in conjuction with `<PaymentElement>`:
 
 ```html
-<form on:submit|preventDefault="{submit}">
+<form onsubmit={submit}>
   <Elements {stripe} {clientSecret} bind:elements>
     <LinkAuthenticationElement />
     <PaymentElement />
@@ -166,7 +166,7 @@ These use the `<CardNumber>`, `<CardExpiry>` and `<CardCvc>` components:
 
 ```html
 <Elements {stripe}>
-  <form on:submit|preventDefault="{submit}">
+  <form onsubmit={submit}>
     <CardNumber bind:element="{cardElement}" />
     <CardExpiry />
     <CardCvc />
@@ -199,7 +199,7 @@ To display a GooglePay or ApplePay button, use the `<PaymentRequestButton/>`.
 
 ```html
 <Elements {stripe}>
-  <PaymentRequestButton {paymentRequest} on:paymentmethod="{pay}" />
+  <PaymentRequestButton {paymentRequest} onpaymentmethod="{pay}" />
 </Elements>
 ```
 
@@ -216,7 +216,7 @@ const paymentRequest = {
 }
 ```
 
-And define an event handler for the `on:paymentmethod` event:
+And define an event handler for the `onpaymentmethod` event:
 
 ```javascript
 async function pay(e) {
@@ -251,7 +251,7 @@ To process SEPA debits, use the `<Iban>` component:
 
 ```html
 <Elements {stripe}>
-  <form on:submit|preventDefault="{submit}">
+  <form onsubmit={submit}>
     <input name="name" bind:value="{name}" placeholder="Name" />
 
     <!-- customize the list of countries, or use "SEPA" to allow all supported countries -->
@@ -285,7 +285,7 @@ To accept iDEAL payments, use the `<Ideal>` component:
 
 ```html
 <Elements {stripe}>
-  <form on:submit|preventDefault="{submit}">
+  <form onsubmit={submit}>
     <input name="name" bind:value="{name}" placeholder="Name" />
     <input name="email" bind:value="{email}" placeholder="E-mail" type="email" />
     <Ideal bind:element="{idealElement}" />

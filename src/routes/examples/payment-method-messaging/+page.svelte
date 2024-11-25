@@ -5,7 +5,7 @@
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
   import { Elements, PaymentMethodMessaging } from '$lib'
 
-  let stripe = null
+  let stripe = $state(null)
   let name
 
   onMount(async () => {

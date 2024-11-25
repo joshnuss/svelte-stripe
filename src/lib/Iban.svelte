@@ -2,32 +2,32 @@
   import { onMount, getContext, createEventDispatcher } from 'svelte'
   import { mount } from './util'
 
-  /** @type {import('@stripe/stripe-js').StripeElementClasses} */
-  export let classes = {}
+  /**
+   * @typedef {object} Props
+   * @property {import('@stripe/stripe-js').StripeElementClasses} [classes]
+   * @property {import('@stripe/stripe-js').StripeElementStyle} [style]
+   * @property {string[]?} [supportedCountries]
+   * @property {string} [placeholderCountry]
+   * @property {boolean?} [hideIcon]
+   * @property {'default' | 'solid'} [iconStyle]
+   * @property {boolean?} [disabled]
+   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
+   */
 
-  /** @type {import('@stripe/stripe-js').StripeElementStyle} */
-  export let style = {}
-
-  /** @type {string[]?} */
-  export let supportedCountries = []
-
-  /** @type {string} */
-  export let placeholderCountry = ''
-
-  /** @type {boolean?} */
-  export let hideIcon = false
-
-  /** @type {'default' | 'solid'} */
-  export let iconStyle = 'default'
-
-  /** @type {boolean?} */
-  export let disabled = false
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
-  export let element = null
+  /** @type {Props} */
+  let {
+    classes = {},
+    style = {},
+    supportedCountries = [],
+    placeholderCountry = '',
+    hideIcon = false,
+    iconStyle = 'default',
+    disabled = false,
+    element = $bindable()
+  } = $props();
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   const dispatch = createEventDispatcher()
 
@@ -67,4 +67,4 @@
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

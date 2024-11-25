@@ -2,29 +2,30 @@
   import { mount } from './util'
   import { onMount, getContext, createEventDispatcher } from 'svelte'
 
-  /** @type {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["amount"]} */
-  export let amount
+  /**
+   * @typedef {object} Props
+   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["amount"]} amount
+   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["currency"]} currency
+   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["paymentMethodTypes"]} paymentMethodTypes
+   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["countryCode"]} countryCode
+   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["logoColor"]?} [logoColor]
+   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["metadata"]?} [metadata]
+   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
+   */
 
-  /** @type {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["currency"]} */
-  export let currency
-
-  /** @type {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["paymentMethodTypes"]} */
-  export let paymentMethodTypes
-
-  /** @type {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["countryCode"]} */
-  export let countryCode
-
-  /** @type {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["logoColor"]?} */
-  export let logoColor = null
-
-  /** @type {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["metadata"]?} */
-  export let metadata = null
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
-  export let element = null
+  /** @type {Props} */
+  let {
+    amount,
+    currency,
+    paymentMethodTypes,
+    countryCode,
+    logoColor = null,
+    metadata = null,
+    element = $bindable()
+  } = $props();
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   const dispatch = createEventDispatcher()
 
@@ -40,4 +41,4 @@
   })
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

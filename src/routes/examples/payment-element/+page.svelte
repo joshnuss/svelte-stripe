@@ -1,15 +1,17 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
   import { Elements, PaymentElement, LinkAuthenticationElement, Address } from '$lib'
 
-  let stripe = null
-  let clientSecret = null
-  let error = null
-  let elements
-  let processing = false
+  let stripe = $state(null)
+  let clientSecret = $state(null)
+  let error = $state(null)
+  let elements = $state()
+  let processing = $state(false)
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)
@@ -79,7 +81,7 @@
     rules={{ '.Input': { border: 'solid 1px #0002' } }}
     bind:elements
   >
-    <form on:submit|preventDefault={submit}>
+    <form onsubmit={preventDefault(submit)}>
       <LinkAuthenticationElement />
       <PaymentElement />
       <Address mode="billing" />

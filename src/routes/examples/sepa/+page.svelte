@@ -1,16 +1,18 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
   import { Elements, Iban } from '$lib'
 
-  let stripe = null
-  let error = null
-  let ibanElement
-  let processing = false
-  let name
-  let email
+  let stripe = $state(null)
+  let error = $state(null)
+  let ibanElement = $state()
+  let processing = $state(false)
+  let name = $state()
+  let email = $state()
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)
@@ -76,7 +78,7 @@
 {/if}
 
 <Elements {stripe}>
-  <form on:submit|preventDefault={submit}>
+  <form onsubmit={preventDefault(submit)}>
     <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
     <input
       name="email"

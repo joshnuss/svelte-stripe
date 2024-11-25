@@ -2,26 +2,28 @@
   import { onMount, getContext, createEventDispatcher } from 'svelte'
   import { mount } from './util'
 
-  /** @type {import('@stripe/stripe-js').StripeElementClasses} */
-  export let classes = {}
+  /**
+   * @typedef {object} Props
+   * @property {import('@stripe/stripe-js').StripeElementClasses} [classes]
+   * @property {import('@stripe/stripe-js').StripeElementStyle} [style]
+   * @property {string?} [value]
+   * @property {boolean?} [disabled]
+   * @property {boolean?} [hideIcon]
+   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
+   */
 
-  /** @type {import('@stripe/stripe-js').StripeElementStyle} */
-  export let style = {}
-
-  /** @type {string?} */
-  export let value = ''
-
-  /** @type {boolean?} */
-  export let disabled = false
-
-  /** @type {boolean?} */
-  export let hideIcon = true
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
-  export let element = null
+  /** @type {Props} */
+  let {
+    classes = {},
+    style = {},
+    value = '',
+    disabled = false,
+    hideIcon = true,
+    element = $bindable()
+  } = $props();
 
   /** @type {HTMLElement?} */
-  let wrapper
+  let wrapper = $state()
 
   const dispatch = createEventDispatcher()
 
@@ -53,4 +55,4 @@
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>

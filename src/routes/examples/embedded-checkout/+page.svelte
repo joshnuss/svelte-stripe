@@ -4,9 +4,9 @@
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
   import { EmbeddedCheckout } from '$lib'
 
-  export let data
+  let { data } = $props();
 
-  let stripe = null
+  let stripe = $state(null)
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)

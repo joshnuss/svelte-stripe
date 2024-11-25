@@ -1,12 +1,11 @@
 <script>
-  export let legend
-  export let address
+  let { legend, address = $bindable(), children } = $props();
 </script>
 
 <fieldset>
   <legend>{legend}</legend>
 
-  <slot />
+  {@render children?.()}
 
   <label for="line1"> Line 1 </label>
   <input id="line1" bind:value={address.line1} required />
