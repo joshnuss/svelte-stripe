@@ -1,6 +1,4 @@
 <script>
-  import { preventDefault } from 'svelte/legacy';
-
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
@@ -33,7 +31,9 @@
     return clientSecret
   }
 
-  async function submit() {
+  async function submit(event) {
+    event.preventDefault()
+
     // avoid processing duplicates
     if (processing) return
 
@@ -81,7 +81,7 @@
     rules={{ '.Input': { border: 'solid 1px #0002' } }}
     bind:elements
   >
-    <form onsubmit={preventDefault(submit)}>
+    <form onsubmit={submit}>
       <LinkAuthenticationElement />
       <PaymentElement />
       <Address mode="billing" />
