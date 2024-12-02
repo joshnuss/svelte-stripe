@@ -1,6 +1,4 @@
 <script>
-  import { run } from 'svelte/legacy';
-  import { onDestroy } from 'svelte'
   import { register } from './util'
 
   /**
@@ -10,19 +8,19 @@
    */
 
   /** @type {Props} */
-  let { stripe, clientSecret } = $props();
+  let { stripe, clientSecret } = $props()
 
   let wrapper = $state()
 
   let checkoutElement = $state()
 
-  run(() => {
+  $effect(() => {
     if (stripe) {
       register(stripe)
     }
-  });
+  })
 
-  run(() => {
+  $effect(() => {
     if (stripe && clientSecret && wrapper) {
       stripe
         .initEmbeddedCheckout({ clientSecret })
@@ -31,11 +29,11 @@
           checkoutElement.mount(wrapper)
         })
     }
-  });
 
-  onDestroy(() => {
-    checkoutElement?.destroy()
-  });
+    return () => {
+      checkoutElement?.destroy()
+    }
+  })
 </script>
 
 {#if stripe && clientSecret}
