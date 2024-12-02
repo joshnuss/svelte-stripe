@@ -1,6 +1,4 @@
 <script>
-  import { run } from 'svelte/legacy';
-
   import { setContext } from 'svelte'
   import { isServer, register } from './util'
 
@@ -48,19 +46,21 @@
   let appearance = $derived({
     theme, variables, rules, labels
   })
-  run(() => {
+
+  $effect(() => {
     if (stripe && !elements) {
       elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
 
       register(stripe)
       setContext('stripe', { stripe, elements })
     }
-  });
-  run(() => {
+  })
+
+  $effect(() => {
     if (elements) {
       elements.update({ appearance, locale })
     }
-  });
+  })
 </script>
 
 {#if stripe && elements}
