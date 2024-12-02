@@ -1,6 +1,4 @@
 <script>
-  import { preventDefault } from 'svelte/legacy';
-
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
@@ -30,7 +28,9 @@
     return clientSecret
   }
 
-  async function submit() {
+  async function submit(event) {
+    event.preventDefault()
+
     // avoid processing duplicates
     if (processing) return
 
@@ -81,7 +81,7 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-<form onsubmit={preventDefault(submit)}>
+<form onsubmit={submit}>
   <input
     name="name"
     bind:value={name}

@@ -1,7 +1,4 @@
 <script>
-  import { preventDefault } from 'svelte/legacy';
-
-  import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
@@ -50,7 +47,9 @@
     return clientSecret
   }
 
-  async function submit() {
+  async function submit(event) {
+    event.preventDefault()
+
     // avoid processing duplicates
     if (processing) return
 
@@ -99,7 +98,7 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-<form onsubmit={preventDefault(submit)}>
+<form onsubmit={submit}>
   <Address legend="Billing" bind:address={billingAddress}>
     <label for="name"> Name </label>
     <input id="name" bind:value={name} required />

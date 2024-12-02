@@ -1,6 +1,4 @@
 <script>
-  import { preventDefault } from 'svelte/legacy';
-
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
@@ -24,7 +22,9 @@
     return clientSecret
   }
 
-  async function submit() {
+  async function submit(event) {
+    event.preventDefault()
+
     // avoid processing duplicates
     if (processing) return
 
@@ -70,7 +70,7 @@
 {/if}
 
 <Elements {stripe}>
-  <form onsubmit={preventDefault(submit)}>
+  <form onsubmit={submit}>
     <input name="name" bind:value={name} placeholder="Your name" disabled={processing} />
     <CardNumber bind:element={cardElement} classes={{ base: 'input' }} />
 
