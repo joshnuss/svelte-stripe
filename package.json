@@ -10,8 +10,7 @@
     "publish": "npm run package && npm publish",
     "preview": "dotenv -c development vite preview",
     "lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .prettierignore .",
-    "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
-    "semantic-release": "semantic-release"
+    "format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
     "@stripe/stripe-js": "^3.3.0",
@@ -31,7 +30,6 @@
     "prismjs": "^1.29.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
-    "semantic-release": "23.0.8",
     "stripe": "^8.222.0",
     "svelte": "^5.0.0",
     "svelte-eslint-parser": "^0.42.0",
