@@ -1,43 +1,47 @@
-<script>
-  import { mount } from './util'
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
+<script lang="ts">
+  import type { StripePaymentMethodMessagingElementOptions as Options, StripePaymentMethodMessagingElement as Element } from '@stripe/stripe-js'
+  import { getContext } from 'svelte'
+  import type { ElementsContext } from './d.ts'
 
-  /**
-   * @typedef {object} Props
-   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["amount"]} amount
-   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["currency"]} currency
-   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["paymentMethodTypes"]} paymentMethodTypes
-   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["countryCode"]} countryCode
-   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["logoColor"]?} [logoColor]
-   * @property {import('@stripe/stripe-js').StripePaymentMethodMessagingElementOptions["metadata"]?} [metadata]
-   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
-   */
+  interface Props {
+    amount: Options['amount']
+    currency: Options['currency']
+    paymentMethodTypes?: Options['paymentMethodTypes']
+    paymentMethodOrder?: Options['paymentMethodOrder']
+    countryCode: Options['countryCode']
+    element?: Element,
+    onready?: (event: {elementType: 'paymentMethodMessaging'}) => any
+  }
 
-  /** @type {Props} */
   let {
     amount,
     currency,
     paymentMethodTypes,
+    paymentMethodOrder,
     countryCode,
-    logoColor = null,
-    metadata = null,
-    element = $bindable()
-  } = $props();
+    element = $bindable(),
+    onready = () => {}
+  }: Props = $props();
 
-  /** @type {HTMLElement?} */
-  let wrapper = $state()
+  let wrapper = $state<HTMLElement>()
 
-  const dispatch = createEventDispatcher()
+  const { elements }: ElementsContext = getContext('stripe')
 
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
+  $effect(() => {
+    if (!wrapper) return
 
-  onMount(() => {
-    const options = { amount, currency, paymentMethodTypes, countryCode, logoColor, metadata }
+    const options = {
+      amount,
+      currency,
+      paymentMethodTypes,
+      paymentMethodOrder,
+      countryCode
+    }
 
-    element = mount(wrapper, 'paymentMethodMessaging', elements, dispatch, options)
+    element = elements.create('paymentMethodMessaging', options)
+    element.on('ready', onready)
 
-    return () => element.destroy()
+    return () => element?.destroy()
   })
 </script>
 

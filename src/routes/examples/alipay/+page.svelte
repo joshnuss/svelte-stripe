@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
+  import type { Stripe } from '@stripe/stripe-js'
 
-  let stripe = null
-  let error = $state(null)
+  let stripe = $state<Stripe | null>()
+  let error = $state<string | null | undefined>(null)
   let processing = $state(false)
   let email = $state()
 
@@ -31,11 +32,11 @@
     return clientSecret
   }
 
-  async function submit(event) {
+  async function submit(event: SubmitEvent) {
     event.preventDefault()
 
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe) return
 
     processing = true
 
@@ -52,7 +53,7 @@
 
     if (result.error) {
       // payment failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
     } else {
       // payment succeeded, redirect to "thank you" page

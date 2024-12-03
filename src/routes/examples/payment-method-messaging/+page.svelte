@@ -1,12 +1,11 @@
-<script>
-  import { goto } from '$app/navigation'
+<script lang="ts">
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
-  import { Elements, PaymentMethodMessaging } from '$lib'
+  import { Elements, PaymentMethodMessaging } from '$lib/index.js'
+  import type { Stripe } from '@stripe/stripe-js'
 
-  let stripe = $state(null)
-  let name
+  let stripe = $state<Stripe | null>()
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)

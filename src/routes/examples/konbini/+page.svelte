@@ -1,15 +1,15 @@
-<script>
-  import { goto } from '$app/navigation'
+<script lang="ts">
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY_JP } from '$env/static/public'
+  import type { Stripe } from '@stripe/stripe-js'
 
-  let stripe = null
-  let error = $state(null)
+  let stripe = $state<Stripe | null>()
+  let error = $state<string | null>()
   let processing = $state(false)
-  let email = $state()
-  let name = $state()
-  let phone = $state()
+  let email = $state<string>('')
+  let name = $state<string>('')
+  let phone = $state<string>('')
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY_JP)
@@ -28,11 +28,11 @@
     return clientSecret
   }
 
-  async function submit(event) {
+  async function submit(event: SubmitEvent) {
     event.preventDefault()
 
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe) return
 
     processing = true
 
@@ -49,7 +49,7 @@
       },
       payment_method_options: {
         konbini: {
-          confirmation_number: phone.replace(/\D/g, '')
+          confirmation_number: phone?.replace(/\D/g, '')
         }
       }
     })
@@ -59,12 +59,8 @@
 
     if (result.error) {
       // payment failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
-    } else {
-      // payment is ready, show next-steps
-      const { hosted_voucher_url } = result.paymentIntent.next_action.konbini_display_details
-      goto(`/examples/konbini/next-steps?hosted_voucher_url=${hosted_voucher_url}`)
     }
   }
 </script>

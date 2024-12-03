@@ -1,23 +1,28 @@
-<script>
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
-  import { mount } from './util'
+<script lang="ts">
+  import type { StripeAddressElement as Element, StripeAddressElementOptions as Options, StripeAddressElementChangeEvent as ChangeEvent, StripeError } from '@stripe/stripe-js'
+  import { getContext } from 'svelte'
+  import type { ElementsContext } from './d.ts'
 
-  /** @typedef {import('@stripe/stripe-js').StripeAddressElementOptions} StripeAddressElementOptions */
+  interface Props {
+    mode: Options["mode"]
+    allowedCountries?: Options["allowedCountries"]
+    autocomplete?: Options["autocomplete"]
+    blockPoBox?: Options["blockPoBox"]
+    contacts?: Options["contacts"]
+    defaultValues?: Options["defaultValues"]
+    fields?: Options["fields"]
+    validation?: Options["validation"]
+    display?: Options["display"]
+    element?: Element,
+    onchange?: (event: ChangeEvent) => any
+    onready?: (event: {elementType: 'address'}) => any
+    onfocus?: (event: {elementType: 'address'}) => any
+    onblur?: (event: {elementType: 'address'}) => any
+    onescape?: (event: {elementType: 'address'}) => any
+    onloaderror?: (event: {elementType: 'address'; error: StripeError}) => any
+    onloaderstart?: (event: {elementType: 'address'}) => any
+  }
 
-  /**
-   * @typedef {object} Props
-   * @property {StripeAddressElementOptions["mode"]} mode
-   * @property {StripeAddressElementOptions["allowedCountries"]} [allowedCountries]
-   * @property {StripeAddressElementOptions["autocomplete"]} [autocomplete]
-   * @property {StripeAddressElementOptions["blockPoBox"]} [blockPoBox]
-   * @property {StripeAddressElementOptions["contacts"]} [contacts]
-   * @property {StripeAddressElementOptions["defaultValues"]} [defaultValues]
-   * @property {StripeAddressElementOptions["fields"]} [fields]
-   * @property {StripeAddressElementOptions["validation"]} [validation]
-   * @property {StripeAddressElementOptions["display"]} [display]
-   */
-
-  /** @type {Props} */
   let {
     mode,
     allowedCountries = undefined,
@@ -27,21 +32,24 @@
     defaultValues = undefined,
     fields = undefined,
     validation = undefined,
-    display = undefined
-  } = $props();
+    display = undefined,
+    element = $bindable(),
+    onchange = () => {},
+    onready = () => {},
+    onfocus = () => {},
+    onblur = () => {},
+    onescape = () => {},
+    onloaderror = () => {},
+    onloaderstart = () => {},
+  }: Props = $props()
 
-  /** @type {import('@stripe/stripe-js').StripeElementBase} */
-  let element
+  let wrapper = $state<HTMLElement>()
 
-  /** @type {HTMLElement?} */
-  let wrapper = $state()
+  const { elements }: ElementsContext = getContext('stripe')
 
-  const dispatch = createEventDispatcher()
+  $effect(() => {
+    if (!wrapper) return
 
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
-
-  onMount(() => {
     const options = {
       mode,
       allowedCountries,
@@ -53,25 +61,34 @@
       validation,
       display
     }
-    element = mount(wrapper, 'address', elements, dispatch, options)
 
-    return () => element.destroy()
+    element = elements.create('address', options)
+
+    element.on('change', onchange)
+    element.on('ready', onready)
+    element.on('focus', onfocus)
+    element.on('blur', onblur)
+    element.on('escape', onescape)
+    element.on('loaderror', onloaderror)
+    element.on('loaderstart', onloaderstart)
+
+    return () => element?.destroy()
   })
 
   export function blur() {
-    element.blur()
+    element?.blur()
   }
 
   export function clear() {
-    element.clear()
+    element?.clear()
   }
 
   export function destroy() {
-    element.destroy()
+    element?.destroy()
   }
 
   export function focus() {
-    element.focus()
+    element?.focus()
   }
 </script>
 

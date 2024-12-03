@@ -1,5 +1,22 @@
-<script>
-  let { legend, address = $bindable(), children } = $props();
+<script lang="ts">
+  import type { Snippet } from 'svelte'
+
+  interface Address {
+    line1: string
+    line2?: string
+    state: string
+    city: string
+    country: string
+    postal_code: string
+  }
+
+  interface Props {
+    legend: string
+    address: Address
+    children?: Snippet | null
+  }
+
+  let { legend, address = $bindable(), children = null }: Props = $props()
 </script>
 
 <fieldset>

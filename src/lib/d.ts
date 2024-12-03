@@ -1,6 +1,6 @@
 import type { StripeElements, Stripe } from '@stripe/stripe-js'
 
-interface ElementsContext {
+export interface ElementsContext {
   elements: StripeElements
   stripe: Stripe
 }
