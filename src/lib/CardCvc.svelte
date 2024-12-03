@@ -1,5 +1,14 @@
 <script lang="ts">
-  import type { StripeElementClasses, StripeElementStyle, StripeCardElementOptions, StripeCardCvcElement, StripeCardCvcElementChangeEvent, StripeError, StripePaymentRequestButtonElement, StripePaymentRequestButtonElementOptions } from '@stripe/stripe-js'
+  import type {
+    StripeElementClasses,
+    StripeElementStyle,
+    StripeCardElementOptions,
+    StripeCardCvcElement,
+    StripeCardCvcElementChangeEvent,
+    StripeError,
+    StripePaymentRequestButtonElement,
+    StripePaymentRequestButtonElementOptions
+  } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
   import { getContext } from 'svelte'
 
@@ -10,10 +19,10 @@
     disabled?: boolean
     element?: StripeCardCvcElement
     onchange?: (event: StripeCardCvcElementChangeEvent) => any
-    onready?: (event: {elementType: 'cardCvc'}) => any
-    onfocus?: (event: {elementType: 'cardCvc'}) => any
-    onblur?: (event: {elementType: 'cardCvc'}) => any
-    onescape?: (event: {elementType: 'cardCvc'}) => any
+    onready?: (event: { elementType: 'cardCvc' }) => any
+    onfocus?: (event: { elementType: 'cardCvc' }) => any
+    onblur?: (event: { elementType: 'cardCvc' }) => any
+    onescape?: (event: { elementType: 'cardCvc' }) => any
   }
 
   let {
@@ -26,8 +35,8 @@
     onready = () => {},
     onfocus = () => {},
     onblur = () => {},
-    onescape = () => {},
-  }: Props = $props();
+    onescape = () => {}
+  }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 

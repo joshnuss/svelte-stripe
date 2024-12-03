@@ -1,5 +1,8 @@
 <script lang="ts">
-  import type { StripePaymentMethodMessagingElementOptions as Options, StripePaymentMethodMessagingElement as Element } from '@stripe/stripe-js'
+  import type {
+    StripePaymentMethodMessagingElementOptions as Options,
+    StripePaymentMethodMessagingElement as Element
+  } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
@@ -9,8 +12,8 @@
     paymentMethodTypes?: Options['paymentMethodTypes']
     paymentMethodOrder?: Options['paymentMethodOrder']
     countryCode: Options['countryCode']
-    element?: Element,
-    onready?: (event: {elementType: 'paymentMethodMessaging'}) => any
+    element?: Element
+    onready?: (event: { elementType: 'paymentMethodMessaging' }) => any
   }
 
   let {
@@ -21,7 +24,7 @@
     countryCode,
     element = $bindable(),
     onready = () => {}
-  }: Props = $props();
+  }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 

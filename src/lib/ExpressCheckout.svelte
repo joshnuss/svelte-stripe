@@ -1,5 +1,14 @@
 <script lang="ts">
-  import type { StripeExpressCheckoutElement as Element, StripeExpressCheckoutElementOptions as Options, StripeExpressCheckoutElementReadyEvent as ReadyEvent, StripeExpressCheckoutElementClickEvent as ClickEvent, StripeExpressCheckoutElementConfirmEvent as ConfirmEvent, StripeExpressCheckoutElementShippingAddressChangeEvent as AddressChangeEvent, StripeExpressCheckoutElementShippingRateChangeEvent as RateChangeEvent, StripeError } from '@stripe/stripe-js'
+  import type {
+    StripeExpressCheckoutElement as Element,
+    StripeExpressCheckoutElementOptions as Options,
+    StripeExpressCheckoutElementReadyEvent as ReadyEvent,
+    StripeExpressCheckoutElementClickEvent as ClickEvent,
+    StripeExpressCheckoutElementConfirmEvent as ConfirmEvent,
+    StripeExpressCheckoutElementShippingAddressChangeEvent as AddressChangeEvent,
+    StripeExpressCheckoutElementShippingRateChangeEvent as RateChangeEvent,
+    StripeError
+  } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
@@ -13,12 +22,12 @@
     element?: Element
     onready?: (event: ReadyEvent) => any
     onclick?: (event: ClickEvent) => any
-    onfocus?: (event: {elementType: 'expressCheckout'}) => any
-    onblur?: (event: {elementType: 'expressCheckout'}) => any
-    onescape?: (event: {elementType: 'expressCheckout'}) => any
-    onloaderror?: (event: {elementType: 'expressCheckout'; error: StripeError}) => any
+    onfocus?: (event: { elementType: 'expressCheckout' }) => any
+    onblur?: (event: { elementType: 'expressCheckout' }) => any
+    onescape?: (event: { elementType: 'expressCheckout' }) => any
+    onloaderror?: (event: { elementType: 'expressCheckout'; error: StripeError }) => any
     onconfirm?: (event: ConfirmEvent) => any
-    oncancel?: (event: {elementType: 'expressCheckout'}) => any
+    oncancel?: (event: { elementType: 'expressCheckout' }) => any
     onshippingaddresschange?: (event: AddressChangeEvent) => any
     onshippingratechange?: (event: RateChangeEvent) => any
   }
@@ -40,7 +49,7 @@
     onconfirm = () => {},
     oncancel = () => {},
     onshippingaddresschange = () => {},
-    onshippingratechange = () => {},
+    onshippingratechange = () => {}
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()

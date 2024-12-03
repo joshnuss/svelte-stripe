@@ -75,13 +75,7 @@
 {/if}
 
 <form onsubmit={submit}>
-  <input
-    name="email"
-    bind:value={email}
-    placeholder="E-mail"
-    type="email"
-    disabled={processing}
-  />
+  <input name="email" bind:value={email} placeholder="E-mail" type="email" disabled={processing} />
 
   <button disabled={processing}>
     {#if processing}

@@ -1,5 +1,10 @@
 <script lang="ts">
-  import type { StripeElementClasses, StripeElementStyle, StripeIdealBankElement, StripeIdealBankElementChangeEvent } from '@stripe/stripe-js'
+  import type {
+    StripeElementClasses,
+    StripeElementStyle,
+    StripeIdealBankElement,
+    StripeIdealBankElementChangeEvent
+  } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
@@ -11,10 +16,10 @@
     hideIcon?: boolean
     element?: StripeIdealBankElement
     onchange?: (event: StripeIdealBankElementChangeEvent) => any
-    onready?: (event: {elementType: 'idealBank'}) => any
-    onfocus?: (event: {elementType: 'idealBank'}) => any
-    onblur?: (event: {elementType: 'idealBank'}) => any
-    onescape?: (event: {elementType: 'idealBank'}) => any
+    onready?: (event: { elementType: 'idealBank' }) => any
+    onfocus?: (event: { elementType: 'idealBank' }) => any
+    onblur?: (event: { elementType: 'idealBank' }) => any
+    onescape?: (event: { elementType: 'idealBank' }) => any
   }
 
   let {
@@ -28,8 +33,8 @@
     onready = () => {},
     onfocus = () => {},
     onblur = () => {},
-    onescape = () => {},
-  }: Props = $props();
+    onescape = () => {}
+  }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 

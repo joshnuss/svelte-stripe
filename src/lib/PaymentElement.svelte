@@ -1,5 +1,13 @@
 <script lang="ts">
-  import type { StripePaymentElementOptions, StripePaymentElement, StripePaymentElementChangeEvent, StripeError, StripePaymentElementCardDetailsChangeEvent, StripePaymentElementSavedPaymentMethodUpdateEvent, StripePaymentElementSavedPaymentMethodRemoveEvent  } from '@stripe/stripe-js'
+  import type {
+    StripePaymentElementOptions,
+    StripePaymentElement,
+    StripePaymentElementChangeEvent,
+    StripeError,
+    StripePaymentElementCardDetailsChangeEvent,
+    StripePaymentElementSavedPaymentMethodUpdateEvent,
+    StripePaymentElementSavedPaymentMethodRemoveEvent
+  } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
@@ -7,12 +15,12 @@
     options?: StripePaymentElementOptions
     element?: StripePaymentElement
     onchange?: (event: StripePaymentElementChangeEvent) => any
-    onready?: (event: {elementType: 'payment'}) => any
-    onfocus?: (event: {elementType: 'payment'}) => any
-    onblur?: (event: {elementType: 'payment'}) => any
-    onescape?: (event: {elementType: 'payment'}) => any
-    onloaderror?: (event: {elementType: 'payment'; error: StripeError}) => any
-    onloaderstart?: (event: {elementType: 'payment'}) => any
+    onready?: (event: { elementType: 'payment' }) => any
+    onfocus?: (event: { elementType: 'payment' }) => any
+    onblur?: (event: { elementType: 'payment' }) => any
+    onescape?: (event: { elementType: 'payment' }) => any
+    onloaderror?: (event: { elementType: 'payment'; error: StripeError }) => any
+    onloaderstart?: (event: { elementType: 'payment' }) => any
     oncarddetailschange?: (event: StripePaymentElementCardDetailsChangeEvent) => any
     onsavedpaymentmethodupdate?: (event: StripePaymentElementSavedPaymentMethodUpdateEvent) => any
     onsavedpaymentmethodremove?: (event: StripePaymentElementSavedPaymentMethodRemoveEvent) => any
@@ -30,7 +38,7 @@
     onloaderstart = () => {},
     oncarddetailschange = () => {},
     onsavedpaymentmethodupdate = () => {},
-    onsavedpaymentmethodremove = () => {},
+    onsavedpaymentmethodremove = () => {}
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()

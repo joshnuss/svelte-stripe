@@ -34,22 +34,33 @@
     labels = 'above',
     loader = 'auto',
     fonts = [],
-    locale = "auto",
+    locale = 'auto',
     currency = undefined,
     amount = undefined,
     clientSecret = undefined,
     elements = $bindable(),
     children
-  } = $props();
-
+  } = $props()
 
   let appearance = $derived({
-    theme, variables, rules, labels
+    theme,
+    variables,
+    rules,
+    labels
   })
 
   $effect(() => {
     if (stripe && !elements) {
-      elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
+      elements = stripe.elements({
+        mode,
+        currency,
+        amount,
+        appearance,
+        clientSecret,
+        fonts,
+        loader,
+        locale
+      })
 
       register(stripe)
       setContext('stripe', { stripe, elements })

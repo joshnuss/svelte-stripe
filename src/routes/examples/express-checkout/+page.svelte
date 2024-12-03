@@ -1,5 +1,8 @@
 <script lang="ts">
-  import type { StripeExpressCheckoutElementClickEvent as ClickEvent, StripeExpressCheckoutElementConfirmEvent as ConfirmEvent } from '@stripe/stripe-js'
+  import type {
+    StripeExpressCheckoutElementClickEvent as ClickEvent,
+    StripeExpressCheckoutElementConfirmEvent as ConfirmEvent
+  } from '@stripe/stripe-js'
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
@@ -61,7 +64,10 @@
 
     // create payment intent server side
     const clientSecret = await createPaymentIntent()
-    const return_url = new URL('/examples/express-checkout/thanks', window.location.origin).toString()
+    const return_url = new URL(
+      '/examples/express-checkout/thanks',
+      window.location.origin
+    ).toString()
 
     // confirm payment with stripe
     result = await stripe.confirmPayment({
@@ -89,29 +95,25 @@
 <h1>Express Checkout Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/express-checkout">View code</a>
+  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/express-checkout"
+    >View code</a
+  >
 </nav>
 
 {#if error}
   <p class="error">{error} Please try again.</p>
 {/if}
 
-<Elements
-  {stripe}
-  mode="payment"
-  currency="usd"
-  amount={1099}
-  bind:elements>
-
+<Elements {stripe} mode="payment" currency="usd" amount={1099} bind:elements>
   <ExpressCheckout
     onconfirm={confirm}
     onclick={click}
     buttonHeight={50}
-    buttonTheme={{googlePay: 'white'}}
-    buttonType={{googlePay: 'donate'}}
-    paymentMethods={{link: 'auto', googlePay: 'auto', applePay: 'auto'}}
-    paymentMethodOrder={['googlePay', 'link']}/>
-
+    buttonTheme={{ googlePay: 'white' }}
+    buttonType={{ googlePay: 'donate' }}
+    paymentMethods={{ link: 'auto', googlePay: 'auto', applePay: 'auto' }}
+    paymentMethodOrder={['googlePay', 'link']}
+  />
 </Elements>
 
 <style>

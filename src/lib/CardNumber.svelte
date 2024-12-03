@@ -1,5 +1,11 @@
 <script lang="ts">
-  import type { StripeElementClasses, StripeElementStyle, StripeCardNumberElementChangeEvent, StripeCardNumberElement, StripeError } from '@stripe/stripe-js'
+  import type {
+    StripeElementClasses,
+    StripeElementStyle,
+    StripeCardNumberElementChangeEvent,
+    StripeCardNumberElement,
+    StripeError
+  } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
   import { getContext } from 'svelte'
 
@@ -12,10 +18,10 @@
     iconStyle?: 'default' | 'solid'
     element?: StripeCardNumberElement
     onchange?: (event: StripeCardNumberElementChangeEvent) => any
-    onready?: (event: {elementType: 'cardNumber'}) => any
-    onfocus?: (event: {elementType: 'cardNumber'}) => any
-    onblur?: (event: {elementType: 'cardNumber'}) => any
-    onescape?: (event: {elementType: 'cardNumber'}) => any
+    onready?: (event: { elementType: 'cardNumber' }) => any
+    onfocus?: (event: { elementType: 'cardNumber' }) => any
+    onblur?: (event: { elementType: 'cardNumber' }) => any
+    onescape?: (event: { elementType: 'cardNumber' }) => any
   }
 
   let {

@@ -3,6 +3,8 @@ node_modules
 /build
 /.svelte-kit
 /package
+/.vercel
+/dist
 
 /pnpm-lock.yaml
 /README.md

@@ -1,5 +1,10 @@
 <script lang="ts">
-  import type { StripeElementClasses, StripeElementStyle, StripeIbanElement, StripeIbanElementChangeEvent } from '@stripe/stripe-js'
+  import type {
+    StripeElementClasses,
+    StripeElementStyle,
+    StripeIbanElement,
+    StripeIbanElementChangeEvent
+  } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
@@ -13,10 +18,10 @@
     disabled?: boolean
     element?: StripeIbanElement
     onchange?: (event: StripeIbanElementChangeEvent) => any
-    onready?: (event: {elementType: 'iban'}) => any
-    onfocus?: (event: {elementType: 'iban'}) => any
-    onblur?: (event: {elementType: 'iban'}) => any
-    onescape?: (event: {elementType: 'iban'}) => any
+    onready?: (event: { elementType: 'iban' }) => any
+    onfocus?: (event: { elementType: 'iban' }) => any
+    onblur?: (event: { elementType: 'iban' }) => any
+    onescape?: (event: { elementType: 'iban' }) => any
   }
 
   let {
@@ -32,8 +37,8 @@
     onready = () => {},
     onfocus = () => {},
     onblur = () => {},
-    onescape = () => {},
-  }: Props = $props();
+    onescape = () => {}
+  }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 
