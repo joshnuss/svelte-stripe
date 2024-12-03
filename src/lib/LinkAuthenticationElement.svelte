@@ -1,5 +1,9 @@
 <script lang="ts">
-  import type { StripeLinkAuthenticationElement, StripeLinkAuthenticationElementOptions, StripeLinkAuthenticationElementChangeEvent } from '@stripe/stripe-js'
+  import type {
+    StripeLinkAuthenticationElement,
+    StripeLinkAuthenticationElementOptions,
+    StripeLinkAuthenticationElementChangeEvent
+  } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
@@ -7,12 +11,12 @@
     defaultValues?: StripeLinkAuthenticationElementOptions['defaultValues']
     element?: StripeLinkAuthenticationElement
     onchange?: (event: StripeLinkAuthenticationElementChangeEvent) => any
-    onready?: (event: {elementType: 'linkAuthentication'}) => any
-    onfocus?: (event: {elementType: 'linkAuthentication'}) => any
-    onblur?: (event: {elementType: 'linkAuthentication'}) => any
-    onescape?: (event: {elementType: 'linkAuthentication'}) => any
-    onloaderror?: (event: {elementType: 'linkAuthentication'}) => any
-    onloaderstart?: (event: {elementType: 'linkAuthentication'}) => any
+    onready?: (event: { elementType: 'linkAuthentication' }) => any
+    onfocus?: (event: { elementType: 'linkAuthentication' }) => any
+    onblur?: (event: { elementType: 'linkAuthentication' }) => any
+    onescape?: (event: { elementType: 'linkAuthentication' }) => any
+    onloaderror?: (event: { elementType: 'linkAuthentication' }) => any
+    onloaderstart?: (event: { elementType: 'linkAuthentication' }) => any
   }
 
   let {
@@ -24,8 +28,8 @@
     onblur = () => {},
     onescape = () => {},
     onloaderror = () => {},
-    onloaderstart = () => {},
-  }: Props = $props();
+    onloaderstart = () => {}
+  }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 

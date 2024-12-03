@@ -1,24 +1,31 @@
 <script lang="ts">
-  import type { StripeElementClasses, StripeElementStyle, StripeCardElementOptions, StripeCardElement, StripeCardElementChangeEvent, StripeError } from '@stripe/stripe-js'
+  import type {
+    StripeElementClasses,
+    StripeElementStyle,
+    StripeCardElementOptions,
+    StripeCardElement,
+    StripeCardElementChangeEvent,
+    StripeError
+  } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
   import { getContext } from 'svelte'
 
   interface Props {
     classes?: StripeElementClasses
     style?: StripeElementStyle
-    value?: StripeCardElementOptions["value"]
+    value?: StripeCardElementOptions['value']
     hidePostalCode?: boolean
     hideIcon?: boolean
     disabled?: boolean
     iconStyle: 'default' | 'solid'
     element?: StripeCardElement
     onchange?: (event: StripeCardElementChangeEvent) => any
-    onready?: (event: {elementType: 'card'}) => any
-    onfocus?: (event: {elementType: 'card'}) => any
-    onblur?: (event: {elementType: 'card'}) => any
-    onescape?: (event: {elementType: 'card'}) => any
-    onnetworkschange?: (event: {elementType: 'card'}) => any
-    onloaderror?: (event: {elementType: 'card'; error: StripeError}) => any
+    onready?: (event: { elementType: 'card' }) => any
+    onfocus?: (event: { elementType: 'card' }) => any
+    onblur?: (event: { elementType: 'card' }) => any
+    onescape?: (event: { elementType: 'card' }) => any
+    onnetworkschange?: (event: { elementType: 'card' }) => any
+    onloaderror?: (event: { elementType: 'card'; error: StripeError }) => any
   }
 
   let {
@@ -37,7 +44,7 @@
     onescape = () => {},
     onnetworkschange = () => {},
     onloaderror = () => {}
-  }: Props = $props();
+  }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 

@@ -1,26 +1,31 @@
 <script lang="ts">
-  import type { StripeAddressElement as Element, StripeAddressElementOptions as Options, StripeAddressElementChangeEvent as ChangeEvent, StripeError } from '@stripe/stripe-js'
+  import type {
+    StripeAddressElement as Element,
+    StripeAddressElementOptions as Options,
+    StripeAddressElementChangeEvent as ChangeEvent,
+    StripeError
+  } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
-    mode: Options["mode"]
-    allowedCountries?: Options["allowedCountries"]
-    autocomplete?: Options["autocomplete"]
-    blockPoBox?: Options["blockPoBox"]
-    contacts?: Options["contacts"]
-    defaultValues?: Options["defaultValues"]
-    fields?: Options["fields"]
-    validation?: Options["validation"]
-    display?: Options["display"]
-    element?: Element,
+    mode: Options['mode']
+    allowedCountries?: Options['allowedCountries']
+    autocomplete?: Options['autocomplete']
+    blockPoBox?: Options['blockPoBox']
+    contacts?: Options['contacts']
+    defaultValues?: Options['defaultValues']
+    fields?: Options['fields']
+    validation?: Options['validation']
+    display?: Options['display']
+    element?: Element
     onchange?: (event: ChangeEvent) => any
-    onready?: (event: {elementType: 'address'}) => any
-    onfocus?: (event: {elementType: 'address'}) => any
-    onblur?: (event: {elementType: 'address'}) => any
-    onescape?: (event: {elementType: 'address'}) => any
-    onloaderror?: (event: {elementType: 'address'; error: StripeError}) => any
-    onloaderstart?: (event: {elementType: 'address'}) => any
+    onready?: (event: { elementType: 'address' }) => any
+    onfocus?: (event: { elementType: 'address' }) => any
+    onblur?: (event: { elementType: 'address' }) => any
+    onescape?: (event: { elementType: 'address' }) => any
+    onloaderror?: (event: { elementType: 'address'; error: StripeError }) => any
+    onloaderstart?: (event: { elementType: 'address' }) => any
   }
 
   let {
@@ -40,7 +45,7 @@
     onblur = () => {},
     onescape = () => {},
     onloaderror = () => {},
-    onloaderstart = () => {},
+    onloaderstart = () => {}
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()

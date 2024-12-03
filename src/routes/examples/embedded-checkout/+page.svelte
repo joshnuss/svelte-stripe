@@ -17,7 +17,10 @@
 <h1>Embedded Checkout Example</h1>
 
 <nav>
-  <a href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/embedded-checkout">View code</a>
+  <a
+    href="https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/embedded-checkout"
+    >View code</a
+  >
 </nav>
 
-<EmbeddedCheckout {stripe} clientSecret={data.clientSecret as string}/>
+<EmbeddedCheckout {stripe} clientSecret={data.clientSecret as string} />

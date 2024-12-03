@@ -1,5 +1,12 @@
 <script lang="ts">
-  import type { StripeElementClasses, StripeElementStyle, StripeCardElementOptions, StripeCardExpiryElement, StripeCardExpiryElementChangeEvent, StripeError } from '@stripe/stripe-js'
+  import type {
+    StripeElementClasses,
+    StripeElementStyle,
+    StripeCardElementOptions,
+    StripeCardExpiryElement,
+    StripeCardExpiryElementChangeEvent,
+    StripeError
+  } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
   import { getContext } from 'svelte'
 
@@ -10,10 +17,10 @@
     disabled?: boolean
     element?: StripeCardExpiryElement
     onchange?: (event: StripeCardExpiryElementChangeEvent) => any
-    onready?: (event: {elementType: 'cardExpiry'}) => any
-    onfocus?: (event: {elementType: 'cardExpiry'}) => any
-    onblur?: (event: {elementType: 'cardExpiry'}) => any
-    onescape?: (event: {elementType: 'cardExpiry'}) => any
+    onready?: (event: { elementType: 'cardExpiry' }) => any
+    onfocus?: (event: { elementType: 'cardExpiry' }) => any
+    onblur?: (event: { elementType: 'cardExpiry' }) => any
+    onescape?: (event: { elementType: 'cardExpiry' }) => any
   }
 
   let {
@@ -26,8 +33,8 @@
     onready = () => {},
     onfocus = () => {},
     onblur = () => {},
-    onescape = () => {},
-  }: Props = $props();
+    onescape = () => {}
+  }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 

@@ -8,11 +8,7 @@
     checkout?: Checkout
   }
 
-  let {
-    stripe,
-    clientSecret,
-    checkout = $bindable()
-  }: Props = $props()
+  let { stripe, clientSecret, checkout = $bindable() }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 
@@ -24,14 +20,11 @@
 
   $effect(() => {
     if (stripe && clientSecret && wrapper) {
-      stripe
-        .initEmbeddedCheckout({ clientSecret })
-        .then((result) => {
-          checkout = result
+      stripe.initEmbeddedCheckout({ clientSecret }).then((result) => {
+        checkout = result
 
-          if (wrapper)
-            checkout.mount(wrapper)
-        })
+        if (wrapper) checkout.mount(wrapper)
+      })
     }
 
     return () => {
