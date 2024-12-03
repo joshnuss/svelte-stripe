@@ -1,18 +1,20 @@
-<script>
-  import { register } from './util'
+<script lang="ts">
+  import type { Stripe, StripeEmbeddedCheckout as Checkout } from '@stripe/stripe-js'
+  import { register } from './util.js'
 
-  /**
-   * @typedef {Object} Props
-   * @property {import('@stripe/stripe-js').Stripe?} stripe
-   * @property {string?} clientSecret
-   */
+  interface Props {
+    stripe?: Stripe | null
+    clientSecret?: string
+    checkout?: Checkout
+  }
 
-  /** @type {Props} */
-  let { stripe, clientSecret } = $props()
+  let {
+    stripe,
+    clientSecret,
+    checkout = $bindable()
+  }: Props = $props()
 
-  let wrapper = $state()
-
-  let checkoutElement = $state()
+  let wrapper = $state<HTMLElement>()
 
   $effect(() => {
     if (stripe) {
@@ -24,14 +26,16 @@
     if (stripe && clientSecret && wrapper) {
       stripe
         .initEmbeddedCheckout({ clientSecret })
-        .then((element) => {
-          checkoutElement = element
-          checkoutElement.mount(wrapper)
+        .then((result) => {
+          checkout = result
+
+          if (wrapper)
+            checkout.mount(wrapper)
         })
     }
 
     return () => {
-      checkoutElement?.destroy()
+      checkout?.destroy()
     }
   })
 </script>

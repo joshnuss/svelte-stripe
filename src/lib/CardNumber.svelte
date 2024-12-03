@@ -1,19 +1,23 @@
-<script>
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
-  import { mount } from './util'
+<script lang="ts">
+  import type { StripeElementClasses, StripeElementStyle, StripeCardNumberElementChangeEvent, StripeCardNumberElement, StripeError } from '@stripe/stripe-js'
+  import type { ElementsContext } from './d.ts'
+  import { getContext } from 'svelte'
 
-  /**
-   * @typedef {object} Props
-   * @property {import('@stripe/stripe-js').StripeElementClasses} [classes]
-   * @property {import('@stripe/stripe-js').StripeElementStyle} [style]
-   * @property {string} [placeholder]
-   * @property {boolean?} [disabled]
-   * @property {boolean?} [showIcon]
-   * @property {'default' | 'solid'} [iconStyle]
-   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
-   */
+  interface Props {
+    classes?: StripeElementClasses
+    style?: StripeElementStyle
+    placeholder?: string
+    disabled?: boolean
+    showIcon?: boolean
+    iconStyle?: 'default' | 'solid'
+    element?: StripeCardNumberElement
+    onchange?: (event: StripeCardNumberElementChangeEvent) => any
+    onready?: (event: {elementType: 'cardNumber'}) => any
+    onfocus?: (event: {elementType: 'cardNumber'}) => any
+    onblur?: (event: {elementType: 'cardNumber'}) => any
+    onescape?: (event: {elementType: 'cardNumber'}) => any
+  }
 
-  /** @type {Props} */
   let {
     classes = {},
     style = {},
@@ -21,39 +25,50 @@
     disabled = false,
     showIcon = true,
     iconStyle = 'default',
-    element = $bindable()
-  } = $props();
+    element = $bindable(),
+    onchange = () => {},
+    onready = () => {},
+    onfocus = () => {},
+    onblur = () => {},
+    onescape = () => {}
+  }: Props = $props()
 
-  /** @type {HTMLElement?} */
-  let wrapper = $state()
+  let wrapper = $state<HTMLElement>()
 
-  const dispatch = createEventDispatcher()
+  const { elements }: ElementsContext = getContext('stripe')
 
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
+  $effect(() => {
+    if (!wrapper) return
 
-  onMount(() => {
     const options = { classes, style, placeholder, disabled, showIcon, iconStyle }
 
-    element = mount(wrapper, 'cardNumber', elements, dispatch, options)
+    element = elements.create('cardNumber', options)
 
-    return () => element.destroy()
+    element.on('change', onchange)
+    element.on('ready', onready)
+    element.on('focus', onfocus)
+    element.on('blur', onblur)
+    element.on('escape', onescape)
+
+    element.mount(wrapper)
+
+    return () => element?.destroy()
   })
 
   export function blur() {
-    element.blur()
+    element?.blur()
   }
 
   export function clear() {
-    element.clear()
+    element?.clear()
   }
 
   export function destroy() {
-    element.destroy()
+    element?.destroy()
   }
 
   export function focus() {
-    element.focus()
+    element?.focus()
   }
 </script>
 

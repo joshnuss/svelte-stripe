@@ -1,50 +1,68 @@
-<script>
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
-  import { mount } from './util'
+<script lang="ts">
+  import type { StripeLinkAuthenticationElement, StripeLinkAuthenticationElementOptions, StripeLinkAuthenticationElementChangeEvent } from '@stripe/stripe-js'
+  import { getContext } from 'svelte'
+  import type { ElementsContext } from './d.ts'
 
-  /**
-   * @typedef {object} Props
-   * @property {import('@stripe/stripe-js').StripeLinkAuthenticationElementOptions["defaultValues"]?} [defaultValues]
-   */
+  interface Props {
+    defaultValues?: StripeLinkAuthenticationElementOptions['defaultValues']
+    element?: StripeLinkAuthenticationElement
+    onchange?: (event: StripeLinkAuthenticationElementChangeEvent) => any
+    onready?: (event: {elementType: 'linkAuthentication'}) => any
+    onfocus?: (event: {elementType: 'linkAuthentication'}) => any
+    onblur?: (event: {elementType: 'linkAuthentication'}) => any
+    onescape?: (event: {elementType: 'linkAuthentication'}) => any
+    onloaderror?: (event: {elementType: 'linkAuthentication'}) => any
+    onloaderstart?: (event: {elementType: 'linkAuthentication'}) => any
+  }
 
-  /** @type {Props} */
-  let { defaultValues = null } = $props();
+  let {
+    defaultValues,
+    element = $bindable(),
+    onchange = () => {},
+    onready = () => {},
+    onfocus = () => {},
+    onblur = () => {},
+    onescape = () => {},
+    onloaderror = () => {},
+    onloaderstart = () => {},
+  }: Props = $props();
 
-  /** @type {import('@stripe/stripe-js').StripeElementBase} */
-  let element
+  let wrapper = $state<HTMLElement>()
 
-  /** @type {HTMLElement?} */
-  let wrapper = $state()
+  const { elements }: ElementsContext = getContext('stripe')
 
-  const dispatch = createEventDispatcher()
+  $effect(() => {
+    if (!wrapper) return
 
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
-
-  onMount(() => {
     const options = defaultValues ? { defaultValues } : {}
-    element = mount(wrapper, 'linkAuthentication', elements, dispatch, options)
-    element.on('change', (event) => {
-      dispatch('change', event)
-    })
 
-    return () => element.destroy()
+    element = elements.create('linkAuthentication', options)
+
+    element.on('change', onchange)
+    element.on('ready', onready)
+    element.on('focus', onfocus)
+    element.on('blur', onblur)
+    element.on('escape', onescape)
+    element.on('loaderror', onloaderror)
+    element.on('loaderstart', onloaderstart)
+
+    return () => element?.destroy()
   })
 
   export function blur() {
-    element.blur()
+    element?.blur()
   }
 
   export function clear() {
-    element.clear()
+    element?.clear()
   }
 
   export function destroy() {
-    element.destroy()
+    element?.destroy()
   }
 
   export function focus() {
-    element.focus()
+    element?.focus()
   }
 </script>
 

@@ -1,20 +1,26 @@
-<script>
-  import { mount } from './util'
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
+<script lang="ts">
+  import type { StripeElementClasses, StripeElementStyle, StripeCardElementOptions, StripeCardElement, StripeCardElementChangeEvent, StripeError } from '@stripe/stripe-js'
+  import type { ElementsContext } from './d.ts'
+  import { getContext } from 'svelte'
 
-  /**
-   * @typedef {object} Props
-   * @property {import('@stripe/stripe-js').StripeElementClasses} [classes]
-   * @property {import('@stripe/stripe-js').StripeElementStyle} [style]
-   * @property {import('@stripe/stripe-js').StripeCardElementOptions["value"]?} [value]
-   * @property {boolean?} [hidePostalCode]
-   * @property {boolean?} [hideIcon]
-   * @property {boolean?} [disabled]
-   * @property {'default' | 'solid'} [iconStyle]
-   * @property {import('@stripe/stripe-js').StripeElementBase?} [element]
-   */
+  interface Props {
+    classes?: StripeElementClasses
+    style?: StripeElementStyle
+    value?: StripeCardElementOptions["value"]
+    hidePostalCode?: boolean
+    hideIcon?: boolean
+    disabled?: boolean
+    iconStyle: 'default' | 'solid'
+    element?: StripeCardElement
+    onchange?: (event: StripeCardElementChangeEvent) => any
+    onready?: (event: {elementType: 'card'}) => any
+    onfocus?: (event: {elementType: 'card'}) => any
+    onblur?: (event: {elementType: 'card'}) => any
+    onescape?: (event: {elementType: 'card'}) => any
+    onnetworkschange?: (event: {elementType: 'card'}) => any
+    onloaderror?: (event: {elementType: 'card'; error: StripeError}) => any
+  }
 
-  /** @type {Props} */
   let {
     classes = {},
     style = {},
@@ -23,39 +29,54 @@
     hideIcon = false,
     disabled = false,
     iconStyle = 'default',
-    element = $bindable()
-  } = $props();
+    element = $bindable(),
+    onchange = () => {},
+    onready = () => {},
+    onfocus = () => {},
+    onblur = () => {},
+    onescape = () => {},
+    onnetworkschange = () => {},
+    onloaderror = () => {}
+  }: Props = $props();
 
-  /** @type {HTMLElement?} */
-  let wrapper = $state()
+  let wrapper = $state<HTMLElement>()
 
-  const dispatch = createEventDispatcher()
+  const { elements }: ElementsContext = getContext('stripe')
 
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
+  $effect(() => {
+    if (!wrapper) return
 
-  onMount(() => {
     const options = { classes, style, value, hidePostalCode, hideIcon, disabled, iconStyle }
 
-    element = mount(wrapper, 'card', elements, dispatch, options)
+    element = elements.create('card', options)
 
-    return () => element.destroy()
+    element.on('change', onchange)
+    element.on('ready', onready)
+    element.on('focus', onfocus)
+    element.on('blur', onblur)
+    element.on('escape', onescape)
+    element.on('networkschange', onnetworkschange)
+    element.on('loaderror', onloaderror)
+
+    element.mount(wrapper)
+
+    return () => element?.destroy()
   })
 
   export function blur() {
-    element.blur()
+    element?.blur()
   }
 
   export function clear() {
-    element.clear()
+    element?.clear()
   }
 
   export function destroy() {
-    element.destroy()
+    element?.destroy()
   }
 
   export function focus() {
-    element.focus()
+    element?.focus()
   }
 </script>
 

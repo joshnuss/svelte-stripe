@@ -1,13 +1,15 @@
-<script>
+<script lang="ts">
+  import type { StripeExpressCheckoutElementClickEvent as ClickEvent, StripeExpressCheckoutElementConfirmEvent as ConfirmEvent } from '@stripe/stripe-js'
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
-  import { Elements, ExpressCheckout } from '$lib'
+  import { Elements, ExpressCheckout } from '$lib/index.js'
+  import type { Stripe, StripeElements } from '@stripe/stripe-js'
 
-  let stripe = $state(null)
-  let error = $state(null)
-  let elements = $state()
+  let stripe = $state<Stripe | null>(null)
+  let error = $state<string | null>()
+  let elements = $state<StripeElements>()
   let processing = false
 
   onMount(async () => {
@@ -27,7 +29,7 @@
     return clientSecret
   }
 
-  async function click(event) {
+  async function click(event: ClickEvent) {
     const options = {
       emailRequired: true,
       phoneNumberRequired: true,
@@ -39,12 +41,12 @@
       ]
     }
 
-    event.detail.resolve(options)
+    event.resolve(options)
   }
 
-  async function confirm() {
+  async function confirm(event: ConfirmEvent) {
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe || !elements) return
 
     processing = true
 
@@ -52,7 +54,7 @@
 
     if (result.error) {
       // validation failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
       return
     }
@@ -75,7 +77,7 @@
 
     if (result.error) {
       // payment failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
     } else {
       // payment succeeded, redirect to "thank you" page
@@ -91,7 +93,7 @@
 </nav>
 
 {#if error}
-  <p class="error">{error.message} Please try again.</p>
+  <p class="error">{error} Please try again.</p>
 {/if}
 
 <Elements
@@ -102,11 +104,12 @@
   bind:elements>
 
   <ExpressCheckout
-    on:confirm={confirm}
-    on:click={click}
+    onconfirm={confirm}
+    onclick={click}
     buttonHeight={50}
     buttonTheme={{googlePay: 'white'}}
     buttonType={{googlePay: 'donate'}}
+    paymentMethods={{link: 'auto', googlePay: 'auto', applePay: 'auto'}}
     paymentMethodOrder={['googlePay', 'link']}/>
 
 </Elements>

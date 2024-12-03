@@ -1,48 +1,79 @@
-<script>
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
-  import { mount } from './util'
+<script lang="ts">
+  import type { StripePaymentElementOptions, StripePaymentElement, StripePaymentElementChangeEvent, StripeError, StripePaymentElementCardDetailsChangeEvent, StripePaymentElementSavedPaymentMethodUpdateEvent, StripePaymentElementSavedPaymentMethodRemoveEvent  } from '@stripe/stripe-js'
+  import { getContext } from 'svelte'
+  import type { ElementsContext } from './d.ts'
 
-  /** @typedef {import('@stripe/stripe-js').StripePaymentElementOptions} StripePaymentElementOptions */
+  interface Props {
+    options?: StripePaymentElementOptions
+    element?: StripePaymentElement
+    onchange?: (event: StripePaymentElementChangeEvent) => any
+    onready?: (event: {elementType: 'payment'}) => any
+    onfocus?: (event: {elementType: 'payment'}) => any
+    onblur?: (event: {elementType: 'payment'}) => any
+    onescape?: (event: {elementType: 'payment'}) => any
+    onloaderror?: (event: {elementType: 'payment'; error: StripeError}) => any
+    onloaderstart?: (event: {elementType: 'payment'}) => any
+    oncarddetailschange?: (event: StripePaymentElementCardDetailsChangeEvent) => any
+    onsavedpaymentmethodupdate?: (event: StripePaymentElementSavedPaymentMethodUpdateEvent) => any
+    onsavedpaymentmethodremove?: (event: StripePaymentElementSavedPaymentMethodRemoveEvent) => any
+  }
 
-  /** @type {import('@stripe/stripe-js').StripeElementBase} */
-  let element
+  let {
+    options = {},
+    element = $bindable(),
+    onchange = () => {},
+    onready = () => {},
+    onfocus = () => {},
+    onblur = () => {},
+    onescape = () => {},
+    onloaderror = () => {},
+    onloaderstart = () => {},
+    oncarddetailschange = () => {},
+    onsavedpaymentmethodupdate = () => {},
+    onsavedpaymentmethodremove = () => {},
+  }: Props = $props()
 
-  /** @type {HTMLElement?} */
-  let wrapper = $state()
+  let wrapper = $state<HTMLElement>()
 
-  const dispatch = createEventDispatcher()
+  const { elements }: ElementsContext = getContext('stripe')
 
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
+  $effect(() => {
+    if (!wrapper) return
 
-  /**
-   * @typedef {object} Props
-   * @property {StripePaymentElementOptions?} [options]
-   */
+    element = elements.create('payment', options)
 
-  /** @type {Props} */
-  let { options = undefined } = $props();
+    element.on('change', onchange)
+    element.on('ready', onready)
+    element.on('focus', onfocus)
+    element.on('blur', onblur)
+    element.on('escape', onescape)
+    element.on('loaderror', onloaderror)
+    element.on('loaderstart', onloaderstart)
+    element.on('carddetailschange', oncarddetailschange)
+    element.on('savedpaymentmethodupdate', onsavedpaymentmethodupdate)
+    element.on('savedpaymentmethodremove', onsavedpaymentmethodremove)
 
-  onMount(() => {
-    element = mount(wrapper, 'payment', elements, dispatch, options)
-
-    return () => element.destroy()
+    return () => element?.destroy()
   })
 
   export function blur() {
-    element.blur()
+    element?.blur()
   }
 
   export function clear() {
-    element.clear()
+    element?.clear()
   }
 
   export function destroy() {
-    element.destroy()
+    element?.destroy()
   }
 
   export function focus() {
-    element.focus()
+    element?.focus()
+  }
+
+  export function collapse() {
+    element?.collapse()
   }
 </script>
 

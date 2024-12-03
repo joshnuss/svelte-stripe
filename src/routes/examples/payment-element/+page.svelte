@@ -1,14 +1,14 @@
-<script>
-  import { goto } from '$app/navigation'
+<script lang="ts">
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
-  import { Elements, PaymentElement, LinkAuthenticationElement, Address } from '$lib'
+  import { Elements, PaymentElement, LinkAuthenticationElement, Address } from '$lib/index.js'
+  import type { Stripe, StripeElements } from '@stripe/stripe-js'
 
-  let stripe = $state(null)
-  let clientSecret = $state(null)
-  let error = $state(null)
-  let elements = $state()
+  let stripe = $state<Stripe | null>()
+  let clientSecret = $state<string | null>(null)
+  let error = $state<string | null>()
+  let elements = $state<StripeElements>()
   let processing = $state(false)
 
   onMount(async () => {
@@ -31,18 +31,21 @@
     return clientSecret
   }
 
-  async function submit(event) {
+  async function submit(event: SubmitEvent) {
     event.preventDefault()
 
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe || !elements || !clientSecret) return
 
     processing = true
 
     // confirm payment with stripe
     const result = await stripe.confirmPayment({
       elements,
-      redirect: 'if_required'
+      clientSecret,
+      confirmParams: {
+        return_url: `${window.location.origin}/examples/payment-element/thanks`
+      }
     })
 
     // log results, for debugging
@@ -50,11 +53,8 @@
 
     if (result.error) {
       // payment failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
-    } else {
-      // payment succeeded, redirect to "thank you" page
-      goto('/examples/payment-element/thanks')
     }
   }
 </script>
@@ -68,7 +68,7 @@
 </nav>
 
 {#if error}
-  <p class="error">{error.message} Please try again.</p>
+  <p class="error">{error} Please try again.</p>
 {/if}
 
 {#if clientSecret}

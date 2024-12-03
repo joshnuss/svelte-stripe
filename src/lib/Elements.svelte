@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   import { setContext } from 'svelte'
-  import { isServer, register } from './util'
+  import { isServer, register } from './util.js'
 
   /** @typedef { import('@stripe/stripe-js').Stripe } Appearance */
   /** @typedef { import('@stripe/stripe-js').Appearance } Appearance */

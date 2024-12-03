@@ -1,14 +1,9 @@
-<script>
+<script lang="ts">
   import '../prism-theme.css'
   import '../app.css'
   import GithubBadge from './GithubBadge.svelte'
-  /**
-   * @typedef {Object} Props
-   * @property {import('svelte').Snippet} [children]
-   */
 
-  /** @type {Props} */
-  let { children } = $props();
+  let { children } = $props()
 </script>
 
 <GithubBadge />

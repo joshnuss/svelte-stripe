@@ -1,14 +1,15 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
-  import { Elements, CardNumber, CardExpiry, CardCvc } from '$lib'
+  import { Elements, CardNumber, CardExpiry, CardCvc } from '$lib/index.js'
+  import type { Stripe, StripeCardNumberElement as Element } from '@stripe/stripe-js'
 
-  let stripe = $state(null)
-  let error = $state(null)
-  let cardElement = $state()
-  let name = $state()
+  let stripe = $state<Stripe | null>()
+  let error = $state<string>()
+  let cardElement = $state<Element>()
+  let name = $state<string>()
   let processing = $state(false)
 
   onMount(async () => {
@@ -22,11 +23,11 @@
     return clientSecret
   }
 
-  async function submit(event) {
+  async function submit(event: SubmitEvent) {
     event.preventDefault()
 
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe || !cardElement) return
 
     processing = true
 
@@ -48,7 +49,7 @@
 
     if (result.error) {
       // payment failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
     } else {
       // payment succeeded, redirect to "thank you" page
@@ -66,7 +67,7 @@
 </nav>
 
 {#if error}
-  <p class="error">{error.message} Please try again.</p>
+  <p class="error">{error} Please try again.</p>
 {/if}
 
 <Elements {stripe}>
