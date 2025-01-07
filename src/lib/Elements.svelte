@@ -33,6 +33,9 @@
   /** @type {StripeElementsOptions["locale"]} */
   export let locale = "auto"
 
+  /** @type {StripeElementsOptions["syncAddressCheckbox"]} */
+  export let syncAddressCheckbox = undefined
+
   /** @type {StripeElementsOptions["currency"]} */
   export let currency = undefined
 
@@ -50,7 +53,7 @@
   export let elements = null
 
   $: if (stripe && !elements) {
-    elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
+    elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale, syncAddressCheckbox })
 
     register(stripe)
     setContext('stripe', { stripe, elements })
