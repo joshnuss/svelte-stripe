@@ -36,7 +36,7 @@
     "svelte": "^4.2.15",
     "svelte-eslint-parser": "^0.35.0",
     "typescript": "^5.4.5",
-    "vite": "^5.2.11"
+    "vite": "^5.4.12"
   },
   "peerDependencies": {
     "@stripe/stripe-js": "^3 || ^4",
