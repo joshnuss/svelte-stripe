@@ -6,6 +6,13 @@ Everything you need to add Stripe Elements to your Svelte project. 100% [SvelteK
 
 [Documentation](https://sveltestripe.com)
 
+## Used by
+
+<a href="https://github.com/joshnuss/svelte-stripe/network/dependents">
+  <img src="https://dependents.info/joshnuss/svelte-stripe/image.svg" />
+</a>
+
+
 ## Components
 
 The following components are provided:
