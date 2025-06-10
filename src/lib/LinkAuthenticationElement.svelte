@@ -1,16 +1,16 @@
 <script lang="ts">
   import type {
-    StripeLinkAuthenticationElement,
-    StripeLinkAuthenticationElementOptions,
-    StripeLinkAuthenticationElementChangeEvent
+    StripeLinkAuthenticationElement as Element,
+    StripeLinkAuthenticationElementOptions as Options,
+    StripeLinkAuthenticationElementChangeEvent as ChangeEvent
   } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
-    defaultValues?: StripeLinkAuthenticationElementOptions['defaultValues']
-    element?: StripeLinkAuthenticationElement
-    onchange?: (event: StripeLinkAuthenticationElementChangeEvent) => any
+    defaultValues?: Options['defaultValues']
+    element?: Element
+    onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'linkAuthentication' }) => any
     onfocus?: (event: { elementType: 'linkAuthentication' }) => any
     onblur?: (event: { elementType: 'linkAuthentication' }) => any

@@ -1,21 +1,21 @@
 <script lang="ts">
   import type {
-    StripeElementClasses,
-    StripeElementStyle,
-    StripeIdealBankElement,
-    StripeIdealBankElementChangeEvent
+    StripeElementClasses as Classes,
+    StripeElementStyle as Style,
+    StripeIdealBankElement as Element,
+    StripeIdealBankElementChangeEvent as ChangeEvent
   } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
-    classes?: StripeElementClasses
-    style?: StripeElementStyle
+    classes?: Classes
+    style?: Style
     value?: string
     disabled?: boolean
     hideIcon?: boolean
-    element?: StripeIdealBankElement
-    onchange?: (event: StripeIdealBankElementChangeEvent) => any
+    element?: Element
+    onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'idealBank' }) => any
     onfocus?: (event: { elementType: 'idealBank' }) => any
     onblur?: (event: { elementType: 'idealBank' }) => any
