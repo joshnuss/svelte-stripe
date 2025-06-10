@@ -1,33 +1,29 @@
 <script lang="ts">
   import { setContext } from 'svelte'
   import { isServer, register } from './util.js'
+  import type { Snippet } from 'svelte'
+  import type { Stripe, StripeElements, Appearance, StripeElementsOptions as Options, StripeElementsOptionsMode as OptionsMode } from '@stripe/stripe-js'
 
-  /** @typedef { import('@stripe/stripe-js').Stripe } Appearance */
-  /** @typedef { import('@stripe/stripe-js').Appearance } Appearance */
-  /** @typedef { import('@stripe/stripe-js').StripeElementsOptions } StripeElementsOptions */
+  interface Props {
+    stripe?: Stripe | null
+    mode?: OptionsMode['mode']
+    theme?: Appearance['theme']
+    variables?: Appearance['variables']
+    rules?: Appearance['rules']
+    labels?: Appearance['labels']
+    loader?: Options['loader']
+    fonts?: Options['fonts']
+    locale?: Options['locale']
+    currency?: OptionsMode['currency']
+    amount?: OptionsMode['amount']
+    clientSecret?: string
+    elements?: StripeElements
+    children: Snippet
+  }
 
-  /**
-   * @typedef {Object} Props
-   * @property {Stripe?} stripe
-   * @property {StripeElementsOptions["mode"]} [mode]
-   * @property {Appearance["theme"]} [theme]
-   * @property {Appearance["variables"]} [variables]
-   * @property {Appearance["rules"]} [rules]
-   * @property {Appearance["labels"]} [labels]
-   * @property {StripeElementsOptions["loader"]} [loader]
-   * @property {StripeElementsOptions["fonts"]} [fonts]
-   * @property {StripeElementsOptions["locale"]} [locale]
-   * @property {StripeElementsOptions["currency"]} [currency]
-   * @property {StripeElementsOptions["amount"]} [amount]
-   * @property {string?} [clientSecret]
-   * @property {import('@stripe/stripe-js').StripeElements?} [elements]
-   * @property {import('svelte').Snippet} [children]
-   */
-
-  /** @type {Props} */
   let {
     stripe,
-    mode = undefined,
+    mode,
     theme = 'stripe',
     variables = {},
     rules = {},
@@ -35,12 +31,12 @@
     loader = 'auto',
     fonts = [],
     locale = 'auto',
-    currency = undefined,
-    amount = undefined,
-    clientSecret = undefined,
+    currency,
+    amount,
+    clientSecret,
     elements = $bindable(),
     children
-  } = $props()
+  }: Props = $props()
 
   let appearance = $derived({
     theme,
