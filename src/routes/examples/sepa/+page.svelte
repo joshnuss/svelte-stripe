@@ -1,16 +1,17 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
-  import { Elements, Iban } from '$lib'
+  import { Elements, Iban } from '$lib/index.js'
+  import type { Stripe, StripeIbanElement } from '@stripe/stripe-js'
 
-  let stripe = null
-  let error = null
-  let ibanElement
-  let processing = false
-  let name
-  let email
+  let stripe = $state<Stripe | null>()
+  let error = $state<string | null>()
+  let ibanElement = $state<StripeIbanElement>()
+  let processing = $state(false)
+  let name = $state<string>('')
+  let email = $state<string>('')
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)
@@ -29,9 +30,11 @@
     return clientSecret
   }
 
-  async function submit() {
+  async function submit(event: SubmitEvent) {
+    event.preventDefault()
+
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe || !ibanElement) return
 
     processing = true
 
@@ -54,7 +57,7 @@
 
     if (result.error) {
       // payment failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
     } else {
       // payment succeeded, redirect to "thank you" page
@@ -72,30 +75,32 @@
 </nav>
 
 {#if error}
-  <p class="error">{error.message} Please try again.</p>
+  <p class="error">{error} Please try again.</p>
 {/if}
 
-<Elements {stripe}>
-  <form on:submit|preventDefault={submit}>
-    <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
-    <input
-      name="email"
-      bind:value={email}
-      placeholder="E-mail"
-      type="email"
-      disabled={processing}
-    />
-    <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{ base: 'input' }} />
+{#if stripe}
+  <Elements {stripe}>
+    <form onsubmit={submit}>
+      <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
+      <input
+        name="email"
+        bind:value={email}
+        placeholder="E-mail"
+        type="email"
+        disabled={processing}
+      />
+      <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{ base: 'input' }} />
 
-    <button disabled={processing}>
-      {#if processing}
-        Processing...
-      {:else}
-        Pay
-      {/if}
-    </button>
-  </form>
-</Elements>
+      <button disabled={processing}>
+        {#if processing}
+          Processing...
+        {:else}
+          Pay
+        {/if}
+      </button>
+    </form>
+  </Elements>
+{/if}
 
 <style>
   .error {

@@ -1,66 +1,76 @@
-<script>
-  import { setContext } from 'svelte'
-  import { isServer, register } from './util'
+<script lang="ts">
+  import { setContext, onMount, type Snippet } from 'svelte'
+  import { isServer, register } from './util.js'
+  import type {
+    Stripe,
+    StripeElements,
+    Appearance,
+    StripeElementsOptions as Options,
+    StripeElementsOptionsMode as OptionsMode
+  } from '@stripe/stripe-js'
 
-  /** @type {import('@stripe/stripe-js').Stripe?} */
-  export let stripe
-
-  /** @type {StripeElementsOptions["mode"]} */
-  export let mode = undefined
-
-  /** @typedef { import('@stripe/stripe-js').Appearance } Appearance */
-
-  /** @type {Appearance["theme"]} */
-  export let theme = 'stripe'
-
-  /** @type {Appearance["variables"]} */
-  export let variables = {}
-
-  /** @type {Appearance["rules"]} */
-  export let rules = {}
-
-  /** @type {Appearance["labels"]} */
-  export let labels = 'above'
-
-  /** @typedef { import('@stripe/stripe-js').StripeElementsOptions } StripeElementsOptions */
-
-  /** @type {StripeElementsOptions["loader"]} */
-  export let loader = 'auto'
-
-  /** @type {StripeElementsOptions["fonts"]} */
-  export let fonts = []
-
-  /** @type {StripeElementsOptions["locale"]} */
-  export let locale = "auto"
-
-  /** @type {StripeElementsOptions["currency"]} */
-  export let currency = undefined
-
-  /** @type {StripeElementsOptions["amount"]} */
-  export let amount = undefined
-
-  /** @type {string?} */
-  export let clientSecret = undefined
-
-  $: appearance = {
-    theme, variables, rules, labels
+  interface Props {
+    stripe: Stripe
+    mode?: OptionsMode['mode']
+    theme?: Appearance['theme']
+    variables?: Appearance['variables']
+    rules?: Appearance['rules']
+    labels?: Appearance['labels']
+    loader?: Options['loader']
+    fonts?: Options['fonts']
+    locale?: Options['locale']
+    currency?: OptionsMode['currency']
+    amount?: OptionsMode['amount']
+    clientSecret?: string
+    elements?: StripeElements
+    children: Snippet
   }
 
-  /** @type {import('@stripe/stripe-js').StripeElements?} */
-  export let elements = null
+  let {
+    stripe,
+    mode,
+    theme = 'stripe',
+    variables = {},
+    rules = {},
+    labels = 'above',
+    loader = 'auto',
+    fonts = [],
+    locale = 'auto',
+    currency,
+    amount,
+    clientSecret,
+    elements = $bindable(),
+    children
+  }: Props = $props()
 
-  $: if (stripe && !elements) {
-    elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
+  let appearance = $derived({
+    theme,
+    variables,
+    rules,
+    labels
+  })
+
+  onMount(() => {
+    elements = stripe.elements({
+      mode,
+      currency,
+      amount,
+      appearance,
+      clientSecret,
+      fonts,
+      loader,
+      locale
+    })
 
     register(stripe)
     setContext('stripe', { stripe, elements })
-  }
+  })
 
-  $: if (elements) {
-    elements.update({ appearance, locale })
-  }
+  $effect(() => {
+    elements?.update({ appearance, locale })
+  })
 </script>
 
-{#if stripe && elements}
-  <slot />
+{#if elements && children}
+  {@render children()}
 {/if}

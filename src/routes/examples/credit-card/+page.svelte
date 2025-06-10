@@ -1,15 +1,16 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
-  import { Elements, CardNumber, CardExpiry, CardCvc } from '$lib'
+  import { Elements, CardNumber, CardExpiry, CardCvc } from '$lib/index.js'
+  import type { Stripe, StripeCardNumberElement as Element } from '@stripe/stripe-js'
 
-  let stripe = null
-  let error = null
-  let cardElement
-  let name
-  let processing = false
+  let stripe = $state<Stripe | null>()
+  let error = $state<string>()
+  let cardElement = $state<Element>()
+  let name = $state<string>()
+  let processing = $state(false)
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)
@@ -22,9 +23,11 @@
     return clientSecret
   }
 
-  async function submit() {
+  async function submit(event: SubmitEvent) {
+    event.preventDefault()
+
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe || !cardElement) return
 
     processing = true
 
@@ -46,7 +49,7 @@
 
     if (result.error) {
       // payment failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
     } else {
       // payment succeeded, redirect to "thank you" page
@@ -64,28 +67,30 @@
 </nav>
 
 {#if error}
-  <p class="error">{error.message} Please try again.</p>
+  <p class="error">{error} Please try again.</p>
 {/if}
 
-<Elements {stripe}>
-  <form on:submit|preventDefault={submit}>
-    <input name="name" bind:value={name} placeholder="Your name" disabled={processing} />
-    <CardNumber bind:element={cardElement} classes={{ base: 'input' }} />
+{#if stripe}
+  <Elements {stripe}>
+    <form onsubmit={submit}>
+      <input name="name" bind:value={name} placeholder="Your name" disabled={processing} />
+      <CardNumber bind:element={cardElement} classes={{ base: 'input' }} />
 
-    <div class="row">
-      <CardExpiry classes={{ base: 'input' }} />
-      <CardCvc classes={{ base: 'input' }} />
-    </div>
+      <div class="row">
+        <CardExpiry classes={{ base: 'input' }} />
+        <CardCvc classes={{ base: 'input' }} />
+      </div>
 
-    <button disabled={processing}>
-      {#if processing}
-        Processing...
-      {:else}
-        Pay
-      {/if}
-    </button>
-  </form>
-</Elements>
+      <button disabled={processing}>
+        {#if processing}
+          Processing...
+        {:else}
+          Pay
+        {/if}
+      </button>
+    </form>
+  </Elements>
+{/if}
 
 <style>
   .error {

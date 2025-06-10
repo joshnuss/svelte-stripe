@@ -1,38 +1,48 @@
-<script>
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
-  import { mount } from './util'
+<script lang="ts">
+  import type {
+    StripeElementClasses as Classes,
+    StripeElementStyle as Style,
+    StripeIbanElement as Element,
+    StripeIbanElementChangeEvent as ChangeEvent
+  } from '@stripe/stripe-js'
+  import { getContext, onMount } from 'svelte'
+  import type { ElementsContext } from './d.ts'
 
-  /** @type {import('@stripe/stripe-js').StripeElementClasses} */
-  export let classes = {}
+  interface Props {
+    classes?: Classes
+    style?: Style
+    supportedCountries?: string[]
+    placeholderCountry?: string
+    hideIcon?: boolean
+    iconStyle?: 'default' | 'solid'
+    disabled?: boolean
+    element?: Element
+    onchange?: (event: ChangeEvent) => any
+    onready?: (event: { elementType: 'iban' }) => any
+    onfocus?: (event: { elementType: 'iban' }) => any
+    onblur?: (event: { elementType: 'iban' }) => any
+    onescape?: (event: { elementType: 'iban' }) => any
+  }
 
-  /** @type {import('@stripe/stripe-js').StripeElementStyle} */
-  export let style = {}
+  let {
+    classes = {},
+    style = {},
+    supportedCountries = [],
+    placeholderCountry = '',
+    hideIcon = false,
+    iconStyle = 'default',
+    disabled = false,
+    element = $bindable(),
+    onchange = () => {},
+    onready = () => {},
+    onfocus = () => {},
+    onblur = () => {},
+    onescape = () => {}
+  }: Props = $props()
 
-  /** @type {string[]?} */
-  export let supportedCountries = []
+  let wrapper = $state<HTMLElement>()
 
-  /** @type {string} */
-  export let placeholderCountry = ''
-
-  /** @type {boolean?} */
-  export let hideIcon = false
-
-  /** @type {'default' | 'solid'} */
-  export let iconStyle = 'default'
-
-  /** @type {boolean?} */
-  export let disabled = false
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
-  export let element = null
-
-  /** @type {HTMLElement?} */
-  let wrapper
-
-  const dispatch = createEventDispatcher()
-
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
+  const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
     const options = {
@@ -45,26 +55,39 @@
       iconStyle
     }
 
-    element = mount(wrapper, 'iban', elements, dispatch, options)
+    element = elements.create('iban', options)
+    element.on('change', onchange)
+    element.on('ready', onready)
+    element.on('focus', onfocus)
+    element.on('blur', onblur)
+    element.on('escape', onescape)
 
-    return () => element.destroy()
+    element.mount(wrapper!)
+
+    return () => element?.destroy()
   })
 
   export function blur() {
-    element.blur()
+    element?.blur()
   }
 
   export function clear() {
-    element.clear()
+    element?.clear()
   }
 
   export function destroy() {
-    element.destroy()
+    element?.destroy()
   }
 
   export function focus() {
-    element.focus()
+    element?.focus()
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>
+
+<style>
+  div {
+    display: contents;
+  }
+</style>

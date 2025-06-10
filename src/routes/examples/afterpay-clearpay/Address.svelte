@@ -1,12 +1,28 @@
-<script>
-  export let legend
-  export let address
+<script lang="ts">
+  import type { Snippet } from 'svelte'
+
+  interface Address {
+    line1: string
+    line2?: string
+    state: string
+    city: string
+    country: string
+    postal_code: string
+  }
+
+  interface Props {
+    legend: string
+    address: Address
+    children?: Snippet | null
+  }
+
+  let { legend, address = $bindable(), children = null }: Props = $props()
 </script>
 
 <fieldset>
   <legend>{legend}</legend>
 
-  <slot />
+  {@render children?.()}
 
   <label for="line1"> Line 1 </label>
   <input id="line1" bind:value={address.line1} required />

@@ -1,13 +1,14 @@
-<script>
-  import { goto } from '$app/navigation'
+<script lang="ts">
   import { onMount } from 'svelte'
+  import { goto } from '$app/navigation'
   import { loadStripe } from '@stripe/stripe-js'
+  import type { Stripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
 
-  let stripe = null
-  let error = null
-  let processing = false
-  let email
+  let stripe = $state<Stripe | null>()
+  let error = $state<string | null>()
+  let processing = $state(false)
+  let email = $state()
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)
@@ -31,9 +32,11 @@
     return clientSecret
   }
 
-  async function submit() {
+  async function submit(event: SubmitEvent) {
+    event.preventDefault()
+
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe) return
 
     processing = true
 
@@ -52,7 +55,7 @@
     // log results, for debugging
     console.log({ result })
 
-    if (result.paymentIntent.last_payment_error) {
+    if (result.paymentIntent?.last_payment_error) {
       // payment failed, notify user
       error = result.paymentIntent.last_payment_error.message
       processing = false
@@ -75,14 +78,8 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-<form on:submit|preventDefault={submit}>
-  <input
-    name="email"
-    bind:value={email}
-    placeholder="E-mail"
-    type="email"
-    disabled={processing}
-  />
+<form onsubmit={submit}>
+  <input name="email" bind:value={email} placeholder="E-mail" type="email" disabled={processing} />
 
   <button disabled={processing}>
     {#if processing}

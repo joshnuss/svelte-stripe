@@ -1,62 +1,94 @@
-<script>
-  import { mount } from './util'
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
+<script lang="ts">
+  import type {
+    StripeElementClasses as Classes,
+    StripeElementStyle as Style,
+    StripeCardElementOptions as Options,
+    StripeCardElement as Element,
+    StripeCardElementChangeEvent as ChangeEvent,
+    StripeError
+  } from '@stripe/stripe-js'
+  import type { ElementsContext } from './d.ts'
+  import { getContext, onMount } from 'svelte'
 
-  /** @type {import('@stripe/stripe-js').StripeElementClasses} */
-  export let classes = {}
+  interface Props {
+    classes?: Classes
+    style?: Style
+    value?: Options['value']
+    hidePostalCode?: boolean
+    hideIcon?: boolean
+    disabled?: boolean
+    iconStyle: 'default' | 'solid'
+    element?: Element
+    onchange?: (event: ChangeEvent) => any
+    onready?: (event: { elementType: 'card' }) => any
+    onfocus?: (event: { elementType: 'card' }) => any
+    onblur?: (event: { elementType: 'card' }) => any
+    onescape?: (event: { elementType: 'card' }) => any
+    onnetworkschange?: (event: { elementType: 'card' }) => any
+    onloaderror?: (event: { elementType: 'card'; error: StripeError }) => any
+  }
 
-  /** @type {import('@stripe/stripe-js').StripeElementStyle} */
-  export let style = {}
+  let {
+    classes = {},
+    style = {},
+    value = {},
+    hidePostalCode = false,
+    hideIcon = false,
+    disabled = false,
+    iconStyle = 'default',
+    element = $bindable(),
+    onchange = () => {},
+    onready = () => {},
+    onfocus = () => {},
+    onblur = () => {},
+    onescape = () => {},
+    onnetworkschange = () => {},
+    onloaderror = () => {}
+  }: Props = $props()
 
-  /** @type {import('@stripe/stripe-js').StripeCardElementOptions["value"]?} */
-  export let value = {}
+  let wrapper = $state<HTMLElement>()
 
-  /** @type {boolean?} */
-  export let hidePostalCode = false
-
-  /** @type {boolean?} */
-  export let hideIcon = false
-
-  /** @type {boolean?} */
-  export let disabled = false
-
-  /** @type {'default' | 'solid'} */
-  export let iconStyle = 'default'
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase?} */
-  export let element = null
-
-  /** @type {HTMLElement?} */
-  let wrapper
-
-  const dispatch = createEventDispatcher()
-
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
+  const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
     const options = { classes, style, value, hidePostalCode, hideIcon, disabled, iconStyle }
 
-    element = mount(wrapper, 'card', elements, dispatch, options)
+    element = elements.create('card', options)
 
-    return () => element.destroy()
+    element.on('change', onchange)
+    element.on('ready', onready)
+    element.on('focus', onfocus)
+    element.on('blur', onblur)
+    element.on('escape', onescape)
+    element.on('networkschange', onnetworkschange)
+    element.on('loaderror', onloaderror)
+
+    element.mount(wrapper!)
+
+    return () => element?.destroy()
   })
 
   export function blur() {
-    element.blur()
+    element?.blur()
   }
 
   export function clear() {
-    element.clear()
+    element?.clear()
   }
 
   export function destroy() {
-    element.destroy()
+    element?.destroy()
   }
 
   export function focus() {
-    element.focus()
+    element?.focus()
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>
+
+<style>
+  div {
+    display: contents;
+  }
+</style>

@@ -22,11 +22,10 @@ The following components are provided:
 - `<CardExpiry/>`: Input field for the card's expiration date.
 - `<CardCvc/>`: Input field for Card Verification Value.
 - `<Card/>`: All-in-one component that has inputs for card number, expiry, cvc, and zip code.
-- `<PaymentRequestButton/>`: A GooglePay, ApplePay, or Link checkout button, depending on browser and user preferences.
 - `<Iban/>`: Input field for IBAN (International bank account number).
 - `<Ideal/>`: Input field for iDEAL (payment system used in the Netherlands).
 - `<PaymentElement/>`: All-in-one component that allows the user to choose the type of payment.
-- `<ExpressCheckout/>`: Pay with a wallet without leaving the page.
+- `<ExpressCheckout/>`: Pay with a wallet without leaving the page using GooglePay, ApplePay, or Link.
 - `<LinkAuthenticationElement/>`: Ability to use saved payment methods stored in [Link](https://link.co).
 - `<Address/>`: Component for collecting billing and shipping addresses.
 
@@ -39,9 +38,9 @@ There is example code for:
 - [Embedded Checkout](src/routes/examples/embedded-checkout)
 - [Link](src/routes/examples/payment-element)
 - [Credit card](src/routes/examples/credit-card)
-- [GooglePay](src/routes/examples/payment-request)
-- [ApplePay](src/routes/examples/payment-request)
-- [MicrosoftPay](src/routes/examples/payment-request)
+- [GooglePay](src/routes/examples/express-checkout)
+- [ApplePay](src/routes/examples/express-checkout)
+- [MicrosoftPay](src/routes/examples/express-checkout)
 - [SEPA direct deposit](src/routes/examples/sepa)
 - [iDEAL](src/routes/examples/ideal)
 - [Alipay](src/routes/examples/alipay)

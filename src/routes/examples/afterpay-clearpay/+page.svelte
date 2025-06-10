@@ -1,31 +1,31 @@
-<script>
-  import { goto } from '$app/navigation'
+<script lang="ts">
   import { onMount } from 'svelte'
   import { loadStripe } from '@stripe/stripe-js'
   import { PUBLIC_STRIPE_KEY } from '$env/static/public'
   import Address from './Address.svelte'
+  import type { Stripe } from '@stripe/stripe-js'
 
-  let stripe = null
-  let error = null
-  let processing = false
-  let email = 'jsmith@example.com'
-  let name = 'John Smith'
-  let billingAddress = {
+  let stripe = $state<Stripe | null>()
+  let error = $state<string | null>()
+  let processing = $state(false)
+  let email = $state('jsmith@example.com')
+  let name = $state('John Smith')
+  let billingAddress = $state({
     line1: '123 Main',
     line2: 'Apt 100',
     state: 'CA',
     city: 'Los Angeles',
     country: 'US',
     postal_code: '1000'
-  }
-  let shippingAddress = {
+  })
+  let shippingAddress = $state({
     line1: '123 Main',
     line2: 'Apt 100',
     state: 'CA',
     city: 'Los Angeles',
     country: 'US',
     postal_code: '1000'
-  }
+  })
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY)
@@ -48,9 +48,11 @@
     return clientSecret
   }
 
-  async function submit() {
+  async function submit(event: SubmitEvent) {
+    event.preventDefault()
+
     // avoid processing duplicates
-    if (processing) return
+    if (processing || !stripe) return
 
     processing = true
 
@@ -78,7 +80,7 @@
 
     if (result.error) {
       // payment failed, notify user
-      error = result.error
+      error = result.error.message
       processing = false
     }
   }
@@ -97,7 +99,7 @@
   <p class="error">Payment failed. Please try again.</p>
 {/if}
 
-<form on:submit|preventDefault={submit}>
+<form onsubmit={submit}>
   <Address legend="Billing" bind:address={billingAddress}>
     <label for="name"> Name </label>
     <input id="name" bind:value={name} required />

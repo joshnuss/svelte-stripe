@@ -1,46 +1,56 @@
-<script>
-  import { onMount, getContext, createEventDispatcher } from 'svelte'
-  import { mount } from './util'
+<script lang="ts">
+  import type {
+    StripeAddressElement as Element,
+    StripeAddressElementOptions as Options,
+    StripeAddressElementChangeEvent as ChangeEvent,
+    StripeError
+  } from '@stripe/stripe-js'
+  import { getContext, onMount } from 'svelte'
+  import type { ElementsContext } from './d.ts'
 
-  /** @typedef {import('@stripe/stripe-js').StripeAddressElementOptions} StripeAddressElementOptions */
+  interface Props {
+    mode: Options['mode']
+    allowedCountries?: Options['allowedCountries']
+    autocomplete?: Options['autocomplete']
+    blockPoBox?: Options['blockPoBox']
+    contacts?: Options['contacts']
+    defaultValues?: Options['defaultValues']
+    fields?: Options['fields']
+    validation?: Options['validation']
+    display?: Options['display']
+    element?: Element
+    onchange?: (event: ChangeEvent) => any
+    onready?: (event: { elementType: 'address' }) => any
+    onfocus?: (event: { elementType: 'address' }) => any
+    onblur?: (event: { elementType: 'address' }) => any
+    onescape?: (event: { elementType: 'address' }) => any
+    onloaderror?: (event: { elementType: 'address'; error: StripeError }) => any
+    onloaderstart?: (event: { elementType: 'address' }) => any
+  }
 
-  /** @type {StripeAddressElementOptions["mode"]} */
-  export let mode
+  let {
+    mode,
+    allowedCountries = undefined,
+    autocomplete = { mode: 'automatic' },
+    blockPoBox = undefined,
+    contacts = undefined,
+    defaultValues = undefined,
+    fields = undefined,
+    validation = undefined,
+    display = undefined,
+    element = $bindable(),
+    onchange = () => {},
+    onready = () => {},
+    onfocus = () => {},
+    onblur = () => {},
+    onescape = () => {},
+    onloaderror = () => {},
+    onloaderstart = () => {}
+  }: Props = $props()
 
-  /** @type {StripeAddressElementOptions["allowedCountries"]} */
-  export let allowedCountries = undefined
+  let wrapper = $state<HTMLElement>()
 
-  /** @type {StripeAddressElementOptions["autocomplete"]} */
-  export let autocomplete = { mode: 'automatic' }
-
-  /** @type {StripeAddressElementOptions["blockPoBox"]} */
-  export let blockPoBox = undefined
-
-  /** @type {StripeAddressElementOptions["contacts"]} */
-  export let contacts = undefined
-
-  /** @type {StripeAddressElementOptions["defaultValues"]} */
-  export let defaultValues = undefined
-
-  /** @type {StripeAddressElementOptions["fields"]} */
-  export let fields = undefined
-
-  /** @type {StripeAddressElementOptions["validation"]} */
-  export let validation = undefined
-
-  /** @type {StripeAddressElementOptions["display"]} */
-  export let display = undefined
-
-  /** @type {import('@stripe/stripe-js').StripeElementBase} */
-  let element
-
-  /** @type {HTMLElement?} */
-  let wrapper
-
-  const dispatch = createEventDispatcher()
-
-  /** @type {import("./types").ElementsContext} */
-  const { elements } = getContext('stripe')
+  const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
     const options = {
@@ -54,26 +64,43 @@
       validation,
       display
     }
-    element = mount(wrapper, 'address', elements, dispatch, options)
 
-    return () => element.destroy()
+    element = elements.create('address', options)
+
+    element.on('change', onchange)
+    element.on('ready', onready)
+    element.on('focus', onfocus)
+    element.on('blur', onblur)
+    element.on('escape', onescape)
+    element.on('loaderror', onloaderror)
+    element.on('loaderstart', onloaderstart)
+
+    element.mount(wrapper!)
+
+    return () => element?.destroy()
   })
 
   export function blur() {
-    element.blur()
+    element?.blur()
   }
 
   export function clear() {
-    element.clear()
+    element?.clear()
   }
 
   export function destroy() {
-    element.destroy()
+    element?.destroy()
   }
 
   export function focus() {
-    element.focus()
+    element?.focus()
   }
 </script>
 
-<div bind:this={wrapper} />
+<div bind:this={wrapper}></div>
+
+<style>
+  div {
+    display: contents;
+  }
+</style>

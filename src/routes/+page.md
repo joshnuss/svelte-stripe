@@ -40,8 +40,8 @@ SECRET_STRIPE_KEY=sk_test_...
 
 In your payment page, initialize Stripe and add a `<Elements>` component:
 
-```html
-<script>
+```svelte
+<script lang="ts">
   import { loadStripe } from '@stripe/stripe-js'
   import { Elements } from 'svelte-stripe'
   import { onMount } from 'svelte'
@@ -103,8 +103,8 @@ An all-in-one component that supports credit cards, SEPA, GooglePay and ApplePay
 
 To use it, drop a `<PaymentElement>` component in your form:
 
-```html
-<form on:submit|preventDefault="{submit}">
+```svelte
+<form onsubmit={submit}>
   <Elements {stripe} {clientSecret} bind:elements>
     <PaymentElement options="{...}" />
   </Elements>
@@ -146,8 +146,8 @@ Once they enter their e-mail they receive an SMS code to verify their identity.
 
 It works in conjuction with `<PaymentElement>`:
 
-```html
-<form on:submit|preventDefault="{submit}">
+```svelte
+<form onsubmit={submit}>
   <Elements {stripe} {clientSecret} bind:elements>
     <LinkAuthenticationElement />
     <PaymentElement />
@@ -164,10 +164,10 @@ It works in conjuction with `<PaymentElement>`:
 
 These use the `<CardNumber>`, `<CardExpiry>` and `<CardCvc>` components:
 
-```html
+```svelte
 <Elements {stripe}>
-  <form on:submit|preventDefault="{submit}">
-    <CardNumber bind:element="{cardElement}" />
+  <form onsubmit={submit}>
+    <CardNumber bind:element={cardElement} />
     <CardExpiry />
     <CardCvc />
 
@@ -195,67 +195,89 @@ const result = await stripe
 
 #### GooglePay & ApplePay
 
-To display a GooglePay or ApplePay button, use the `<PaymentRequestButton/>`.
+To display a GooglePay or ApplePay button, use the `<ExpressCheckout/>`.
 
-```html
-<Elements {stripe}>
-  <PaymentRequestButton {paymentRequest} on:paymentmethod="{pay}" />
+```svelte
+<Elements {stripe} mode="payment" currency="usd" amount={1099} bind:elements>
+  <ExpressCheckout
+    onclick={click}
+    onconfirm={confirm}
+    buttonHeight={50}
+    buttonTheme={{ googlePay: 'white' }}
+    buttonType={{ googlePay: 'donate' }}
+    paymentMethodOrder={['googlePay', 'link']}
+  />
 </Elements>
 ```
 
-It requires that you pass metadata using the `paymentRequest` prop:
+Handle the `onclick` event to add line items:
 
 ```javascript
-// declare payment metadata (amounts must match payment intent)
-const paymentRequest = {
-  country: 'US',
-  currency: 'usd',
-  total: { label: 'Demo total', amount: 1099 },
-  requestPayerName: true,
-  requestPayerEmail: true
+async function click(event) {
+  const options = {
+    emailRequired: true,
+    phoneNumberRequired: true,
+    lineItems: [
+      {
+        name: 'Rad T-Shirt',
+        amount: 1099
+      }
+    ]
+  }
+
+  event.resolve(options)
 }
 ```
 
-And define an event handler for the `on:paymentmethod` event:
+Then handle the `onconfirm` event to complete the payment:
 
 ```javascript
-async function pay(e) {
-  const paymentMethod = e.detail.paymentMethod
+async function confirm(event) {
+  let result = await elements.submit()
 
-  let result = await stripe.confirmCardPayment(clientSecret, {
-    payment_method: paymentMethod.id
+  if (result.error) {
+    // validation failed, notify user
+    error = result.error
+    return
+  }
+
+  // create payment intent server side
+  const clientSecret = await createPaymentIntent()
+  const return_url = new URL('/examples/thanks', window.location.origin).toString()
+
+  // confirm payment with stripe
+  result = await stripe.confirmPayment({
+    elements,
+    clientSecret,
+    confirmParams: {
+      return_url
+    }
   })
 
   if (result.error) {
-    // mark failed
-    e.detail.complete('fail')
-
     // payment failed, notify user
     error = result.error
   } else {
-    // mark succeeded
-    e.detail.complete('success')
-
     // payment succeeded, redirect to "thank you" page
     goto('/thanks')
   }
 }
 ```
 
-[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/payment-request)
-[demo](/examples/payment-request)
+[code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/express-checkout)
+[demo](/examples/express-checkout)
 
 #### SEPA
 
 To process SEPA debits, use the `<Iban>` component:
 
-```html
+```svelte
 <Elements {stripe}>
-  <form on:submit|preventDefault="{submit}">
-    <input name="name" bind:value="{name}" placeholder="Name" />
+  <form onsubmit={submit}>
+    <input name="name" bind:value={name} placeholder="Name" />
 
     <!-- customize the list of countries, or use "SEPA" to allow all supported countries -->
-    <Iban supportedCountries={['SEPA']} bind:element={ibanElement}/>
+    <Iban supportedCountries={['SEPA']} bind:element={ibanElement} />
 
     <button>Pay</button>
   </form>
@@ -283,12 +305,12 @@ const result = await stripe.confirmSepaDebitPayment(clientSecret, {
 
 To accept iDEAL payments, use the `<Ideal>` component:
 
-```html
+```svelte
 <Elements {stripe}>
-  <form on:submit|preventDefault="{submit}">
-    <input name="name" bind:value="{name}" placeholder="Name" />
-    <input name="email" bind:value="{email}" placeholder="E-mail" type="email" />
-    <Ideal bind:element="{idealElement}" />
+  <form onsubmit={submit}>
+    <input name="name" bind:value={name} placeholder="Name" />
+    <input name="email" bind:value={email} placeholder="E-mail" type="email" />
+    <Ideal bind:element={idealElement} />
 
     <button>Pay</button>
   </form>
@@ -381,7 +403,7 @@ For more information on webhooks, see [Stripe's Webhook Docs](https://stripe.com
 
 Components can be styled by setting attributes on the `<Elements/>` container.
 
-```html
+```svelte
 <Elements
   theme="flat"
   labels="floating"
@@ -399,10 +421,10 @@ All demos are running in test-mode, any of Stripe's [test card numbers](https://
 - [Payment Element](/examples/payment-element)
 - [Express Checkout](/examples/express-checkout)
 - [Embedded Checkout](/examples/embedded-checkout)
-- [Credit Card](/examples/credit-card)
-- [Apple Pay](/examples/payment-request)
-- [Google Pay](/examples/payment-request)
-- [Microsoft Pay](/examples/payment-request)
+- [Credit Card](/examples/express-checkout)
+- [Apple Pay](/examples/express-checkout)
+- [Google Pay](/examples/express-checkout)
+- [Microsoft Pay](/examples/express-checkout)
 - [SEPA](/examples/sepa)
 - [iDEAL](/examples/ideal)
 - [Alipay](/examples/alipay)

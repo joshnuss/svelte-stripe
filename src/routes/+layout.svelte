@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
   import '../prism-theme.css'
   import '../app.css'
   import GithubBadge from './GithubBadge.svelte'
+
+  let { children } = $props()
 </script>
 
 <GithubBadge />
@@ -66,6 +68,6 @@
   </aside>
 
   <main>
-    <slot />
+    {@render children?.()}
   </main>
 </div>
