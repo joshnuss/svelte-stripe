@@ -1,8 +1,13 @@
 <script lang="ts">
-  import { setContext } from 'svelte'
+  import { setContext, type Snippet } from 'svelte'
   import { isServer, register } from './util.js'
-  import type { Snippet } from 'svelte'
-  import type { Stripe, StripeElements, Appearance, StripeElementsOptions as Options, StripeElementsOptionsMode as OptionsMode } from '@stripe/stripe-js'
+  import type {
+    Stripe,
+    StripeElements,
+    Appearance,
+    StripeElementsOptions as Options,
+    StripeElementsOptionsMode as OptionsMode
+  } from '@stripe/stripe-js'
 
   interface Props {
     stripe?: Stripe | null
