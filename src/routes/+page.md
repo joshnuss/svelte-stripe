@@ -207,7 +207,6 @@ To display a GooglePay or ApplePay button, use the `<ExpressCheckout/>`.
     buttonType={{ googlePay: 'donate' }}
     paymentMethodOrder={['googlePay', 'link']}
   />
-  />
 </Elements>
 ```
 
