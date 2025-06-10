@@ -1,22 +1,22 @@
 <script lang="ts">
   import type {
-    StripeElementClasses,
-    StripeElementStyle,
-    StripeCardElementOptions,
-    StripeCardExpiryElement,
-    StripeCardExpiryElementChangeEvent,
+    StripeElementClasses as Classes,
+    StripeElementStyle as Style,
+    StripeCardElementOptions as Options,
+    StripeCardExpiryElement as Element,
+    StripeCardExpiryElementChangeEvent as ChangeEvent,
     StripeError
   } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
   import { getContext } from 'svelte'
 
   interface Props {
-    classes?: StripeElementClasses
-    style?: StripeElementStyle
+    classes?: Classes
+    style?: Style
     placeholder?: string
     disabled?: boolean
-    element?: StripeCardExpiryElement
-    onchange?: (event: StripeCardExpiryElementChangeEvent) => any
+    element?: Element
+    onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'cardExpiry' }) => any
     onfocus?: (event: { elementType: 'cardExpiry' }) => any
     onblur?: (event: { elementType: 'cardExpiry' }) => any
