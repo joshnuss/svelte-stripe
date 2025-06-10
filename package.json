@@ -14,7 +14,7 @@
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
-    "@stripe/stripe-js": "^3.3.0",
+    "@stripe/stripe-js": "^5.2.0",
     "@sveltejs/adapter-vercel": "^5.3.0",
     "@sveltejs/kit": "^2.5.7",
     "@sveltejs/package": "^2.3.1",
@@ -39,7 +39,7 @@
     "vite": "^5.2.11"
   },
   "peerDependencies": {
-    "@stripe/stripe-js": "^3 || ^4",
+    "@stripe/stripe-js": "^3 || ^4 || ^5",
     "svelte": "^3 || ^4 || ^5"
   },
   "type": "module",

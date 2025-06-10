@@ -5,7 +5,7 @@
   /** @type {import('@stripe/stripe-js').Stripe?} */
   export let stripe
 
-  /** @type {StripeElementsOptions["mode"]} */
+  /** @type {import('@stripe/stripe-js').StripeElementsOptionsMode["mode"]} */
   export let mode = undefined
 
   /** @typedef { import('@stripe/stripe-js').Appearance } Appearance */
@@ -22,7 +22,7 @@
   /** @type {Appearance["labels"]} */
   export let labels = 'above'
 
-  /** @typedef { import('@stripe/stripe-js').StripeElementsOptions } StripeElementsOptions */
+  /** @typedef { import('@stripe/stripe-js').StripeElementsOptionsClientSecret & import('@stripe/stripe-js').StripeElementsOptionsMode  } StripeElementsOptions */
 
   /** @type {StripeElementsOptions["loader"]} */
   export let loader = 'auto'
@@ -42,6 +42,30 @@
   /** @type {string?} */
   export let clientSecret = undefined
 
+  /** @type {StripeElementsOptions["paymentMethodTypes"]} */
+  export let paymentMethodTypes = undefined
+
+  /** @type {StripeElementsOptions["setupFutureUsage"]} */
+  export let setupFutureUsage = undefined
+
+  /** @type {StripeElementsOptions["captureMethod"]} */
+  export let captureMethod = undefined
+
+  /** @type {StripeElementsOptions["customerOptions"]} */
+  export let customerOptions = undefined
+
+  /** @type {StripeElementsOptions["externalPaymentMethodTypes"]} */
+  export let externalPaymentMethodTypes = undefined
+
+  /** @type {StripeElementsOptions["paymentMethodConfiguration"]} */
+  export let paymentMethodConfiguration = undefined
+
+  /** @type {StripeElementsOptions["paymentMethodCreation"]} */
+  export let paymentMethodCreation = undefined
+
+  /** @type {StripeElementsOptions["paymentMethodOptions"]} */
+  export let paymentMethodOptions = undefined
+
   $: appearance = {
     theme, variables, rules, labels
   }
@@ -50,7 +74,7 @@
   export let elements = null
 
   $: if (stripe && !elements) {
-    elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale })
+    elements = stripe.elements({ mode, currency, amount, appearance, clientSecret, fonts, loader, locale, paymentMethodTypes, setupFutureUsage, captureMethod, customerOptions, externalPaymentMethodTypes, paymentMethodConfiguration, paymentMethodCreation, paymentMethodOptions })
 
     register(stripe)
     setContext('stripe', { stripe, elements })
