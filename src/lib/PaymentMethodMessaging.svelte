@@ -3,7 +3,7 @@
     StripePaymentMethodMessagingElementOptions as Options,
     StripePaymentMethodMessagingElement as Element
   } from '@stripe/stripe-js'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
@@ -30,9 +30,7 @@
 
   const { elements }: ElementsContext = getContext('stripe')
 
-  $effect(() => {
-    if (!wrapper) return
-
+  onMount(() => {
     const options = {
       amount,
       currency,
@@ -43,6 +41,8 @@
 
     element = elements.create('paymentMethodMessaging', options)
     element.on('ready', onready)
+
+    element.mount(wrapper!)
 
     return () => element?.destroy()
   })

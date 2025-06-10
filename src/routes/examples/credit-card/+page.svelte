@@ -70,25 +70,27 @@
   <p class="error">{error} Please try again.</p>
 {/if}
 
-<Elements {stripe}>
-  <form onsubmit={submit}>
-    <input name="name" bind:value={name} placeholder="Your name" disabled={processing} />
-    <CardNumber bind:element={cardElement} classes={{ base: 'input' }} />
+{#if stripe}
+  <Elements {stripe}>
+    <form onsubmit={submit}>
+      <input name="name" bind:value={name} placeholder="Your name" disabled={processing} />
+      <CardNumber bind:element={cardElement} classes={{ base: 'input' }} />
 
-    <div class="row">
-      <CardExpiry classes={{ base: 'input' }} />
-      <CardCvc classes={{ base: 'input' }} />
-    </div>
+      <div class="row">
+        <CardExpiry classes={{ base: 'input' }} />
+        <CardCvc classes={{ base: 'input' }} />
+      </div>
 
-    <button disabled={processing}>
-      {#if processing}
-        Processing...
-      {:else}
-        Pay
-      {/if}
-    </button>
-  </form>
-</Elements>
+      <button disabled={processing}>
+        {#if processing}
+          Processing...
+        {:else}
+          Pay
+        {/if}
+      </button>
+    </form>
+  </Elements>
+{/if}
 
 <style>
   .error {

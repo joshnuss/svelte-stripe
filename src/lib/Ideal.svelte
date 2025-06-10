@@ -5,7 +5,7 @@
     StripeIdealBankElement as Element,
     StripeIdealBankElementChangeEvent as ChangeEvent
   } from '@stripe/stripe-js'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
@@ -40,9 +40,7 @@
 
   const { elements }: ElementsContext = getContext('stripe')
 
-  $effect(() => {
-    if (!wrapper) return
-
+  onMount(() => {
     const options = { classes, style, value, disabled, hideIcon }
 
     element = elements.create('idealBank', options)
@@ -51,6 +49,8 @@
     element.on('focus', onfocus)
     element.on('blur', onblur)
     element.on('escape', onescape)
+
+    element.mount(wrapper!)
 
     return () => element?.destroy()
   })
