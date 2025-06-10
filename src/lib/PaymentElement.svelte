@@ -1,29 +1,29 @@
 <script lang="ts">
   import type {
-    StripePaymentElementOptions,
-    StripePaymentElement,
-    StripePaymentElementChangeEvent,
+    StripePaymentElementOptions as Options,
+    StripePaymentElement as Element,
+    StripePaymentElementChangeEvent as ChangeEvent,
     StripeError,
-    StripePaymentElementCardDetailsChangeEvent,
-    StripePaymentElementSavedPaymentMethodUpdateEvent,
-    StripePaymentElementSavedPaymentMethodRemoveEvent
+    StripePaymentElementCardDetailsChangeEvent as DetailsChangeEvent,
+    StripePaymentElementSavedPaymentMethodUpdateEvent as UpdateEvent,
+    StripePaymentElementSavedPaymentMethodRemoveEvent as RemoveEvent
   } from '@stripe/stripe-js'
   import { getContext } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
-    options?: StripePaymentElementOptions
-    element?: StripePaymentElement
-    onchange?: (event: StripePaymentElementChangeEvent) => any
+    options?: Options
+    element?: Element
+    onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'payment' }) => any
     onfocus?: (event: { elementType: 'payment' }) => any
     onblur?: (event: { elementType: 'payment' }) => any
     onescape?: (event: { elementType: 'payment' }) => any
     onloaderror?: (event: { elementType: 'payment'; error: StripeError }) => any
     onloaderstart?: (event: { elementType: 'payment' }) => any
-    oncarddetailschange?: (event: StripePaymentElementCardDetailsChangeEvent) => any
-    onsavedpaymentmethodupdate?: (event: StripePaymentElementSavedPaymentMethodUpdateEvent) => any
-    onsavedpaymentmethodremove?: (event: StripePaymentElementSavedPaymentMethodRemoveEvent) => any
+    oncarddetailschange?: (event: DetailsChangeEvent) => any
+    onsavedpaymentmethodupdate?: (event: UpdateEvent) => any
+    onsavedpaymentmethodremove?: (event: RemoveEvent) => any
   }
 
   let {
