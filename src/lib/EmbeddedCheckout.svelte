@@ -36,3 +36,7 @@
 {#if stripe && clientSecret}
   <div bind:this={wrapper}></div>
 {/if}
+
+<style>
+  div { display: contents }
+</style>
