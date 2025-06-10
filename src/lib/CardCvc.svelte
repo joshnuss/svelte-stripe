@@ -4,7 +4,7 @@
     StripeElementStyle as Style,
     StripeCardElementOptions as Options,
     StripeCardCvcElement as Element,
-    StripeCardCvcElementChangeEvent as ChangeEvent,
+    StripeCardCvcElementChangeEvent as ChangeEvent
   } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
   import { getContext, onMount } from 'svelte'
@@ -75,5 +75,7 @@
 <div bind:this={wrapper}></div>
 
 <style>
-  div { display: contents }
+  div {
+    display: contents;
+  }
 </style>
