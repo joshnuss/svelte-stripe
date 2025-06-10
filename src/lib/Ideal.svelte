@@ -75,5 +75,7 @@
 <div bind:this={wrapper}></div>
 
 <style>
-  div { display: contents }
+  div {
+    display: contents;
+  }
 </style>

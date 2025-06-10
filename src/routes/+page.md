@@ -40,7 +40,7 @@ SECRET_STRIPE_KEY=sk_test_...
 
 In your payment page, initialize Stripe and add a `<Elements>` component:
 
-```html
+```svelte
 <script lang="ts">
   import { loadStripe } from '@stripe/stripe-js'
   import { Elements } from 'svelte-stripe'
@@ -103,7 +103,7 @@ An all-in-one component that supports credit cards, SEPA, GooglePay and ApplePay
 
 To use it, drop a `<PaymentElement>` component in your form:
 
-```html
+```svelte
 <form onsubmit={submit}>
   <Elements {stripe} {clientSecret} bind:elements>
     <PaymentElement options="{...}" />
@@ -146,7 +146,7 @@ Once they enter their e-mail they receive an SMS code to verify their identity.
 
 It works in conjuction with `<PaymentElement>`:
 
-```html
+```svelte
 <form onsubmit={submit}>
   <Elements {stripe} {clientSecret} bind:elements>
     <LinkAuthenticationElement />
@@ -164,10 +164,10 @@ It works in conjuction with `<PaymentElement>`:
 
 These use the `<CardNumber>`, `<CardExpiry>` and `<CardCvc>` components:
 
-```html
+```svelte
 <Elements {stripe}>
   <form onsubmit={submit}>
-    <CardNumber bind:element="{cardElement}" />
+    <CardNumber bind:element={cardElement} />
     <CardExpiry />
     <CardCvc />
 
@@ -197,22 +197,17 @@ const result = await stripe
 
 To display a GooglePay or ApplePay button, use the `<ExpressCheckout/>`.
 
-```html
-<Elements
-    {stripe}
-    mode="payment"
-    currency="usd"
-    amount={1099}
-    bind:elements={elements}
-  >
+```svelte
+<Elements {stripe} mode="payment" currency="usd" amount={1099} bind:elements>
   <ExpressCheckout
     onclick={click}
     onconfirm={confirm}
     buttonHeight={50}
-    buttonTheme={{googlePay: 'white'}}
-    buttonType={{googlePay: 'donate'}}
-    paymentMethodOrder={['googlePay', 'link']}/>
-    />
+    buttonTheme={{ googlePay: 'white' }}
+    buttonType={{ googlePay: 'donate' }}
+    paymentMethodOrder={['googlePay', 'link']}
+  />
+  />
 </Elements>
 ```
 
@@ -270,7 +265,6 @@ async function confirm(event) {
 }
 ```
 
-
 [code](https://github.com/joshnuss/svelte-stripe/tree/main/src/routes/examples/express-checkout)
 [demo](/examples/express-checkout)
 
@@ -278,13 +272,13 @@ async function confirm(event) {
 
 To process SEPA debits, use the `<Iban>` component:
 
-```html
+```svelte
 <Elements {stripe}>
   <form onsubmit={submit}>
-    <input name="name" bind:value="{name}" placeholder="Name" />
+    <input name="name" bind:value={name} placeholder="Name" />
 
     <!-- customize the list of countries, or use "SEPA" to allow all supported countries -->
-    <Iban supportedCountries={['SEPA']} bind:element={ibanElement}/>
+    <Iban supportedCountries={['SEPA']} bind:element={ibanElement} />
 
     <button>Pay</button>
   </form>
@@ -312,12 +306,12 @@ const result = await stripe.confirmSepaDebitPayment(clientSecret, {
 
 To accept iDEAL payments, use the `<Ideal>` component:
 
-```html
+```svelte
 <Elements {stripe}>
   <form onsubmit={submit}>
-    <input name="name" bind:value="{name}" placeholder="Name" />
-    <input name="email" bind:value="{email}" placeholder="E-mail" type="email" />
-    <Ideal bind:element="{idealElement}" />
+    <input name="name" bind:value={name} placeholder="Name" />
+    <input name="email" bind:value={email} placeholder="E-mail" type="email" />
+    <Ideal bind:element={idealElement} />
 
     <button>Pay</button>
   </form>
@@ -410,7 +404,7 @@ For more information on webhooks, see [Stripe's Webhook Docs](https://stripe.com
 
 Components can be styled by setting attributes on the `<Elements/>` container.
 
-```html
+```svelte
 <Elements
   theme="flat"
   labels="floating"
