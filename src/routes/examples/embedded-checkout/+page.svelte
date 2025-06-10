@@ -23,4 +23,6 @@
   >
 </nav>
 
-<EmbeddedCheckout {stripe} clientSecret={data.clientSecret as string} />
+{#if stripe && data.clientSecret}
+  <EmbeddedCheckout {stripe} clientSecret={data.clientSecret as string} />
+{/if}

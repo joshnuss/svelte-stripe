@@ -7,7 +7,7 @@
     StripeError
   } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
 
   interface Props {
     classes?: Classes
@@ -43,9 +43,7 @@
 
   const { elements }: ElementsContext = getContext('stripe')
 
-  $effect(() => {
-    if (!wrapper) return
-
+  onMount(() => {
     const options = { classes, style, placeholder, disabled, showIcon, iconStyle }
 
     element = elements.create('cardNumber', options)
@@ -56,7 +54,7 @@
     element.on('blur', onblur)
     element.on('escape', onescape)
 
-    element.mount(wrapper)
+    element.mount(wrapper!)
 
     return () => element?.destroy()
   })

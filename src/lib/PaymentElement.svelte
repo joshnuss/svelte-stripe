@@ -8,7 +8,7 @@
     StripePaymentElementSavedPaymentMethodUpdateEvent as UpdateEvent,
     StripePaymentElementSavedPaymentMethodRemoveEvent as RemoveEvent
   } from '@stripe/stripe-js'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
@@ -45,9 +45,7 @@
 
   const { elements }: ElementsContext = getContext('stripe')
 
-  $effect(() => {
-    if (!wrapper) return
-
+  onMount(() => {
     element = elements.create('payment', options)
 
     element.on('change', onchange)
@@ -60,6 +58,8 @@
     element.on('carddetailschange', oncarddetailschange)
     element.on('savedpaymentmethodupdate', onsavedpaymentmethodupdate)
     element.on('savedpaymentmethodremove', onsavedpaymentmethodremove)
+
+    element.mount(wrapper!)
 
     return () => element?.destroy()
   })
