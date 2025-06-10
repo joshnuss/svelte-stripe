@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setContext, type Snippet } from 'svelte'
+  import { setContext, onMount, type Snippet } from 'svelte'
   import { isServer, register } from './util.js'
   import type {
     Stripe,
@@ -10,7 +10,7 @@
   } from '@stripe/stripe-js'
 
   interface Props {
-    stripe?: Stripe | null
+    stripe: Stripe
     mode?: OptionsMode['mode']
     theme?: Appearance['theme']
     variables?: Appearance['variables']
@@ -50,31 +50,27 @@
     labels
   })
 
-  $effect(() => {
-    if (stripe && !elements) {
-      elements = stripe.elements({
-        mode,
-        currency,
-        amount,
-        appearance,
-        clientSecret,
-        fonts,
-        loader,
-        locale
-      })
+  onMount(() => {
+    elements = stripe.elements({
+      mode,
+      currency,
+      amount,
+      appearance,
+      clientSecret,
+      fonts,
+      loader,
+      locale
+    })
 
-      register(stripe)
-      setContext('stripe', { stripe, elements })
-    }
+    register(stripe)
+    setContext('stripe', { stripe, elements })
   })
 
   $effect(() => {
-    if (elements) {
-      elements.update({ appearance, locale })
-    }
+    elements?.update({ appearance, locale })
   })
 </script>
 
-{#if stripe && elements}
-  {@render children?.()}
+{#if elements && children}
+  {@render children()}
 {/if}

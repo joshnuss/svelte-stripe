@@ -7,7 +7,7 @@
     StripeCardCvcElementChangeEvent as ChangeEvent,
   } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
 
   interface Props {
     classes?: Classes
@@ -39,9 +39,7 @@
 
   const { elements }: ElementsContext = getContext('stripe')
 
-  $effect(() => {
-    if (!wrapper) return
-
+  onMount(() => {
     const options = { classes, style, placeholder, disabled }
 
     element = elements.create('cardCvc', options)
@@ -51,6 +49,8 @@
     element.on('focus', onfocus)
     element.on('blur', onblur)
     element.on('escape', onescape)
+
+    element.mount(wrapper!)
 
     return () => element?.destroy()
   })

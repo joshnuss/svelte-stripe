@@ -9,7 +9,7 @@
     StripeExpressCheckoutElementShippingRateChangeEvent as RateChangeEvent,
     StripeError
   } from '@stripe/stripe-js'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
@@ -56,9 +56,7 @@
 
   const { elements }: ElementsContext = getContext('stripe')
 
-  $effect(() => {
-    if (!wrapper) return
-
+  onMount(() => {
     const options = {
       buttonHeight,
       buttonTheme,
@@ -80,6 +78,8 @@
     element.on('cancel', oncancel)
     element.on('shippingaddresschange', onshippingaddresschange)
     element.on('shippingratechange', onshippingratechange)
+
+    element.mount(wrapper!)
 
     return () => element?.destroy()
   })

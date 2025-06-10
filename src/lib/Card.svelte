@@ -8,7 +8,7 @@
     StripeError
   } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
 
   interface Props {
     classes?: Classes
@@ -50,9 +50,7 @@
 
   const { elements }: ElementsContext = getContext('stripe')
 
-  $effect(() => {
-    if (!wrapper) return
-
+  onMount(() => {
     const options = { classes, style, value, hidePostalCode, hideIcon, disabled, iconStyle }
 
     element = elements.create('card', options)
@@ -65,7 +63,7 @@
     element.on('networkschange', onnetworkschange)
     element.on('loaderror', onloaderror)
 
-    element.mount(wrapper)
+    element.mount(wrapper!)
 
     return () => element?.destroy()
   })

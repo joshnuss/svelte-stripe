@@ -4,7 +4,7 @@
     StripeLinkAuthenticationElementOptions as Options,
     StripeLinkAuthenticationElementChangeEvent as ChangeEvent
   } from '@stripe/stripe-js'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
   interface Props {
@@ -35,9 +35,7 @@
 
   const { elements }: ElementsContext = getContext('stripe')
 
-  $effect(() => {
-    if (!wrapper) return
-
+  onMount(() => {
     const options = defaultValues ? { defaultValues } : {}
 
     element = elements.create('linkAuthentication', options)
@@ -49,6 +47,8 @@
     element.on('escape', onescape)
     element.on('loaderror', onloaderror)
     element.on('loaderstart', onloaderstart)
+
+    element.mount(wrapper!)
 
     return () => element?.destroy()
   })

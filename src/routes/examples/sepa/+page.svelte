@@ -78,27 +78,29 @@
   <p class="error">{error} Please try again.</p>
 {/if}
 
-<Elements {stripe}>
-  <form onsubmit={submit}>
-    <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
-    <input
-      name="email"
-      bind:value={email}
-      placeholder="E-mail"
-      type="email"
-      disabled={processing}
-    />
-    <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{ base: 'input' }} />
+{#if stripe}
+  <Elements {stripe}>
+    <form onsubmit={submit}>
+      <input name="name" bind:value={name} placeholder="Name" disabled={processing} />
+      <input
+        name="email"
+        bind:value={email}
+        placeholder="E-mail"
+        type="email"
+        disabled={processing}
+      />
+      <Iban supportedCountries={['SEPA']} bind:element={ibanElement} classes={{ base: 'input' }} />
 
-    <button disabled={processing}>
-      {#if processing}
-        Processing...
-      {:else}
-        Pay
-      {/if}
-    </button>
-  </form>
-</Elements>
+      <button disabled={processing}>
+        {#if processing}
+          Processing...
+        {:else}
+          Pay
+        {/if}
+      </button>
+    </form>
+  </Elements>
+{/if}
 
 <style>
   .error {
