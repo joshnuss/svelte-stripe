@@ -22,6 +22,9 @@
   /** @type {import('@stripe/stripe-js').PaymentRequest} */
   let paymentRequestObject
 
+  /**
+   * @type {import('svelte').EventDispatcher<{ paymentmethod: import('@stripe/stripe-js').PaymentRequestPaymentMethodEvent }>}
+   */
   const dispatch = createEventDispatcher()
 
   /** @type {import("./types").ElementsContext} */
