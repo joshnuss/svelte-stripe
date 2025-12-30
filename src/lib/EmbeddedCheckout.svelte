@@ -31,5 +31,5 @@
 </script>
 
 {#if stripe && clientSecret}
-  <div bind:this={wrapper}/>
+  <div bind:this={wrapper}></div>
 {/if}
