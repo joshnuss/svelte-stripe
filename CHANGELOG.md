@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0
+
+- Removed deprecated `<Container/>` component. Use `<Elements/>` instead.
+- Removed `<PaymentRequestButton/>`, use `<ExpressCheckout>` instead.
+- `<Elements/>` now requires some options to be wrapped in an `appearance` attribute.
+- `<Element/>` component now requires a `stripe` prop. It's not optional anymore.
+
 ## 0.0.23
 
 - Added `options` to `<PaymentElement/>`
