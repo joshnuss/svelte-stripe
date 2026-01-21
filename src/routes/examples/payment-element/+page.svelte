@@ -39,7 +39,10 @@
 
     processing = true
 
-    // confirm payment with stripe
+    // call `submit()` to validate form
+    await elements.submit()
+
+    // then confirm payment with stripe
     const result = await stripe.confirmPayment({
       elements,
       clientSecret,
@@ -75,11 +78,13 @@
   <Elements
     {stripe}
     {clientSecret}
-    theme="flat"
-    labels="floating"
-    variables={{ colorPrimary: '#7c4dff' }}
-    rules={{ '.Input': { border: 'solid 1px #0002' } }}
     bind:elements
+    appearance={{
+      theme: 'flat',
+      labels: 'floating',
+      variables: { colorPrimary: '#7c4dff' },
+      rules: { '.Input': { border: 'solid 1px #0002' } }
+    }}
   >
     <form onsubmit={submit}>
       <LinkAuthenticationElement />
