@@ -433,7 +433,6 @@ All demos are running in test-mode, any of Stripe's [test card numbers](https://
 - [WeChat Pay](/examples/wechat-pay)
 - [Konbini](/examples/konbini)
 - [Klarna](/examples/klarna)
-- [Sofort](/examples/sofort)
 - [Afterpay/Clearpay](/examples/afterpay-clearpay)
 - [PaymentMethodMessaging](/examples/payment-method-messaging)
 

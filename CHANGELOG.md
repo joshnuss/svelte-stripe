@@ -6,6 +6,7 @@
 - Removed `<PaymentRequestButton/>`, use `<ExpressCheckout>` instead.
 - `<Elements/>` now requires some options to be wrapped in an `appearance` attribute.
 - `<Element/>` component now requires a `stripe` prop. It's not optional anymore.
+- Removed `<Sofort>`. It is no longer supported in Stripe.
 
 ## 0.0.23
 
