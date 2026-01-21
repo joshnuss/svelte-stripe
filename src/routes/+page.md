@@ -401,15 +401,17 @@ For more information on webhooks, see [Stripe's Webhook Docs](https://stripe.com
 
 ## Styling
 
-Components can be styled by setting attributes on the `<Elements/>` container.
+Components can be styled by setting the `appearance` attribute on the `<Elements/>` container.
 
 ```svelte
 <Elements
-  theme="flat"
-  labels="floating"
-  variables={{ colorPrimary: 'pink' }}
-  rules={...}
-  />
+  appearance={{
+    theme: "flat",
+    labels: "floating",
+    variables: { colorPrimary: 'pink' },
+    rules: {...}
+  }}
+/>
 ```
 
 See [appearance docs](https://stripe.com/docs/elements/appearance-api) for more examples.
