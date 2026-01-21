@@ -38,11 +38,19 @@
     elements.on('update-end', onupdateend)
 
     register(stripe)
-    setContext('stripe', { stripe, elements })
   })
 
   $effect(() => {
     elements?.update(options)
+  })
+
+  setContext('stripe', {
+    get stripe() {
+      return stripe;
+    },
+    get elements() {
+      return elements;
+    }
   })
 </script>
 
