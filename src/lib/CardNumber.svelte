@@ -72,9 +72,3 @@
 </script>
 
 <div bind:this={wrapper}></div>
-
-<style>
-  div {
-    display: contents;
-  }
-</style>
