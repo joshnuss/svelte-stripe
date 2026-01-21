@@ -1,11 +1,7 @@
 <script lang="ts">
   import { setContext, onMount, type Snippet } from 'svelte'
   import { register } from './util.js'
-  import type {
-    Stripe,
-    StripeElements,
-    StripeElementsOptions as Options
-  } from '@stripe/stripe-js'
+  import type { Stripe, StripeElements, StripeElementsOptions as Options } from '@stripe/stripe-js'
 
   type Base = {
     stripe: Stripe
