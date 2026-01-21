@@ -11,9 +11,7 @@
   import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
-  interface Props {
-    options?: Options
-    element?: Element
+  type Events = {
     onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'payment' }) => any
     onfocus?: (event: { elementType: 'payment' }) => any
@@ -26,8 +24,13 @@
     onsavedpaymentmethodremove?: (event: RemoveEvent) => any
   }
 
+  type Bindables = {
+    element?: Element
+  }
+
+  type Props = Options & Events & Bindables
+
   let {
-    options = {},
     element = $bindable(),
     onchange = () => {},
     onready = () => {},
@@ -38,7 +41,8 @@
     onloaderstart = () => {},
     oncarddetailschange = () => {},
     onsavedpaymentmethodupdate = () => {},
-    onsavedpaymentmethodremove = () => {}
+    onsavedpaymentmethodremove = () => {},
+    ...options
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
@@ -62,6 +66,10 @@
     element.mount(wrapper!)
 
     return () => element?.destroy()
+  })
+
+  $effect(() => {
+    element?.update(options)
   })
 
   export function blur() {

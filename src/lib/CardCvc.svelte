@@ -1,20 +1,13 @@
 <script lang="ts">
   import type {
-    StripeElementClasses as Classes,
-    StripeElementStyle as Style,
-    StripeCardElementOptions as Options,
+    StripeCardCvcElementOptions as Options,
     StripeCardCvcElement as Element,
     StripeCardCvcElementChangeEvent as ChangeEvent
   } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
   import { getContext, onMount } from 'svelte'
 
-  interface Props {
-    classes?: Classes
-    style?: Style
-    placeholder?: string
-    disabled?: boolean
-    element?: Element
+  type Events = {
     onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'cardCvc' }) => any
     onfocus?: (event: { elementType: 'cardCvc' }) => any
@@ -22,17 +15,20 @@
     onescape?: (event: { elementType: 'cardCvc' }) => any
   }
 
+  type Bindables = {
+    element?: Element
+  }
+
+  type Props = Options & Events & Bindables
+
   let {
-    classes = {},
-    style = {},
-    placeholder = 'CVC',
-    disabled = false,
     element = $bindable(),
     onchange = () => {},
     onready = () => {},
     onfocus = () => {},
     onblur = () => {},
-    onescape = () => {}
+    onescape = () => {},
+    ...options
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
@@ -40,8 +36,6 @@
   const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
-    const options = { classes, style, placeholder, disabled }
-
     element = elements.create('cardCvc', options)
 
     element.on('change', onchange)
@@ -53,6 +47,10 @@
     element.mount(wrapper!)
 
     return () => element?.destroy()
+  })
+
+  $effect(() => {
+    element?.update(options)
   })
 
   export function blur() {

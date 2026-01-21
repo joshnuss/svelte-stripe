@@ -1,73 +1,48 @@
 <script lang="ts">
   import { setContext, onMount, type Snippet } from 'svelte'
-  import { isServer, register } from './util.js'
+  import { register } from './util.js'
   import type {
     Stripe,
     StripeElements,
-    Appearance,
     StripeElementsOptions as Options,
     StripeElementsOptionsMode as OptionsMode
   } from '@stripe/stripe-js'
 
-  interface Props {
+  type Base = {
     stripe: Stripe
-    mode?: OptionsMode['mode']
-    theme?: Appearance['theme']
-    variables?: Appearance['variables']
-    rules?: Appearance['rules']
-    labels?: Appearance['labels']
-    loader?: Options['loader']
-    fonts?: Options['fonts']
-    locale?: Options['locale']
-    currency?: OptionsMode['currency']
-    amount?: OptionsMode['amount']
-    clientSecret?: string
-    elements?: StripeElements
     children: Snippet
   }
 
+  type Events = {
+    onupdateend?: () => any
+  }
+
+  type Bindables = {
+    elements?: StripeElements
+  }
+
+  type Props = Base & Options & Events & Bindables
+
   let {
     stripe,
-    mode,
-    theme = 'stripe',
-    variables = {},
-    rules = {},
-    labels = 'above',
-    loader = 'auto',
-    fonts = [],
-    locale = 'auto',
-    currency,
-    amount,
-    clientSecret,
     elements = $bindable(),
-    children
+    children,
+    onupdateend = () => {},
+    mode = 'payment',
+    ...options
   }: Props = $props()
 
-  let appearance = $derived({
-    theme,
-    variables,
-    rules,
-    labels
-  })
-
   onMount(() => {
-    elements = stripe.elements({
-      mode,
-      currency,
-      amount,
-      appearance,
-      clientSecret,
-      fonts,
-      loader,
-      locale
-    })
+    elements = stripe.elements(options)
+
+    elements.on('update-end', onupdateend)
 
     register(stripe)
     setContext('stripe', { stripe, elements })
   })
 
   $effect(() => {
-    elements?.update({ appearance, locale })
+    elements?.update(options)
   })
 </script>
 

@@ -7,9 +7,7 @@
   import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
-  interface Props {
-    defaultValues?: Options['defaultValues']
-    element?: Element
+  interface Events {
     onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'linkAuthentication' }) => any
     onfocus?: (event: { elementType: 'linkAuthentication' }) => any
@@ -19,8 +17,13 @@
     onloaderstart?: (event: { elementType: 'linkAuthentication' }) => any
   }
 
+  type Bindables = {
+    element?: Element
+  }
+
+  type Props = Options & Events & Bindables
+
   let {
-    defaultValues,
     element = $bindable(),
     onchange = () => {},
     onready = () => {},
@@ -28,7 +31,8 @@
     onblur = () => {},
     onescape = () => {},
     onloaderror = () => {},
-    onloaderstart = () => {}
+    onloaderstart = () => {},
+    ...options
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
@@ -36,8 +40,6 @@
   const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
-    const options = defaultValues ? { defaultValues } : {}
-
     element = elements.create('linkAuthentication', options)
 
     element.on('change', onchange)

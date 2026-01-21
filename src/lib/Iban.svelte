@@ -1,22 +1,13 @@
 <script lang="ts">
   import type {
-    StripeElementClasses as Classes,
-    StripeElementStyle as Style,
+    StripeIbanElementOptions as Options,
     StripeIbanElement as Element,
     StripeIbanElementChangeEvent as ChangeEvent
   } from '@stripe/stripe-js'
   import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
-  interface Props {
-    classes?: Classes
-    style?: Style
-    supportedCountries?: string[]
-    placeholderCountry?: string
-    hideIcon?: boolean
-    iconStyle?: 'default' | 'solid'
-    disabled?: boolean
-    element?: Element
+  interface Events {
     onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'iban' }) => any
     onfocus?: (event: { elementType: 'iban' }) => any
@@ -24,20 +15,20 @@
     onescape?: (event: { elementType: 'iban' }) => any
   }
 
+  type Bindables = {
+    element?: Element
+  }
+
+  type Props = Options & Events & Bindables
+
   let {
-    classes = {},
-    style = {},
-    supportedCountries = [],
-    placeholderCountry = '',
-    hideIcon = false,
-    iconStyle = 'default',
-    disabled = false,
     element = $bindable(),
     onchange = () => {},
     onready = () => {},
     onfocus = () => {},
     onblur = () => {},
-    onescape = () => {}
+    onescape = () => {},
+    ...options
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
@@ -45,16 +36,6 @@
   const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
-    const options = {
-      classes,
-      style,
-      supportedCountries,
-      placeholderCountry,
-      disabled,
-      hideIcon,
-      iconStyle
-    }
-
     element = elements.create('iban', options)
     element.on('change', onchange)
     element.on('ready', onready)
@@ -65,6 +46,10 @@
     element.mount(wrapper!)
 
     return () => element?.destroy()
+  })
+
+  $effect(() => {
+    element?.update(options)
   })
 
   export function blur() {
