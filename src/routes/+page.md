@@ -421,7 +421,7 @@ All demos are running in test-mode, any of Stripe's [test card numbers](https://
 - [Payment Element](/examples/payment-element)
 - [Express Checkout](/examples/express-checkout)
 - [Embedded Checkout](/examples/embedded-checkout)
-- [Credit Card](/examples/express-checkout)
+- [Credit Card](/examples/credit-card)
 - [Apple Pay](/examples/express-checkout)
 - [Google Pay](/examples/express-checkout)
 - [Microsoft Pay](/examples/express-checkout)

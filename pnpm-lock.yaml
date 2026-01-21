@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@stripe/stripe-js':
-        specifier: ^5.2.0
-        version: 5.2.0
+        specifier: ^7.3.0
+        version: 7.3.1
       '@sveltejs/adapter-vercel':
         specifier: ^5.3.0
         version: 5.4.6(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.7)(vite@5.4.10(@types/node@22.8.5)))(svelte@5.2.7)(vite@5.4.10(@types/node@22.8.5)))
@@ -398,8 +398,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@stripe/stripe-js@5.2.0':
-    resolution: {integrity: sha512-2ZpEaezx3S0QPtnske175NDaLvUvaVKd4ePHpUN0QF/uV4BBBBRUy5BvQONDym+utbbW0QhSJoiRPnp4FS+4Vg==}
+  '@stripe/stripe-js@7.3.1':
+    resolution: {integrity: sha512-pTzb864TQWDRQBPLgSPFRoyjSDUqpCkbEgTzpsjiTjGz1Z5SxZNXJek28w1s6Dyry4CyW4/Izj5jHE/J9hCJYQ==}
     engines: {node: '>=12.16'}
 
   '@sveltejs/adapter-vercel@5.4.6':
@@ -1862,7 +1862,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.24.3':
     optional: true
 
-  '@stripe/stripe-js@5.2.0': {}
+  '@stripe/stripe-js@7.3.1': {}
 
   '@sveltejs/adapter-vercel@5.4.6(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.7)(vite@5.4.10(@types/node@22.8.5)))(svelte@5.2.7)(vite@5.4.10(@types/node@22.8.5)))':
     dependencies:
