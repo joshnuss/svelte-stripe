@@ -12,14 +12,7 @@
   import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
-  interface Props {
-    buttonHeight?: Options['buttonHeight']
-    buttonTheme?: Options['buttonTheme']
-    buttonType?: Options['buttonType']
-    layout?: Options['layout']
-    paymentMethodOrder?: Options['paymentMethodOrder']
-    paymentMethods?: Options['paymentMethods']
-    element?: Element
+  type Events = {
     onready?: (event: ReadyEvent) => any
     onclick?: (event: ClickEvent) => any
     onfocus?: (event: { elementType: 'expressCheckout' }) => any
@@ -32,13 +25,13 @@
     onshippingratechange?: (event: RateChangeEvent) => any
   }
 
+  type Bindables = {
+    element?: Element
+  }
+
+  type Props = Options & Events & Bindables
+
   let {
-    buttonHeight = undefined,
-    buttonTheme = undefined,
-    buttonType = undefined,
-    layout = undefined,
-    paymentMethodOrder = undefined,
-    paymentMethods = undefined,
     element = $bindable(),
     onready = () => {},
     onclick = () => {},
@@ -49,7 +42,8 @@
     onconfirm = () => {},
     oncancel = () => {},
     onshippingaddresschange = () => {},
-    onshippingratechange = () => {}
+    onshippingratechange = () => {},
+    ...options
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
@@ -57,15 +51,6 @@
   const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
-    const options = {
-      buttonHeight,
-      buttonTheme,
-      buttonType,
-      layout,
-      paymentMethodOrder,
-      paymentMethods
-    }
-
     element = elements.create('expressCheckout', options)
 
     element.on('ready', onready)
@@ -82,6 +67,10 @@
     element.mount(wrapper!)
 
     return () => element?.destroy()
+  })
+
+  $effect(() => {
+    element?.update(options)
   })
 
   export function blur() {

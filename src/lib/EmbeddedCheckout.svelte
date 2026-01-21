@@ -1,24 +1,26 @@
 <script lang="ts">
-  import type { Stripe, StripeEmbeddedCheckout as Checkout } from '@stripe/stripe-js'
+  import type {
+    Stripe,
+    StripeEmbeddedCheckoutOptions as Options,
+    StripeEmbeddedCheckout as Checkout
+  } from '@stripe/stripe-js'
   import { register } from './util.js'
   import { onMount } from 'svelte'
 
-  interface Props {
+  type Props = {
     stripe: Stripe
-    clientSecret: string
     checkout?: Checkout
   }
 
-  let { stripe, clientSecret, checkout = $bindable() }: Props = $props()
+  let { stripe, checkout = $bindable(), ...options }: Options & Props = $props()
 
   let wrapper = $state<HTMLElement>()
 
   onMount(() => {
     register(stripe)
 
-    stripe.initEmbeddedCheckout({ clientSecret }).then((result) => {
+    stripe.initEmbeddedCheckout(options).then((result) => {
       checkout = result
-
       checkout.mount(wrapper!)
     })
 

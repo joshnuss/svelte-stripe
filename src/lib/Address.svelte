@@ -8,17 +8,7 @@
   import { getContext, onMount } from 'svelte'
   import type { ElementsContext } from './d.ts'
 
-  interface Props {
-    mode: Options['mode']
-    allowedCountries?: Options['allowedCountries']
-    autocomplete?: Options['autocomplete']
-    blockPoBox?: Options['blockPoBox']
-    contacts?: Options['contacts']
-    defaultValues?: Options['defaultValues']
-    fields?: Options['fields']
-    validation?: Options['validation']
-    display?: Options['display']
-    element?: Element
+  type Events = {
     onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'address' }) => any
     onfocus?: (event: { elementType: 'address' }) => any
@@ -28,16 +18,13 @@
     onloaderstart?: (event: { elementType: 'address' }) => any
   }
 
+  type Bindables = {
+    element?: Element
+  }
+
+  type Props = Options & Events & Bindables
+
   let {
-    mode,
-    allowedCountries = undefined,
-    autocomplete = { mode: 'automatic' },
-    blockPoBox = undefined,
-    contacts = undefined,
-    defaultValues = undefined,
-    fields = undefined,
-    validation = undefined,
-    display = undefined,
     element = $bindable(),
     onchange = () => {},
     onready = () => {},
@@ -45,7 +32,8 @@
     onblur = () => {},
     onescape = () => {},
     onloaderror = () => {},
-    onloaderstart = () => {}
+    onloaderstart = () => {},
+    ...options
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
@@ -53,18 +41,6 @@
   const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
-    const options = {
-      mode,
-      allowedCountries,
-      autocomplete,
-      blockPoBox,
-      contacts,
-      defaultValues,
-      fields,
-      validation,
-      display
-    }
-
     element = elements.create('address', options)
 
     element.on('change', onchange)

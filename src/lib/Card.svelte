@@ -1,7 +1,5 @@
 <script lang="ts">
   import type {
-    StripeElementClasses as Classes,
-    StripeElementStyle as Style,
     StripeCardElementOptions as Options,
     StripeCardElement as Element,
     StripeCardElementChangeEvent as ChangeEvent,
@@ -10,15 +8,7 @@
   import type { ElementsContext } from './d.ts'
   import { getContext, onMount } from 'svelte'
 
-  interface Props {
-    classes?: Classes
-    style?: Style
-    value?: Options['value']
-    hidePostalCode?: boolean
-    hideIcon?: boolean
-    disabled?: boolean
-    iconStyle: 'default' | 'solid'
-    element?: Element
+  type Events = {
     onchange?: (event: ChangeEvent) => any
     onready?: (event: { elementType: 'card' }) => any
     onfocus?: (event: { elementType: 'card' }) => any
@@ -28,14 +18,13 @@
     onloaderror?: (event: { elementType: 'card'; error: StripeError }) => any
   }
 
+  type Bindables = {
+    element?: Element
+  }
+
+  type Props = Options & Events & Bindables
+
   let {
-    classes = {},
-    style = {},
-    value = {},
-    hidePostalCode = false,
-    hideIcon = false,
-    disabled = false,
-    iconStyle = 'default',
     element = $bindable(),
     onchange = () => {},
     onready = () => {},
@@ -43,7 +32,8 @@
     onblur = () => {},
     onescape = () => {},
     onnetworkschange = () => {},
-    onloaderror = () => {}
+    onloaderror = () => {},
+    ...options
   }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
@@ -51,8 +41,6 @@
   const { elements }: ElementsContext = getContext('stripe')
 
   onMount(() => {
-    const options = { classes, style, value, hidePostalCode, hideIcon, disabled, iconStyle }
-
     element = elements.create('card', options)
 
     element.on('change', onchange)
@@ -66,6 +54,10 @@
     element.mount(wrapper!)
 
     return () => element?.destroy()
+  })
+
+  $effect(() => {
+    element?.update(options)
   })
 
   export function blur() {
