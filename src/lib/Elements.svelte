@@ -4,8 +4,7 @@
   import type {
     Stripe,
     StripeElements,
-    StripeElementsOptions as Options,
-    StripeElementsOptionsMode as OptionsMode
+    StripeElementsOptions as Options
   } from '@stripe/stripe-js'
 
   type Base = {
@@ -28,11 +27,11 @@
     elements = $bindable(),
     children,
     onupdateend = () => {},
-    mode = 'payment',
     ...options
   }: Props = $props()
 
   onMount(() => {
+    // @ts-expect-error
     elements = stripe.elements(options)
 
     elements.on('update-end', onupdateend)
@@ -46,10 +45,10 @@
 
   setContext('stripe', {
     get stripe() {
-      return stripe;
+      return stripe
     },
     get elements() {
-      return elements;
+      return elements
     }
   })
 </script>
