@@ -47,7 +47,6 @@ There is example code for:
 - [WeChat Pay](src/routes/examples/wechat-pay)
 - [Konbini](src/routes/examples/konbini)
 - [Klarna](src/routes/examples/klarna)
-- [Sofort](src/routes/examples/sofort)
 - [Afterpay/Clearpay](src/routes/examples/afterpay-clearpay)
 - [PaymentMethodMessaging](src/routes/examples/payment-method-messaging)
 
