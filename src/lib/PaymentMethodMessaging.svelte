@@ -16,11 +16,7 @@
 
   type Props = Options & Events & Bindables
 
-  let {
-    element = $bindable(),
-    onready = () => {},
-    ...options
-  }: Props = $props()
+  let { element = $bindable(), onready = () => {}, ...options }: Props = $props()
 
   let wrapper = $state<HTMLElement>()
 
