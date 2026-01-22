@@ -2,8 +2,7 @@
   import type {
     StripeCardNumberElementOptions as Options,
     StripeCardNumberElementChangeEvent as ChangeEvent,
-    StripeCardNumberElement as Element,
-    StripeError
+    StripeCardNumberElement as Element
   } from '@stripe/stripe-js'
   import type { ElementsContext } from './d.ts'
   import { getContext, onMount } from 'svelte'
