@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0
+## 2.0.0
 
 - Removed deprecated `<Container/>` component. Use `<Elements/>` instead.
 - Removed `<PaymentRequestButton/>`, use `<ExpressCheckout>` instead.
