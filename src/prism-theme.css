@@ -1,4 +1,7 @@
-code[class*='language-'],
+code[class*='language-'] {
+  background: inherit;
+}
+
 pre[class*='language-'] {
   text-align: left;
   white-space: pre;
@@ -6,7 +9,8 @@ pre[class*='language-'] {
   word-break: normal;
   word-wrap: normal;
   color: #90a4ae;
-  background: #fafafa;
+  background: var(--gray-3);
+  border: solid 1px var(--gray-4);
   font-family:
     'Geist Mono',
     monospace;

@@ -3,11 +3,10 @@
 :root {
   --text-color: var(--gray-8);
   --darker-color: var(--gray-10);
-  --sidebar-color: var(--gray-3);
   --link-color: var(--indigo-6);
   --light-color: #fff;
   --gray-color: var(--gray-8);
-  --background-color: var(--gray-1);
+  --background-color: #f4f4f4;
 }
 
 * {
@@ -34,7 +33,7 @@ h1 {
   line-height: 3rem;
   letter-spacing: -0.5px;
   color: var(--link-color);
-  margin: 2rem 0 4rem 0;
+  margin: 0 0 4rem 0;
 }
 
 h2 {
@@ -55,7 +54,7 @@ code {
   display: inline-block;
   padding: 3px;
   border-radius: 3px;
-  background: #e1e1e1;
+  background: var(--gray-4);
 }
 
 #container {
@@ -70,7 +69,8 @@ code {
   top: 0;
   height: 100vh;
   padding: 2rem;
-  background: var(--sidebar-color);
+  background: var(--gray-2);
+  border-right: solid 1px var(--gray-3);
   overflow-y: auto;
   min-width: 300px;
   color: var(--light-color);
@@ -80,12 +80,24 @@ code {
   display: flex;
   flex-direction: column;
   list-style: none;
-  padding-left: 1rem;
+  padding-left: 0;
+
+  ul {
+    padding-left: 1rem;
+  }
+
+  a {
+    border-radius: var(--radius-2);
+    padding: var(--size-1) var(--size-3);
+  }
+
+  a:hover {
+    background: var(--gray-3);
+  }
 }
 
 .toc nav > ul > li > a {
-  text-transform: uppercase;
-  font-weight: bold;
+  color: var(--gray-12);
 }
 
 .toc nav > ul > li {
@@ -95,12 +107,12 @@ code {
 .toc a {
   display: block;
   padding: 0.2rem;
-  color: var(--gray-8);
+  color: var(--gray-7);
   text-decoration: none;
 }
 
 main {
-  padding: 4rem;
+  padding: 4rem 6rem;
   font-size: 1.2rem;
   line-height: 1.8rem;
   max-width: 80ch;
