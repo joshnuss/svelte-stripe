@@ -7,6 +7,8 @@
   --light-color: #fff;
   --gray-color: var(--gray-8);
   --background-color: #f4f4f4;
+  --sidebar-border-color: var(--gray-4);
+  --transition: 0.3s all var(--ease-2);
 }
 
 * {
@@ -68,12 +70,14 @@ code {
   position: sticky;
   top: 0;
   height: 100vh;
-  padding: 2rem;
   background: var(--gray-2);
-  border-right: solid 1px var(--gray-3);
+  border-right: solid 1px var(--sidebar-border-color);
   overflow-y: auto;
   min-width: 300px;
   color: var(--light-color);
+
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 .toc ul {
@@ -93,6 +97,32 @@ code {
 
   a:hover {
     background: var(--gray-3);
+  }
+}
+
+.toc nav {
+  padding: var(--size-3);
+}
+
+.toc .bottom {
+  padding: var(--size-2);
+  border-top: solid 1px var(--sidebar-border-color);
+  color: var(--gray-3);
+  
+  a {
+    border-radius: var(--radius-2);
+    transition: var(--transition);
+    width: min-content;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    padding: var(--size-1);
+
+    &:hover {
+      background-color: var(--gray-3);
+      color: var(--gray-8)
+    }
+
   }
 }
 
