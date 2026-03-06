@@ -15,7 +15,7 @@
 }
 
 body {
-  font-family: sans-serif;
+  font-family: Geist, sans-serif;
   color: var(--text-color);
   background: var(--background-color);
   margin: 0;
@@ -25,7 +25,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Geist', sans-serif;
   color: var(--darker-color);
 }
 
@@ -107,7 +107,7 @@ main {
 }
 
 pre {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   border-radius: 5px;
   overflow-x: scroll;
 }
