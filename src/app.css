@@ -1,11 +1,13 @@
+@import 'open-props/style';
+
 :root {
-  --text-color: #555;
-  --darker-color: #222;
-  --sidebar-color: #9a75ff;
-  --link-color: #7c4dff;
+  --text-color: var(--gray-8);
+  --darker-color: var(--gray-10);
+  --sidebar-color: var(--gray-3);
+  --link-color: var(--indigo-6);
   --light-color: #fff;
-  --gray-color: #e1e1e1;
-  --background-color: #f1f1f1;
+  --gray-color: var(--gray-8);
+  --background-color: var(--gray-1);
 }
 
 * {
@@ -93,7 +95,7 @@ code {
 .toc a {
   display: block;
   padding: 0.2rem;
-  color: var(--light-color);
+  color: var(--gray-8);
   text-decoration: none;
 }
 
