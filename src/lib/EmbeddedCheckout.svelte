@@ -19,7 +19,7 @@
   onMount(() => {
     register(stripe)
 
-    stripe.initEmbeddedCheckout(options).then((result) => {
+    stripe.createEmbeddedCheckout(options).then((result) => {
       checkout = result
       checkout.mount(wrapper!)
     })
