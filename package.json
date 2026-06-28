@@ -34,7 +34,7 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "stripe": "^17",
-    "svelte": "^5.0.0",
+    "svelte": "^5.55.7",
     "svelte-check": "^4.1.0",
     "svelte-eslint-parser": "^0.42.0",
     "typescript": "^5.5.0",
