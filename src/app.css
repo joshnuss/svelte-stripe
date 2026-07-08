@@ -1,11 +1,14 @@
+@import 'open-props/style';
+
 :root {
-  --text-color: #555;
-  --darker-color: #222;
-  --sidebar-color: #9a75ff;
-  --link-color: #7c4dff;
+  --text-color: var(--gray-8);
+  --darker-color: var(--gray-10);
+  --link-color: var(--indigo-6);
   --light-color: #fff;
-  --gray-color: #e1e1e1;
-  --background-color: #f1f1f1;
+  --gray-color: var(--gray-8);
+  --background-color: #f4f4f4;
+  --sidebar-border-color: var(--gray-4);
+  --transition: 0.3s all var(--ease-2);
 }
 
 * {
@@ -13,7 +16,7 @@
 }
 
 body {
-  font-family: sans-serif;
+  font-family: Geist, sans-serif;
   color: var(--text-color);
   background: var(--background-color);
   margin: 0;
@@ -23,7 +26,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Geist', sans-serif;
   color: var(--darker-color);
 }
 
@@ -32,7 +35,7 @@ h1 {
   line-height: 3rem;
   letter-spacing: -0.5px;
   color: var(--link-color);
-  margin: 2rem 0 4rem 0;
+  margin: 0 0 4rem 0;
 }
 
 h2 {
@@ -53,7 +56,7 @@ code {
   display: inline-block;
   padding: 3px;
   border-radius: 3px;
-  background: #e1e1e1;
+  background: var(--gray-4);
 }
 
 #container {
@@ -67,23 +70,64 @@ code {
   position: sticky;
   top: 0;
   height: 100vh;
-  padding: 2rem;
-  background: var(--sidebar-color);
+  background: var(--gray-2);
+  border-right: solid 1px var(--sidebar-border-color);
   overflow-y: auto;
   min-width: 300px;
   color: var(--light-color);
+
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 .toc ul {
   display: flex;
   flex-direction: column;
   list-style: none;
-  padding-left: 1rem;
+  padding-left: 0;
+
+  ul {
+    padding-left: 1rem;
+  }
+
+  a {
+    border-radius: var(--radius-2);
+    padding: var(--size-1) var(--size-3);
+  }
+
+  a:hover {
+    background: var(--gray-3);
+  }
+}
+
+.toc nav {
+  padding: var(--size-3);
+}
+
+.toc .bottom {
+  padding: var(--size-2);
+  border-top: solid 1px var(--sidebar-border-color);
+  color: var(--gray-3);
+  
+  a {
+    border-radius: var(--radius-2);
+    transition: var(--transition);
+    width: min-content;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    padding: var(--size-1);
+
+    &:hover {
+      background-color: var(--gray-3);
+      color: var(--gray-8)
+    }
+
+  }
 }
 
 .toc nav > ul > li > a {
-  text-transform: uppercase;
-  font-weight: bold;
+  color: var(--gray-12);
 }
 
 .toc nav > ul > li {
@@ -93,19 +137,19 @@ code {
 .toc a {
   display: block;
   padding: 0.2rem;
-  color: var(--light-color);
+  color: var(--gray-7);
   text-decoration: none;
 }
 
 main {
-  padding: 4rem;
+  padding: 4rem 6rem;
   font-size: 1.2rem;
   line-height: 1.8rem;
   max-width: 80ch;
 }
 
 pre {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   border-radius: 5px;
   overflow-x: scroll;
 }

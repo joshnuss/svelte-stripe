@@ -1,12 +1,10 @@
 <script lang="ts">
   import '../prism-theme.css'
   import '../app.css'
-  import GithubBadge from './GithubBadge.svelte'
+  import Icon from '@iconify/svelte'
 
   let { children } = $props()
 </script>
-
-<GithubBadge />
 
 <div id="container">
   <aside class="toc">
@@ -65,6 +63,11 @@
         </li>
       </ul>
     </nav>
+    <div class="bottom">
+      <a href="https://github.com/joshnuss/svelte-stripe" aria-label="View source on GitHub" target="_blank">
+        <Icon icon="mdi:github" width="28"/>
+      </a>
+    </div>
   </aside>
 
   <main>
