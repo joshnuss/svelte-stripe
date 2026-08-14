@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto'
+import vercel from '@sveltejs/adapter-vercel'
 import { mdsvex } from 'mdsvex'
 import mdsvexConfig from './mdsvex.config.js'
 
@@ -7,7 +7,7 @@ const config = {
   extensions: ['.svelte', ...mdsvexConfig.extensions],
 
   kit: {
-    adapter: adapter()
+    adapter: vercel(),
   },
 
   preprocess: [mdsvex(mdsvexConfig)]

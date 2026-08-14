@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "@stripe/stripe-js": "^7.3.0",
-    "@sveltejs/adapter-auto": "^7.0.1",
-    "@sveltejs/kit": "^2.5.27",
+    "@sveltejs/adapter-vercel": "^5",
+    "@sveltejs/kit": "^2.70.2",
     "@sveltejs/package": "^2.3.7",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@sveltejs/vite-plugin-svelte": "^5.1.1",
     "@vitejs/plugin-basic-ssl": "^1.2.0",
     "dotenv-cli": "^7.4.1",
     "eslint": "^8.57.0",
