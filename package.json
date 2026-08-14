@@ -17,7 +17,7 @@
   "devDependencies": {
     "@stripe/stripe-js": "^7.3.0",
     "@sveltejs/adapter-auto": "^7.0.1",
-    "@sveltejs/kit": "^2.5.27",
+    "@sveltejs/kit": "^2.70.2",
     "@sveltejs/package": "^2.3.7",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "@vitejs/plugin-basic-ssl": "^1.2.0",
